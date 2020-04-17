@@ -1,0 +1,394 @@
+<?php
+// module/Album/view/album/album/edit.phtml:
+$title = $this->translate('Modifier la rubrique');
+$this->headTitle($title);
+?>
+<style>
+
+    div input[type="submit"], #submitbutton, #metasubmitbutton{
+        width:80px;
+        height:40px;
+    }
+    form ul{
+        display: none;
+
+    }
+    form label{
+        width:200px;
+
+    }
+    .tdCenterText td{
+        text-align: center;
+
+    }
+    #spacesListId, #spaceLabel, #hasUpdateFormId, #hasUpdateFormLabel {
+        display: none;
+    }
+
+
+</style>
+<script type="text/javascript">
+
+    //var rows = [<?php /*
+  $jsonRows='';
+  $count=0;
+  foreach ($metas as $meta){
+
+  $jsonRows .= '{';
+  $jsonRows.="Clé:'".$this->escapeHtml($meta->getMetakey())."',";
+  $jsonRows.="Valeur:'".$this->escapeHtml($meta->getMetavalue())."',";
+  $jsonRows.='Action:\'<button class="metabtn" data-rubriqueid="'.$this->id.'"data-btn="modifier" data-url="'.$this->url('rubrique', array('action' => 'updatemetaajax', 'id' => $meta->getMetaid())).
+  '">Modifier</button>&nbsp;&nbsp;/&nbsp;'.
+  '<button class="metabtn" data-rubriqueid="'.$this->id.'" data-btn="supprimer" data-url="'.$this->url('rubrique', array('action' => 'deletemetaajax', 'id' => $meta->getMetaid())).
+  '">Supprimer</button>\'';
+
+  $count++;
+
+  if(count($metas)>$count){
+  $jsonRows .= '},';
+  }
+  else{
+  $jsonRows .= '}';
+  }
+  }
+
+  echo $jsonRows;
+ */
+?>//];
+
+    //console.log(rows);
+
+    var datatable = {};
+
+    $(document).ready(function () {
+
+        var scope = $(".scopeClass").val();
+
+        if (scope == "" || scope == null) {
+
+        }
+
+        $(".scopeClass").on("change", function () {
+
+            if ($(this).val() == "private") {
+                $('#spacesListId').css('display', 'block');
+                $('#spaceLabel').css('display', 'block');
+                $('#filenameId').css('display', 'block');
+                $('label[for=filenameId]').css('display', 'block');
+                $('#hasContactFormId').css('display', 'block');
+                $('#hasMessageFormId').css('display', 'block');
+                $('#hasUpdateFormId').css('display', 'block');
+                $('#hasContactFormLabel').css('display', 'block');
+                $('#hasMessageFormLabel').css('display', 'block');
+                $('#hasUpdateFormLabel').css('display', 'block');
+                $('#hasFileuploadFormLabel').css('display', 'block');
+            }
+            else if ($(this).val() == "public") {
+                $('#spacesListId').css('display', 'none');
+                $('#spaceLabel').css('display', 'none');
+                $('#hasUpdateFormId').css('display', 'none');
+                $('#hasUpdateFormLabel').css('display', 'none');
+                $('#hasFileuploadFormLabel').css('display', 'none');
+            }
+        });
+
+        if (scope == "private") {
+            $('#spacesListId').css('display', 'block');
+            $('#spaceLabel').css('display', 'block');
+            $('#filenameId').css('display', 'block');
+            $('label[for=filenameId]').css('display', 'block');
+            $('#hasContactFormId').css('display', 'block');
+            $('#hasMessageFormId').css('display', 'block');
+            $('#hasUpdateFormId').css('display', 'block');
+            $('#hasContactFormLabel').css('display', 'block');
+            $('#hasMessageFormLabel').css('display', 'block');
+            $('#hasUpdateFormLabel').css('display', 'block');
+        }
+        else if (scope == "public") {
+            $('#spacesListId').css('display', 'none');
+            $('#spaceLabel').css('display', 'none');
+            $('#hasUpdateFormId').css('display', 'none');
+            $('#hasUpdateFormLabel').css('display', 'none');
+        }
+
+        $('#metasubmitbutton').on('click', function () {
+            //Ajouter code d'ajout d'une meta
+            param = {};
+            param.metakey = $('input[name="metakey"]').val();
+            param.metavalue = $('input[name="metavalue"]').val();
+            param.rubriqueid = $('input[name="rubriqueid"]').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url('rubrique', array('action' => 'addmetaajax')); ?>',
+                data: param,
+                success: function (data) {
+                    if (typeof data['result'] !== 'undefined') {
+
+                        if (typeof data.metaId !== 'undefined') {
+                            //console.log(datatable);
+                            var row = datatable.row.add([
+                                '<input type="text" maxlength="128" name="metaKey_' + data.metaId + '" value="' + param.metakey + '" />',
+                                '<input type="text" maxlength="512" name="metaValue_' + data.metaId + '" value="' + param.metavalue + '" />',
+                                '<button class="metabtn" data-btn="modifier" data-url="<?php echo $this->url('rubrique', array('action' => 'updatemetaajax')); ?>' + '/' + data.metaId + '">' + '<?php echo $this->translate('Modifier'); ?>' + '</button>' +
+                                        '&nbsp;&nbsp;/&nbsp;' +
+                                        '<button class="metabtn" data-btn="supprimer" data-url="<?php echo $this->url('rubrique', array('action' => 'deletemetaajax')); ?>' + '/' + data.metaId + '">' + '<?php echo $this->translate('Supprimer'); ?>' + '</button>'
+                            ]).draw();
+
+                            $('#tableSort tr:last').attr('data-metaId', data.metaId);
+
+                            $('input[name="metakey"]').val('');
+                            $('input[name="metavalue"]').val('');
+
+                        }
+                    }
+                    else if (typeof data['error'] !== 'undefined') {
+
+                    }
+                    $('.metabtn').off('click');
+                    $('.metabtn').on('click', function () {
+                        //get Btn Role
+                        var btnRole = $(this).attr('data-btn');
+                        //get url
+                        var url = $(this).attr('data-url');
+
+                        //get meta id in order to get the right inputs
+                        var idMeta = $(this).parent().parent().attr('data-metaid');
+                        var tabletr = $(this).parent().parent('tr');
+                        var param = {};
+                        param.rubriqueid = $('input[name="rubriqueid"]').val();
+                        param.metakey = $(this).parent().parent().children().children('input[name="metaKey_' + idMeta + '"]').val();
+                        param.metavalue = $(this).parent().parent().children().children('input[name="metaValue_' + idMeta + '"]').val();
+                        var dialogMsg = '';
+                        //console.log(param);
+
+                        if (btnRole == 'modifier') {
+                            dialogMsg = '<?php echo $this->translate('&Ecirc;tes vous sûr de modifier la méta ?'); ?>';
+                        }
+                        else if (btnRole == 'supprimer') {
+                            dialogMsg = "<?php echo $this->translate('&Ecirc;tes vous sûr de supprimer la méta ?'); ?>";
+                        }
+
+                        bootbox.dialog(dialogMsg, [{
+                                "label": "<?php echo $this->translate('Oui') ?>",
+                                "class": "btn-success",
+                                "callback": function () {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: url,
+                                        data: param,
+                                        success: function (data) {
+                                            if (typeof data['result'] !== 'undefined') {
+                                                bootbox.alert('<?php echo $this->translate('Opération effectuée'); ?>');
+                                                if (btnRole == 'supprimer') {
+                                                    datatable.row(tabletr).remove().draw();
+                                                }
+                                            }
+                                            else if (typeof data['error'] !== 'undefined') {
+                                                bootbox.alert('<?php echo $this->translate('Un problème est survenu, veuillez recommencer svp.') ?>');
+                                            }
+                                        },
+                                        error: function () {
+                                            //console.log(error);
+                                        }
+
+                                    });
+                                }
+                            },
+                            {
+                                "label": "<?php echo $this->translate('Non'); ?>",
+                                "class": "btn-danger",
+                                "callback": function () {
+                                }
+                            }]);
+                    });
+
+                },
+                error: function () {
+                    //console.log(error);
+                }
+
+            });
+        });
+
+        $('.metabtn').on('click', function () {
+            //get Btn Role
+            var btnRole = $(this).attr('data-btn');
+            //get url
+            var url = $(this).attr('data-url');
+
+            //get meta id in order to get the right inputs
+            var idMeta = $(this).parent().parent().attr('data-metaid');
+            var tabletr = $(this).parent().parent('tr');
+            var param = {};
+            param.rubriqueid = $('input[name="rubriqueid"]').val();
+            param.metakey = $(this).parent().parent().children().children('input[name="metaKey_' + idMeta + '"]').val();
+            param.metavalue = $(this).parent().parent().children().children('input[name="metaValue_' + idMeta + '"]').val();
+            var dialogMsg = '';
+            console.log(param);
+
+            if (btnRole == 'modifier') {
+                dialogMsg = "<?php echo $this->translate('&Ecirc;tes vous sûr de modifier la méta ?') ?>";
+            }
+            else if (btnRole == 'supprimer') {
+                dialogMsg = "<?php echo $this->translate('&Ecirc;tes vous sûr de supprimer la méta ?'); ?>";
+            }
+
+            bootbox.dialog(dialogMsg, [{
+                    "label": "<?php echo $this->translate('Oui'); ?>",
+                    "class": "btn-success",
+                    "callback": function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: param,
+                            success: function (data) {
+                                if (typeof data['result'] !== 'undefined') {
+                                    bootbox.alert('<?php echo $this->translate('Opération effectuée'); ?>');
+                                    if (btnRole == 'supprimer') {
+                                        //console.log('row removed ?');
+                                        datatable.row(tabletr).remove().draw();
+                                    }
+
+                                }
+                                else if (typeof data['error'] !== 'undefined') {
+                                    bootbox.alert('<?php echo $this->translate('Un problème est survenu, veuillez recommencer svp.'); ?>');
+                                }
+                            },
+                            error: function () {
+                                //console.log(error);
+                            }
+
+                        });
+                    }
+                },
+                {
+                    "label": "<?php echo $this->translate('Non'); ?>",
+                    "class": "btn-danger",
+                    "callback": function () {
+                    }
+                }]);
+        });
+
+
+        datatable = $("#tableSort").DataTable({
+            language: {
+                processing: "<?php echo $this->translate('Traitement en cours...'); ?>",
+                search: "<?php echo $this->translate('Rechercher'); ?>&nbsp; ",
+                lengthMenu: "<?php echo $this->translate('Afficher') . '_MENU_ ' . $this->translate('&eacute;l&eacute;ments'); ?>",
+                info: "<?php echo $this->translate('Affichage de l\'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments') ?>",
+                infoEmpty: "<?php echo $this->translate('Affichage de l\'&eacute;lement') . ' 0 &agrave; 0 ' . $this->translate('sur') . ' 0 ' . $this->translate('&eacute;l&eacute;ments') ?>",
+                infoFiltered: "<?php echo $this->translate('(filtr&eacute; de ') . '_MAX_ ' . $this->translate('&eacute;l&eacute;ments au total)'); ?>",
+                infoPostFix: "",
+                loadingRecords: "<?php echo $this->translate('Chargement en cours'); ?>...",
+                zeroRecords: "<?php echo $this->translate('Aucun &eacute;l&eacute;ment &agrave; afficher'); ?>",
+                emptyTable: "<?php echo $this->translate('Aucune donnée disponible dans le tableau'); ?>",
+                paginate: {
+                    first: "<?php echo $this->translate('Premier'); ?>",
+                    previous: "<?php echo $this->translate('Pr&eacute;c&eacute;dent') ?>",
+                    next: "<?php echo $this->translate('Suivant') ?>",
+                    last: "<?php echo $this->translate('Dernier') ?>"
+                },
+                aria: {
+                    sortAscending: ": <?php echo $this->translate('activer pour trier la colonne par ordre croissant'); ?>",
+                    sortDescending: ": <?php echo $this->translate('activer pour trier la colonne par ordre décroissant'); ?>"
+                }
+            },
+            searching: false,
+            ordering: false,
+            lengthChange: false,
+            paging: false
+
+        });
+
+        //datatable.rows.add(rows);
+        //var rows2 =  datatable.rows().data(); 
+        //console.log(rows2);
+
+
+    });
+
+</script>
+
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+
+        foreach ($value as $message) {
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}
+?>
+
+<?php
+$form = $this->form;
+$metaForm = $this->metaform;
+$form->setAttribute('action', $this->url(
+                'rubrique', array(
+            'action' => 'edit',
+            'id' => $this->id,)
+));
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('libelle'));
+echo $this->formRow($form->get('rang'));
+echo '<div>' . $this->translate('Portée de la page') . '</div>' . $this->formSelect($form->get('scope'));
+echo '<div id="spaceLabel">' . $this->translate('Espace associée') . '</div>' . $this->formSelect($form->get('spaceId'));
+echo '<div id="hasContactFormLabel">' . $this->translate('Formulaire de contact') . '</div>' . $this->formSelect($form->get('contactForm'));
+echo '<div id="hasMessageFormLabel">' . $this->translate('Formulaire de message') . '</div>' . $this->formSelect($form->get('messageForm'));
+echo '<div id="hasUpdateFormLabel">' . $this->translate('Formulaire de mise à jour des informations') . '</div>' . $this->formSelect($form->get('updateForm'));
+echo '<div id="hasFileuploadFormLabel">' . $this->translate('Formulaire de chargement de fichier') . '</div>' . $this->formSelect($form->get('fileuploadForm'));
+echo $this->formRow($form->get('filename'));
+echo '<div>' . $this->formSubmit($form->get('submit')) . '</div>';
+echo $this->form()->closeTag();
+
+echo '<br><br>';
+echo '<div style="font-weight:500;font-style:italic;">' . $this->translate('Ajouter une m&eacute;ta') . '</div>';
+$metaform->prepare();
+echo $this->form()->openTag($metaForm);
+echo '<div style="float:left;width:206px;margin-right:20px;">' . $this->formRow($metaForm->get('metakey')) . '</div>';
+echo '<div style="float:left;width:206px;margin-right:20px;">' . $this->formRow($metaForm->get('metavalue')) . '</div>';
+echo '<div style="clear:both;"></div>';
+echo $this->formHidden($metaForm->get('rubriqueid'));
+echo $this->formButton($metaForm->get('metasubmit'));
+echo $this->form()->closeTag();
+
+echo '<br><br>';
+echo '<div>&nbsp;</div>';
+?>
+
+<table class="tablesorter table table-bordered table-striped hasFilters tdCenterText" id="tableSort" role="grid">
+    <thead>
+        <tr>
+            <th class="thheader" style="cursor:pointer;text-align: center;" align="center"><?php echo $this->translate('Cl&eacute;'); ?></th>
+            <th class="thheader" style="cursor:pointer;text-align: center;" align="center"><?php echo $this->translate('Valeur'); ?></th>
+            <th class="thheader" style="text-align: center;"><?php echo $this->translate('Action') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($metas as $meta) : ?>
+
+            <tr data-metaid="<?php echo $meta->getMetaid(); ?>" data-metakey="<?php echo $this->escapeHtml($meta->getMetakey()); ?>" data-metavalue="<?php echo $this->escapeHtml($meta->getMetavalue()); ?>">
+                <td><input type="text" maxlength="128" name="metaKey_<?php echo $meta->getMetaid(); ?>" value="<?php echo $this->escapeHtml($meta->getMetakey()); ?>" /></td>
+                <td><input type="text" maxlength="512" name="metaValue_<?php echo $meta->getMetaid(); ?>" value="<?php echo $this->escapeHtml($meta->getMetavalue()); ?>" /></td>
+                <td>
+                    <button class="metabtn" data-rubriqueid="<?php echo $this->id; ?>" data-btn="modifier" data-url="<?php echo $this->url('rubrique', array('action' => 'updatemetaajax', 'id' => $meta->getMetaid()));
+            ?>"><?php echo $this->translate('Modifier') ?></button>
+                    &nbsp;&nbsp;/&nbsp;
+                    <button class="metabtn" data-rubriqueid="<?php echo $this->id; ?>" data-btn="supprimer" data-url="<?php echo $this->url('rubrique', array('action' => 'deletemetaajax', 'id' => $meta->getMetaid()));
+            ?>"><?php echo $this->translate('Supprimer') ?></button>
+                </td>
+            </tr>
+
+        <?php endforeach; ?>
+    </tbody>
+</table>
+

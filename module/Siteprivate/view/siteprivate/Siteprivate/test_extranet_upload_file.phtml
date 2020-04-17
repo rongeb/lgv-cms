@@ -1,0 +1,227 @@
+<?php
+// module/Rubrique/view/rubrique/rubrique/index.phtml:
+$title = $this->translate('Mes espaces privés');
+$this->headTitle($title);
+//echo $session->test;
+?>
+<?php
+echo $this->doctype();
+foreach ($metas as $meta) {
+    $metaValue = $meta->getMetavalue();
+    $metaKey = $meta->getMetakey();
+    //$this->headMeta($metaValue, $metaKey,'name',array(),'SET');
+    echo $this->headMeta()->appendName($metaKey, $metaValue);
+}
+?>
+<style>
+    span {
+        width: 150px;
+    }
+
+    div label {
+        width: 150px;
+    }
+</style>
+<html>
+<div class="container">
+    <!-- Upload Section -->
+    <section>
+        <div>
+            <fieldset>
+                <h3><?php echo $this->translate('Charger un document'); ?></h3>
+                <?php
+                $form = $this->fileuploadForm;
+                $form->prepare();
+                echo $this->form()->openTag($form);
+                echo $this->formHidden($form->get('userid'));
+                echo $this->formHidden($form->get('email'));
+                echo $this->formHidden($form->get('status'));
+                echo $this->formHidden($form->get('lat'));
+                echo $this->formHidden($form->get('lng'));
+                echo $this->formHidden($form->get('author'));
+                ?>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-7 col-md-offset-0">
+                        <?php echo $this->formRow($form->get('comment')); ?>
+                    </div>
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="col-md-7 col-md-offset-0">
+                        <?php echo $this->formFile($form->get('newfile')); ?>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-20">
+                    <div class="col-md-7 col-md-offset-0">
+                        <?php echo $this->formButton($form->get('sendfile')); ?>&nbsp;&nbsp;&nbsp;<img
+                                id="upload-ajaxloader"
+                                src="<?php echo $this->basePath() . '/img/ajax-loader.gif'; ?>"
+                                style="display:none;"/>
+                    </div>
+                </div>
+
+                <div id="upload-formerrormsg" class="row margin-bottom-20 col-md-11">
+
+                </div>
+                <?php echo $this->form()->closeTag(); ?>
+            </fieldset>
+        </div>
+    </section>
+    <hr>
+    <section>
+        <div id="mypage">
+
+        </div>
+    </section>
+
+    <footer>
+
+    </footer>
+</div> <!-- /container -->
+<?php echo $this->inlineScript() ?>
+<script type="text/javascript">
+
+    $('li a#logoutbtn').on('click', function () {
+        bootbox.dialog("<?php echo $this->translate("&Ecirc;tes vous sûr de vous déconnecter ?"); ?>", [{
+            "label": "<?php echo $this->translate('Oui') ?>",
+            "class": "btn-success",
+            "callback": function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo $this->url('siteprivate', array('action' => 'logout')) ?>',
+                    //data: param,
+                    //contentType: "application/json",
+                    success: function () {
+                        window.location = "<?php echo $this->url('Sitepublic', array('action' => 'index')) ?>";
+                    },
+                    error: function () {
+                        //console.log(error);
+                    }
+
+                });
+            }
+        },
+            {
+                "label": "<?php echo $this->translate('Non') ?>",
+                "class": "btn-danger",
+                "callback": function () {
+                    //alert('toto');
+                }
+            }]);
+    });
+    var fileuploadFormMgmt = {
+        uploadFile: function sendEmail() {
+            var displayMsg = this.displayAjaxMsg;
+            var formData = new FormData();
+            formData.append('userid', document.fileuploadform.userid.value);
+            formData.append('email', document.fileuploadform.email.value);
+            formData.append('status', document.fileuploadform.status.value);
+            formData.append('lat', document.fileuploadform.lat.value);
+            formData.append('lng', document.fileuploadform.lng.value);
+            formData.append('author', document.fileuploadform.author.value);
+            formData.append('comment', document.fileuploadform.comment.value);
+            formData.append('newfile', $('#newfileId')[0].files[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url('Uploadmgmt', array('action' => 'uploadfile')); ?>',
+                data: formData,
+                processData: false,
+                contentType: false,
+                //contentType: "application/json",
+                success: function (data) {
+                    //console.log(data);
+                    displayMsg(data);
+                },
+                error: function (error) {
+                    displayMsg(error);
+                    //console.log(error);
+                }
+
+            });
+        },
+        submitFile: function submitFile() {
+            this.uploadFile();
+        },
+        displayAjaxMsg: function displayAjaxMsg(data) {
+            console.log(data);
+            if (data!== 'undefined' && data["status"] !== 'undefined' && data["status"] !== 500) {
+                $('#upload-formerrormsg').html('<span style="color:black;">OK</span><br/>');
+            }
+            else {
+                $('#upload-formerrormsg').html('<span style="color:black;">KO</span><br/>');
+                setTimeout(function(){
+                    $('#upload-formerrormsg').html('');
+                }, 10000);
+            }
+
+            $('#upload-ajaxloader').css('display', 'none');
+        }
+    }
+    //If you want to build your page with Javascript
+    var pageArragement = {// not used in this example
+        buildStructure: function buildStructure() {
+            var page = <?php echo $pageContentsJSON; ?>;
+            console.log(page);
+            var countSections = 0;
+            var html = "";
+            for (var i in page) {
+                //console.log(page[i]);
+                if (i.indexOf("content") > -1) {
+
+                    if (page[i]["content_type"] == 'content' && page[i]["content_position"] > -1) {
+
+                    }
+                    else if (page[i]["content_type"] == 'gallery' && page[i]["content_position"] > -1) {
+
+                    }
+                    else if (page[i]["content_type"] == 'blog' && page[i]["content_position"] > -1) {
+
+                    }
+                    else if (page[i]["content_type"] == 'linktocontenu' && page[i]["content_position"] > -1) {
+
+                    }
+                }
+                else if (i.indexOf("section") > -1) {
+
+                    //first time
+                    if (countSections == 0) {
+                        //
+                        if (page[i]["section_position"] > -1) {
+                        }
+                    }
+                    else {
+
+
+                        if (page[i]["section_position"] > -1) {
+
+                        }
+
+                        countSections = 0;
+                    }
+                    countSections++;
+                }
+                else if (i.indexOf("page") > -1) {
+
+                }
+            }
+            $("#mypage").html(html);
+        }
+    }
+
+    jQuery(document).ready(function () {
+
+        $('#sendFileId').click(function () {
+            //alert('submit');
+            $('#upload-ajaxloader').css('display', 'inline-block');
+            $('#upload-formerrormsg').html('');
+            fileuploadFormMgmt.submitFile();
+        });
+
+        //pageArragement.buildStructure();
+    });
+
+
+</script>
+
+

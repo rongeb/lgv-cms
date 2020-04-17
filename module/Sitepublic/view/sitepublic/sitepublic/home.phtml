@@ -1,0 +1,55 @@
+<div>
+<?php
+//$countSections = 0;
+$currentSectionPosition = -1000;
+$isClosed = false;
+$isOpen = false;
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "page") > -1) {
+        //Do nothing in this example
+    } elseif (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        //if position is below 0, it means the content won't be displayed
+        // echo '<hr><br>';
+        $currentSectionPosition = (int)$value->getRang();
+        if($currentSectionPosition === 11) {
+            echo '<div class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">';
+            echo        '<div class="container">';
+            echo            '<div class="row">';
+        }
+    } elseif (stripos($key, "content") > -1 && (int)$value->getRang() > -1) {
+        //if position is below 0, it means the content won't be displayed
+        if (strcmp($value->getType(), 'content') == 0) {
+            //put the value that you want
+            // echo $value->getTitre() . '<br>';
+            // echo $value->getSousTitre() . '<br>';
+            /* TODO
+            add conditions to wrap contents of the footer*/
+            if($currentSectionPosition == 11 && !$isOpen) {
+                echo '<div class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">';
+                echo    '<div class="container">';
+                echo        '<div class="row">';
+                $isOpen = true;
+            }
+            if($currentSectionPosition > 11 && !$isClosed) {
+                echo '</div></div></div>';
+                $isClosed = true;
+            }
+            echo $value->getContenuHtml();
+
+        } elseif (strcmp($value->getType(), 'gallery') == 0) {
+            // echo $value->getTitre() . '<br>';
+            // echo $value->getSousTitre() . '<br>';
+            echo $value->getContenuHtml();
+
+        } elseif (strcmp($value->getType(), 'blog') == 0) {
+            // echo $value->getTitre() . '<br>';
+            // echo $value->getSousTitre() . '<br>';
+            echo $value->getContenuHtml();
+        } elseif (strcmp($value->getType(), 'linktocontenu') == 0) {
+            // echo $value->getTitre() . '<br>';
+            // echo $value->getSousTitre() . '<br>';
+            echo $value->getContenuHtml();
+        }
+    }// end footer container
+}
+?>

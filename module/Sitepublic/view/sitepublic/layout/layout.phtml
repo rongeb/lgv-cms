@@ -1,0 +1,30 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="../../favicon.ico">
+
+        <?php echo $this->headTitle(' ' . $this->translate('Domaine du vieux cellier'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Les styles -->
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700">
+
+
+    <body>
+        <main>
+            <?php
+            echo $this->content;
+            ?>
+
+        </main> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

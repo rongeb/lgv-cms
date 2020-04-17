@@ -1,0 +1,394 @@
+<?php
+// module/Rubrique/view/rubrique/rubrique/index.phtml:
+$title = $this->translate('Mes espaces privés');
+$this->headTitle($title);
+//echo $session->test;
+?>
+<?php
+echo $this->doctype();
+foreach ($metas as $meta) {
+    $metaValue = $meta->getMetavalue();
+    $metaKey = $meta->getMetakey();
+    //$this->headMeta($metaValue, $metaKey,'name',array(),'SET');
+    echo $this->headMeta()->appendName($metaKey, $metaValue);
+}
+?>
+<style>
+    div#divcontactcaptcha pre{
+        width:200px;
+        text-align: center;
+        font-size: 7px;
+        line-height: 7px;
+        padding:0px 9.5px 0px 9.5px;
+    }
+
+    div#divcontactcaptcha legend{
+        width:200px;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        border: none;
+        display: block;
+        padding: 0;
+        margin-bottom: 0px;
+    }
+
+    #contactsweethoney{
+        display:none;
+    }
+    span{
+        width:150px;
+    }
+    div label{
+        width:150px;
+    }
+</style>
+        <div class="container">
+            <!-- Contact Section -->
+
+            <div>
+                <?php
+                //$countSections = 0;
+                foreach ($pageContents as $key => $value) {
+                    if (stripos($key, "page") > -1) {
+                        //Do nothing in this example
+                    } elseif (stripos($key, "section") > -1 && (int) $value->getRang() > -1) {
+                        //if position is below 0, it means the content won't be displayed
+                        echo '<hr><br>';
+                    } elseif (stripos($key, "content") > -1 && (int) $value->getRang() > -1) {
+                        //if position is below 0, it means the content won't be displayed
+                        if (strcmp($value->getType(), 'content') == 0) {
+                            //put the value that you want
+                            echo $value->getTitre() . '<br>';
+                            echo $value->getSousTitre() . '<br>';
+                            echo $value->getContenuHtml();
+                            ?>
+
+                            <?php
+                        } elseif (strcmp($value->getType(), 'gallery') == 0) {
+                            echo $value->getTitre() . '<br>';
+                            echo $value->getSousTitre() . '<br>';
+                            echo $value->getContenuHtml();
+                            
+                        } elseif (strcmp($value->getType(), 'blog') == 0) {
+                            echo $value->getTitre() . '<br>';
+                            echo $value->getSousTitre() . '<br>';
+                            echo $value->getContenuHtml();
+                            ?>   
+                            <fieldset>
+                                <h3><?php echo $this->translate('Envoyer un commentaire'); ?></h3>
+            <?php
+            $commentForm = $this->commentForm;
+            $commentForm->prepare();
+            echo $this->form()->openTag($commentForm);
+            ?>
+
+                                <?php echo $this->formHidden($commentForm->get('contactcontenuid')); ?>
+
+                                <label><?php echo $this->translate('Nom'); ?></label>
+                                <div class="row margin-bottom-20">
+                                    <div class="col-md-7 col-md-offset-0">
+            <?php echo $this->formText($commentForm->get('contactnom')); ?>
+                                    </div>                
+                                </div>
+                                <label><?php echo $this->translate('Entreprise'); ?></label>
+                                <div class="row margin-bottom-20">
+                                    <div class="col-md-7 col-md-offset-0">
+            <?php echo $this->formText($commentForm->get('contactentreprise')); ?>
+                                    </div>                
+                                </div>
+                                <label><?php echo $this->translate('Email'); ?></label>
+                                <div class="row margin-bottom-20">
+                                    <div class="col-md-7 col-md-offset-0">
+            <?php echo $this->formText($commentForm->get('contactemail')); ?>
+                                    </div>                
+                                </div>
+
+                                <label><?php echo $this->translate('Message'); ?></label>
+                                <div class="row margin-bottom-20">
+                                    <div class="col-md-11 col-md-offset-0">
+            <?php echo $this->formTextarea($commentForm->get('contacttext')); ?>
+                                    </div>                
+                                </div>
+
+                                <label><?php echo $this->translate('Vérification'); ?></label>
+                                <div class="row margin-bottom-20">
+                                    <div id="divcontactcaptcha" class="col-md-11 col-md-offset-0">
+            <?php echo $this->formCaptcha($commentForm->get('contactcaptcha')); ?>
+                                    </div>                
+                                </div>
+            <?php
+            echo $this->formHidden($commentForm->get('contactprevent'));
+            echo $this->formText($commentForm->get('contactsweethoney'));
+            ?>
+
+                                <p><?php echo $this->formButton($commentForm->get('submitbutton')); ?>&nbsp;&nbsp;&nbsp;<img id="ajaxloader" src="<?php echo $this->basePath() . '/img/ajax-loader.gif'; ?>" style="display:none;"/><p id="formerrormsg"></p></p>
+
+
+            <?php echo $this->form()->closeTag(); ?>
+
+                        </div>
+                    </fieldset>
+            <?php
+            //}
+        } elseif (strcmp($value->getType(), 'linktocontenu') == 0) {
+            echo $value->getTitre() . '<br>';
+            echo $value->getSousTitre() . '<br>';
+            echo $value->getContenuHtml();
+        }
+    }
+}
+?>
+
+    </div>
+    <hr>
+    <section>
+        <div id="mypage">
+
+        </div>
+    </section>
+
+    <footer>
+
+    </footer>
+</div> <!-- /container -->
+<?php echo $this->inlineScript() ?>
+<script type="text/javascript">
+
+    $('li a#logoutbtn').on('click', function () {
+        bootbox.dialog("<?php echo $this->translate("&Ecirc;tes vous sûr de vous déconnecter ?"); ?>", [{
+                "label": "<?php echo $this->translate('Oui') ?>",
+                "class": "btn-success",
+                "callback": function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo $this->url('siteprivate', array('action' => 'logout')) ?>',
+                        //data: param,
+                        //contentType: "application/json",
+                        success: function () {
+                            window.location = "<?php echo $this->url('Sitepublic', array('action' => 'index')) ?>";
+                        },
+                        error: function () {
+                            //console.log(error);
+                        }
+
+                    });
+                }
+            },
+            {
+                "label": "<?php echo $this->translate('Non') ?>",
+                "class": "btn-danger",
+                "callback": function () {
+                    //alert('toto');
+                }
+            }]);
+    });
+    var messageFormMgmt = {
+        sendComment: function sendComment() {
+            var displayMsg = this.displayAjaxMsg;
+            var param = {};
+            param['contactnom'] = document.commentform.contactnom.value;
+            param['contactentreprise'] = document.commentform.contactentreprise.value;
+            param['contactemail'] = document.commentform.contactemail.value;
+            param['contacttext'] = document.commentform.contacttext.value;
+            param['contactcaptcha'] = {};
+            param['contactcaptcha']['input'] = $("#commentcaptchaid").val();
+            param['contactcaptcha']['id'] = $("#commentcaptchaid-hidden").val();
+            param['contactprevent'] = document.commentform.contactprevent.value;
+            param['contactsweethoney'] = document.commentform.contactsweethoney.value;
+            param['contactcontenuid'] = document.commentform.contactcontenuid.value;
+            //console.log(param);
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url('siteprivate', array('action' => 'addcommentajax')); ?>',
+                data: param,
+                //contentType: "application/json",
+                success: function (data) {
+                    //console.log(data);
+                    displayMsg(data);
+                },
+                error: function (error) {
+                    //console.log(error);
+                }
+
+            });
+
+        },
+        formValidation: function formValidation() {
+
+            var nom = document.commentform.contactnom.value;
+            var emailaddress = document.commentform.contactemail.value;
+            var message = document.commentform.contacttext.value;
+            var verif = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+            var counterror = 0;
+
+            if ($.trim(nom) == "") {
+                $('#formerrormsg').append('<span style="color:red;">' +<?php echo $this->translate("'Vous devez saisir un nom'"); ?> + '</span><br/>');
+                counterror++;
+            }
+
+            if ($.trim(emailaddress) == "") {
+                $('#formerrormsg').append('<span style="color:red;">' +<?php echo $this->translate("'Vous devez saisir une adresse courriel'"); ?> + '</span><br/>');
+                counterror++;
+            }
+
+            if (verif.test(emailaddress) == false) {
+                $('#formerrormsg').append('<span style="color:red;">' +<?php echo $this->translate("'L\'adresse courriel est incorrect. Veuillez recommencer svp.'"); ?> + '</span><br/>');
+                counterror++;
+            }
+
+            if ($.trim(message) == "") {
+                $('#formerrormsg').append('<span style="color:red;">' +<?php echo $this->translate("'Vous devez saisir un message'"); ?> + '</span><br/>');
+                counterror++;
+            }
+
+            if (counterror > 0) {
+                return false;
+            }
+            //console.log(counterror);
+            return true;
+        },
+        submitcommentform: function submitcommentform() {
+            //console.log('control data');
+
+            var isFormValid = this.formValidation();
+            //console.log(isFormValid);
+            if (isFormValid) {
+                this.sendComment();
+                //document.commentform.submit();
+            }
+            else {
+                $('#ajaxloader').css('display', 'none');
+            }
+        },
+        displayAjaxMsg: function displayAjaxMsg(data) {
+            var result = "";
+            //{"result":"failure","error":{"contactcaptcha":{"badCaptcha":"Captcha value is wrong"}}};
+            for (var prop in data) {
+
+                if (prop == "result") {
+
+                    result = data[prop];
+
+                    if (result == "ok") {
+                        document.commentform.contactnom.value = "";
+                        document.commentform.contactentreprise.value = "";
+                        document.commentform.contactemail.value = "";
+                        document.commentform.contacttext.value = "";
+                        $("#commentcaptchaid").val("");
+                        $('#formerrormsg').html('<span style="color:white;">Votre commentaire a été envoyé</span><br/>');
+                    }
+                }
+                else if (prop == "error") {
+                    for (var prop2 in data[prop]) {
+                        if (prop2 == "contactnom") {
+                            document.commentform.contactnom.value = "";
+                            $('#formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie du nom</span><br/>');
+                        }
+                        else if (prop2 == "contactentreprise") {
+                            document.commentform.contactentreprise.value = "";
+                            $('#formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie de l\'entreprise</span><br/>');
+                        }
+                        else if (prop2 == "contactemail") {
+                            document.commentform.contactemail.value = "";
+                            $('#formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie de l\'email</span><br/>');
+                        }
+                        else if (prop2 == "contacttext") {
+                            document.commentform.contacttext.value = "";
+                            $('#formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie du message</span><br/>');
+                        }
+                        else if (prop2 == "contactcaptcha") {
+                            $("#commentcaptchaid").val("");
+                            $('#formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie du captcha</span><br/>');
+                        }
+                        else if (prop2 == "contactprevent") {
+                            $('#formerrormsg').append('<span style="color:red;">Veuillez rafraîchir la page et recommencer</span><br/>');
+                        }
+                    }
+                }
+            }
+            $('#ajaxloader').css('display', 'none');
+        }
+    }
+
+    var pageArragement = {
+        buildStructure: function buildStructure() {
+            var page = <?php echo $pageContentsJSON; ?>;
+            console.log(page);
+            var countSections = 0;
+            var html = "";
+            for (var i in page) {
+                //console.log(page[i]);
+                if (i.indexOf("content") > -1) {
+
+                    if (page[i]["content_position"] > -1) {
+
+                    }//if position is below 0, it means the content won't be displayed so a red border
+                    else {
+
+                    }
+
+                    if (page[i]["content_type"] == 'content') {
+
+                    }
+                    else if (page[i]["content_type"] == 'gallery') {
+
+                    }
+                    else if (page[i]["content_type"] == 'blog') {
+
+                    }
+                    else if (page[i]["content_type"] == 'linktocontenu') {
+
+                    }
+                }
+                else if (i.indexOf("section") > -1) {
+
+                    //first time
+                    if (countSections == 0) {
+
+                        if (page[i]["section_position"] > -1) {
+                        }//if position is below 0, it means the content won't be displayed so a red border
+                        else {
+                        }
+
+                    }
+                    else {
+
+
+                        if (page[i]["section_position"] > -1) {
+
+                        }//if position is below 0, it means the content won't be displayed so a red border
+                        else {
+
+                        }
+
+
+                        countSections = 0;
+                    }
+                    countSections++;
+                }
+                else if (i.indexOf("page") > -1) {
+
+                }
+            }
+            $("#mypage").html(html);
+        }
+    }
+
+    jQuery(document).ready(function () {
+
+        $('#submitbtn').click(function () {
+            //alert('submit');
+            $('#ajaxloader').css('display', 'inline-block');
+            $('#formerrormsg').html('');
+            messageFormMgmt.submitcommentform();
+        });
+
+        pageArragement.buildStructure();
+    });
+
+
+</script>
+
+

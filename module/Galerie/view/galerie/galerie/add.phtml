@@ -1,0 +1,330 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title = $this->translate('Ajouter un contenu de type galerie');
+$this->headTitle($title);
+?>
+
+<style>
+    div label {
+        width: 150px;
+    }
+
+    div input[type="submit"], #submitbutton {
+        width: 80px;
+        height: 40px;
+    }
+
+    #contentText {
+        width: 700px;
+        height: 350px;
+    }
+
+    .dataTables_filter {
+
+        margin-right: 10%;
+    }
+
+    form ul {
+        display: none;
+
+    }
+
+    .imgView {
+        cursor: pointer;
+    }
+
+    img.imgpreview {
+        display: block;
+        margin: auto;
+    }
+
+    div#tableSort_length label {
+        display: inline;
+    }
+
+</style>
+
+<script type="text/javascript" src="<?php echo $this->basePath() . '/js/tinymce/tinymce.min.js'; ?>"></script>
+<script type="text/javascript">
+    tinymce.init({
+        verify_html: false,
+        cleanup: false,
+        clean_up_on_startup: false,
+        forced_rooted_block: "",
+        selector: "textarea",
+        language: '<?php echo $this->plugin('translate')->getTranslator()->getLocale(); ?>',
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste",
+            "importcss"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright",
+        content_css: ["<?php echo $this->basePath() . '/assets/css/blocks.css';?>",
+            "<?php echo $this->basePath() . '/assets/css/app.css';?>",
+            "<?php echo $this->basePath() . '/assets/css/custom.css';?>",
+            "<?php echo $this->basePath() . '/assets/plugins/bootstrap/css/bootstrap.min.css';?>",
+            "<?php echo $this->basePath() . '/assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css';?>"]
+    });
+
+
+    function getSousrub(id) {
+
+        var param = {};
+        param['rubid'] = id;
+        //console.log(id);
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url('Galerie', array('action' => 'sousrubriqueajax')); ?>',
+            data: param,
+            //contentType: "application/json",
+            success: function (data) {
+                $('#sousrubriqueSelectIdTag').html(function () {
+                    var content = "";
+                    content += "<option value=''><?php echo $this->translate('Sélectionner une sous-rubrique'); ?></option>";
+                    for (var i = 0; i < data['sousrubriquesList'].length; i++) {
+                        content += "<option value='" + data['sousrubriquesList'][i]['id'] + "'>" + data['sousrubriquesList'][i]['libelle'] + "</option>";
+
+                    }
+
+                    return content;
+
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        });
+    }
+
+    $(document).ready(function () {
+        $("#tableSort").dataTable({
+            language: {
+                processing: "<?php echo $this->translate('Traitement en cours...'); ?>",
+                search: "<?php echo $this->translate('Rechercher'); ?>&nbsp; ",
+                lengthMenu: "<?php echo $this->translate('Afficher') . '_MENU_ ' . $this->translate('&eacute;l&eacute;ments'); ?>",
+                info: "<?php echo $this->translate('Affichage de l\'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments') ?>",
+                infoEmpty: "<?php echo $this->translate('Affichage de l\'&eacute;lement') . ' 0 &agrave; 0 ' . $this->translate('sur') . ' 0 ' . $this->translate('&eacute;l&eacute;ments') ?>",
+                infoFiltered: "(<?php echo $this->translate('filtr&eacute; de ') . '_MAX_ ' . $this->translate('&eacute;l&eacute;ments au total'); ?>)",
+                infoPostFix: "",
+                loadingRecords: "<?php echo $this->translate('Chargement en cours'); ?>...",
+                zeroRecords: "<?php echo $this->translate('Aucun &eacute;l&eacute;ment &agrave; afficher'); ?>",
+                emptyTable: "<?php echo $this->translate('Aucune donnée disponible dans le tableau'); ?>",
+                paginate: {
+                    first: "<?php echo $this->translate('Premier'); ?>",
+                    previous: "<?php echo $this->translate('Pr&eacute;c&eacute;dent') ?>",
+                    next: "<?php echo $this->translate('Suivant') ?>",
+                    last: "<?php echo $this->translate('Dernier') ?>"
+                },
+                aria: {
+                    sortAscending: ": <?php echo $this->translate('activer pour trier la colonne par ordre croissant'); ?>",
+                    sortDescending: ": <?php echo $this->translate('activer pour trier la colonne par ordre décroissant'); ?>"
+                },
+            },
+            "aoColumnDefs": [
+                {'bSortable': false, 'aTargets': [0]}
+            ]
+        });
+
+        $('#rubriqueSelectIdTag').change(function () {
+
+            var sousrub = $('#rubriqueSelectIdTag').val();
+            //console.log(sousrub);
+            getSousrub(sousrub);
+        });
+
+
+        $('#submitbutton').on('click', function () {
+            //alert('submit');
+            soumettreajout();
+        });
+
+        $('#tableSort').on('draw.dt', function () {
+            $("img.imgView").off("click");
+            $("img.imgView").on("click", function () {
+                var linkToImg = $(this).attr("data-img");
+                var extension = $(this).attr("data-filetype");
+                if (extension == 'jpg' || extension == 'jpeg'
+                    || extension == 'png' || extension == 'bmp'
+                    || extension == 'gif' || extension == 'svg') {
+                    bootbox.alert("<img class='imgpreview' src='" + linkToImg + "' >");
+                }
+            });
+        });
+
+
+        $("img.imgView").on("click", function () {
+            var linkToImg = $(this).attr("data-img");
+            var extension = $(this).attr("data-filetype");
+            if (extension == 'jpg' || extension == 'jpeg'
+                || extension == 'png' || extension == 'bmp'
+                || extension == 'gif' || extension == 'svg') {
+                bootbox.alert("<img class='imgpreview' src='" + linkToImg + "' >");
+            }
+        });
+
+        $('#htmltemplateSelectIdTag').change(function () {
+            var idTemplate = $('#htmltemplateSelectIdTag').val();
+            displayDialogBox(idTemplate);
+        });
+
+        function getHtmlTemplate(id) {
+            var param = {};
+            param['id'] = id;
+            //console.log(id);
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url('htmltemplate', array('action' => 'gethtmltemplate')); ?>',
+                data: param,
+                success: function (data) {
+                    if(data !== undefined && data !== null
+                        && data['template'] !== undefined && data['template'] !== null
+                        && data['template']['template'] !== undefined && data['template']['template'] !== null) {
+                        tinymce.activeEditor.setContent(data.template.template);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function displayDialogBox(id) {
+            bootbox.dialog("<?php echo $this->translate("&Ecirc;tes vous sûr de coller ce modèle html ?"); ?>", [{
+                "label": "<?php echo $this->translate('Oui') ?>",
+                "class": "btn-success",
+                "callback": function () {
+                    getHtmlTemplate(id);
+                }
+            },
+                {
+                    "label": "<?php echo $this->translate('Non') ?>",
+                    "class": "btn-danger",
+                    "callback": function () {
+                        //alert('toto');
+                    }
+                }]);
+        }
+
+    });
+
+
+    function soumettreajout() {
+
+        if (validajout()) {
+            document.contenuform.submit();
+        }
+    }
+
+
+    function validajout() {
+
+        var rub = document.contenuform.rubriquesList.value;
+        var sousrub = document.contenuform.sousrubriquesList.value;
+        var position = document.contenuform.position.value;
+
+        var isPosition = isNaN($.trim(position));
+        //console.log(rub);
+        //console.log(rub+' '+sousrub+' '+position+' '+isPosition);
+
+        if ($.trim(rub) == "") {
+            document.contenuform.rubriquesList.focus();
+            bootbox.alert('<?php echo $this->translate('Vous devez choisir une rubrique'); ?>');
+            return false;
+        }
+
+        if ($.trim(sousrub) == "") {
+            document.contenuform.sousrubriquesList.focus();
+            bootbox.alert('<?php echo $this->translate('Vous devez choisir une sous-rubrique'); ?>');
+            return false;
+        }
+
+        //console.log(isNaN($.trim(position)));
+        if (isPosition || position == undefined || position === null || position === '') {
+            //    console.log(isNan($.trim(position)));
+            bootbox.alert('<?php echo $this->translate('La position doit être vide ou être un nombre'); ?>');
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('Galerie', array('action' => 'add')));
+
+$form->prepare();
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+
+        foreach ($value as $message) {
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+//echo $this->formHidden($form->get('sousrubriques_id'));
+echo '<div>' . $this->formRow($form->get('titre')) . '</div>';
+echo '<div>' . $this->formRow($form->get('soustitre')) . '</div>';
+echo '<div>' . $this->formRow($form->get('position')) . '</div>';
+echo '<div>' . $this->formRow($form->get('imagepath')) . '</div>';
+echo '<div>' . $this->formRow($form->get('imagepath2')) . '</div>';
+echo '<div><div>' . $this->translate('Rubrique') . '</div>' . $this->formSelect($form->get('rubriquesList')) . '</div>';
+echo '<div><div>' . $this->translate('Sous-Rubrique') . '</div>' . $this->formSelect($form->get('sousrubriquesList')) . '</div>';
+echo '<div>&nbsp;</div>';
+echo '<div>' . $this->formSelect($form->get('htmltemplateList')) . '</div>';
+echo '<div>&nbsp;</div>';
+echo '<div id="contentText">' . $this->formTextarea($form->get('contenu')) . '</div>';
+echo '<div>' . $this->formButton($form->get('submitbutton')) . '</div>';
+echo $this->form()->closeTag();
+echo '<div>&nbsp;</div>';
+
+echo '<div id="filesContainer">';
+echo '<table class="tablesorter table table-bordered table-striped hasFilters" id="tableSort" role="grid"><thead>';
+echo '<tr><th class="thheader" style="cursor:default;text-align:center;">' . $this->translate('Vignette') . '</th>';
+echo '<th class="thheader" style="cursor:pointer;text-align:center;">' . $this->translate('Chemin image') . '</th>';
+echo '<th style="text-align:center; cursor:pointer;" class="thheader">' . $this->translate('Description') . '</th>';
+echo '<th style="width:20%; text-align:center; line-height:20px; cursor:pointer;" class="thheader" align="center">' . $this->translate('Meta Donn&eacute;es') . '</th>';
+echo '<th style="cursor:pointer;text-align:center;">' . $this->translate('type de fichier') . '</th>';
+echo '<th style="cursor:pointer;text-align:center;">' . $this->translate('Copier le lien') . '</th></tr>';
+echo '</thead><tbody>';
+
+
+foreach ($fichiers as $fichier) :
+    ?>
+    <tr>
+        <td style="width:10%; text-align:center; line-height:40px;"><img class="imgView"
+                                                                         data-filetype="<?php echo $fichier->getType(); ?>"
+                                                                         data-img="<?php
+                                                                         echo $this->basePath() . '/' . $fichier->getChemin() . $fichier->getNom() ?>"
+                                                                         src="<?php
+                                                                         echo $this->basePath() . '/' . $fichier->getThumbnailpath() . '/' . $fichier->getThumbnail();
+
+
+                                                                         ?>" width=40 height=40/></td>
+
+        <td style="width:20%; text-align:center; line-height:40px;"><?php echo $this->escapeHtml($fichier->getChemin() . $fichier->getNom()); ?></td>
+        <td style="width:20%; text-align:center; line-height:40px;"><?php echo $this->escapeHtml($fichier->getLibelle()); ?></td>
+        <td style="width:20%; text-align:center; line-height:40px;"><?php echo $this->escapeHtml($fichier->getMetaData()); ?></td>
+        <td style="width:20%; text-align:center; line-height:40px;"> <?php echo $fichier->getType() ?> </td>
+        <td style="width:10%; text-align:center; line-height:40px;">
+            <button class="filepathBtn"
+                    data-clipboard="<?php echo $this->basePath() . '/' . $fichier->getChemin() . $fichier->getNom() ?>"><?php echo $this->translate("Copier le lien"); ?></button>
+        </td>
+
+    </tr>
+<?php endforeach;
+
+echo '</tbody></table></div>';
+//echo "Zend engine version: " . zend_version();
+//print_r($fichiers);
+
+?>	

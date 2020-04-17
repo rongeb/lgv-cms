@@ -1,0 +1,412 @@
+<?php
+$title = $this->translate('Modifier un lien vers un contenu');
+$this->headTitle($title);
+?>
+
+<style>
+    div label{
+        width:150px;
+    }
+
+    div input[type="submit"], #submitbutton{
+        width:80px;
+        height:40px;
+    }
+
+    #contentText{
+        width:700px;
+        height:350px;
+    }
+    .dataTables_filter{
+        
+        margin-right: 10%;
+    }
+    form ul{
+        display: none;
+        
+    }
+    .imgView{
+        cursor: pointer; 
+    }
+    
+    img.imgpreview{
+       display:block;
+       margin: auto; 
+    } 
+
+</style>
+
+<script type="text/javascript" src="<?php echo $this->basePath() . '/js/tinymce/tinymce.min.js'; ?>"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        language: '<?php echo $this->plugin('translate')->getTranslator()->getLocale(); ?>',
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste",
+            "importcss"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright",
+        content_css : ["<?php echo $this->basePath() . '/assets/css/blocks.css';?>",
+                      "<?php echo $this->basePath() . '/assets/css/app.css';?>", 
+                      "<?php echo $this->basePath() . '/assets/css/custom.css';?>",
+                      "<?php echo $this->basePath() . '/assets/plugins/bootstrap/css/bootstrap.min.css';?>",
+                      "<?php echo $this->basePath() . '/assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css';?>"]
+        });
+
+
+    function getSousrub(id, selector) {
+
+        var param = {};
+        param['rubid'] = id;
+        //console.log(id);
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url('Contenu', array('action' => 'sousrubriqueajax')); ?>',
+            data: param,
+            //contentType: "application/json",
+            success: function (data) {
+                
+            //console.log(data);    
+            $(selector).html(function () {
+                    var content = "";
+                    content += "<option value=''><?php echo $this->translate('Sélectionner une sous-rubrique'); ?></option>";
+                    
+                    for (var i = 0; i < data['sousrubriquesList'].length; i++) {
+                        content += "<option value='" + data['sousrubriquesList'][i]['id'] + "'>" + data['sousrubriquesList'][i]['libelle'] + "</option>";
+
+                    }
+
+                    return content;
+
+                });
+            },
+            error: function (error) {
+                //console.log(error);
+            }
+
+        });
+    }
+    
+     function getContentsFromASection(id) {
+
+        var param = {};
+        param['subrubid'] = id;
+        //console.log(id);
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url('Linktocontenu', array('action' => 'contenuajax')); ?>',
+            data: param,
+            //contentType: "application/json",
+            success: function (data) {
+                
+            //console.log(data);    
+            $('#contenusSelectIdTag').html(function () {
+                    var content = "";
+                    
+                    content += "<option value=''><?php echo $this->translate('Sélectionner un contenu'); ?></option>";
+                    
+                    for (var i = 0; i < data['contenusList'].length; i++) {
+                        content += "<option value='" + data['contenusList'][i]['contenu_id'] + "'>" + data['contenusList'][i]['titre'] + "</option>";
+
+                    }
+
+                    return content;
+
+                });
+            },
+            error: function (error) {
+                //console.log(error);
+            }
+
+        });
+    }
+
+    $(document).ready(function () {
+        $("#tableSort").dataTable({
+            language: {
+                verify_html: false,
+                cleanup: false,
+                clean_up_on_startup: false,
+                forced_rooted_block: "",
+                processing: "<?php echo $this->translate('Traitement en cours...'); ?>",
+                search: "<?php echo $this->translate('Rechercher'); ?>&nbsp; ",
+                lengthMenu: "<?php echo $this->translate('Afficher') . '_MENU_ ' . $this->translate('&eacute;l&eacute;ments'); ?>",
+                info: "<?php echo $this->translate('Affichage de l\'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments') ?>",
+                infoEmpty: "<?php echo $this->translate('Affichage de l\'&eacute;lement') . ' 0 &agrave; 0 ' . $this->translate('sur') . ' 0 ' . $this->translate('&eacute;l&eacute;ments') ?>",
+                infoFiltered: "(<?php echo $this->translate('filtr&eacute; de ') . '_MAX_ ' . $this->translate('&eacute;l&eacute;ments au total'); ?>)",
+                infoPostFix: "",
+                loadingRecords: "<?php echo $this->translate('Chargement en cours'); ?>...",
+                zeroRecords: "<?php echo $this->translate('Aucun &eacute;l&eacute;ment &agrave; afficher'); ?>",
+                emptyTable: "<?php echo $this->translate('Aucune donnée disponible dans le tableau'); ?>",
+                paginate: {
+                    first: "<?php echo $this->translate('Premier'); ?>",
+                    previous: "<?php echo $this->translate('Pr&eacute;c&eacute;dent') ?>",
+                    next: "<?php echo $this->translate('Suivant') ?>",
+                    last: "<?php echo $this->translate('Dernier') ?>"
+                },
+                aria: {
+                    sortAscending: ": <?php echo $this->translate('activer pour trier la colonne par ordre croissant'); ?>",
+                    sortDescending: ": <?php echo $this->translate('activer pour trier la colonne par ordre décroissant'); ?>"
+                }
+            },
+            "aoColumnDefs": [
+                {'bSortable': false, 'aTargets': [0]}
+            ]
+        });
+       
+        $('#rubriqueSelectIdTag').change(function () {
+
+            var rubriqueid = $('#rubriqueSelectIdTag').val();
+            //console.log(sousrub);
+            getSousrub(rubriqueid, "#sousrubriqueSelectIdTag");
+        });
+        
+        $('#rubriquewhereislinkId').change(function () {
+
+            var rubriqueid = $('#rubriquewhereislinkId').val();
+            //console.log(sousrub);
+            getSousrub(rubriqueid, "#sousrubriquewhereislinkId");
+        });
+        
+         $('#sousrubriqueSelectIdTag').change(function () {
+
+            var section_id = $('#sousrubriqueSelectIdTag').val();
+            console.log(section_id);
+            getContentsFromASection(section_id);
+        });
+        
+        $('#submitbutton').on('click',function () {
+            //alert('submit');
+            soumettreajout();
+        });
+        
+        $('#tableSort').on( 'draw.dt', function () {
+            $("img.imgView").off("click");
+            $("img.imgView").on("click", function () {
+                var linkToImg = $(this).attr("data-img");
+                var extension = $(this).attr("data-filetype");
+                if(extension == 'jpg' || extension == 'jpeg'
+                    || extension == 'png' || extension == 'bmp'
+                    || extension == 'gif' || extension == 'svg'){       
+                    bootbox.alert("<img class='imgpreview' src='"+linkToImg+"' >");
+                }
+            });
+        });   
+           
+
+        $("img.imgView").on("click", function () {
+            var linkToImg = $(this).attr("data-img");
+            var extension = $(this).attr("data-filetype");
+            if(extension == 'jpg' || extension == 'jpeg'
+               || extension == 'png' || extension == 'bmp'
+               || extension == 'gif' || extension == 'svg'){       
+                bootbox.alert("<img class='imgpreview' src='"+linkToImg+"' >");
+            }
+        });
+
+        $('#htmltemplateSelectIdTag').change(function () {
+            var idTemplate = $('#htmltemplateSelectIdTag').val();
+            displayDialogBox(idTemplate);
+        });
+
+        function getHtmlTemplate(id) {
+            var param = {};
+            param['id'] = id;
+            //console.log(id);
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url('htmltemplate', array('action' => 'gethtmltemplate')); ?>',
+                data: param,
+                success: function (data) {
+                    if(data !== undefined && data !== null
+                        && data['template'] !== undefined && data['template'] !== null
+                        && data['template']['template'] !== undefined && data['template']['template'] !== null) {
+                        tinymce.activeEditor.setContent(data.template.template);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function displayDialogBox(id) {
+            bootbox.dialog("<?php echo $this->translate("&Ecirc;tes vous sûr de coller ce modèle html ?"); ?>", [{
+                "label": "<?php echo $this->translate('Oui') ?>",
+                "class": "btn-success",
+                "callback": function () {
+                    getHtmlTemplate(id);
+                }
+            },
+                {
+                    "label": "<?php echo $this->translate('Non') ?>",
+                    "class": "btn-danger",
+                    "callback": function () {
+                        //alert('toto');
+                    }
+                }]);
+        }
+        
+    });
+    
+    
+    function soumettreajout(){
+        
+        if (validajout()){
+            //document.linktocontenuform.submit();
+            /*console.log(document.linktocontenuform.imagepath.value);
+            console.log(document.linktocontenuform.imagepath2.value);
+            //console.log(document.linktocontenuform.rubriquesList.value);
+            console.log(document.linktocontenuform.sousrubriquesList.value);
+            //console.log(document.linktocontenuform.rubriqueswhereislinkList.value);
+            console.log(document.linktocontenuform.sousrubriqueswhereislinkList.value);
+            console.log(document.linktocontenuform.contenusList.value);
+            console.log(document.linktocontenuform.position.value);*/
+            document.linktocontenuform.submit();
+        }
+    }
+
+
+    function validajout(){
+        
+        var page = document.linktocontenuform.rubriquesList.value;
+        var section = document.linktocontenuform.sousrubriquesList.value;
+        var pageDest = document.linktocontenuform.rubriqueswhereislinkList.value;
+        var sectionDest = document.linktocontenuform.sousrubriqueswhereislinkList.value;
+        var content = document.linktocontenuform.contenusList.value;
+        var position = document.linktocontenuform.position.value;
+        
+        var isPosition = isNaN($.trim(position));
+        //console.log(rub);
+        
+        if ($.trim(page) == "") {
+            document.linktocontenuform.rubriquesList.focus();
+            bootbox.alert('<?php echo $this->translate('Vous devez choisir une rubrique'); ?>');
+            return false;
+        }
+        
+        if ($.trim(section) == "")
+        {
+            document.linktocontenuform.sousrubriquesList.focus();
+            bootbox.alert('<?php echo $this->translate('Vous devez choisir une sous-rubrique'); ?>');
+            return false;
+        }
+        
+         if ($.trim(content) == "")
+        {
+            document.linktocontenuform.contenusList.focus();
+            bootbox.alert('<?php echo $this->translate('Vous devez choisir le contenu'); ?>');
+            return false;
+        }
+        
+        if ($.trim(pageDest) == "") {
+            document.linktocontenuform.rubriqueswhereislinkList.focus();
+            bootbox.alert('<?php echo $this->translate('Vous devez choisir la rubrique de destination'); ?>');
+            return false;
+        }
+        
+        if ($.trim(sectionDest) == "")
+        {
+            document.linktocontenuform.sousrubriqueswhereislinkList.focus();
+            bootbox.alert('<?php echo $this->translate('Vous devez choisir la sous-rubrique de destination'); ?>');
+            return false;
+        }
+
+        //console.log(isNaN($.trim(position)));
+        if (isPosition || position == undefined || position === null || position === '') {
+            //    console.log(isNan($.trim(position)));
+            bootbox.alert('<?php echo $this->translate('La position doit être vide ou être un nombre'); ?>');
+            return false;
+        }
+
+        return true;
+    }
+    
+</script>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('Linktocontenu', array('action' => 'edit')));
+
+$form->prepare();
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+        
+        foreach($value as $message){
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}               
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+//echo $this->formHidden($form->get('sousrubriques_id'));
+echo '<div style="font-style:italic;font-weight:bold">'.$this->translate('Choisir un contenu').'</div>';
+echo '<div><div>'.$this->translate('Rubrique').'</div>' . $this->formSelect($form->get('rubriquesList')) . '</div>';
+echo '<div><div>'.$this->translate('Sous-Rubrique').'</div>' . $this->formSelect($form->get('sousrubriquesList')) . '</div>';
+echo '<div><div>'.$this->translate('Contenu').'</div>' . $this->formSelect($form->get('contenusList')) . '</div><br><br>';
+echo '<div style="font-style:italic;font-weight:bold">'.$this->translate('Choisir la sous-rubrique où apparaîtra le lien').'</div>';
+echo '<div><div>'.$this->translate('Lien vers la rubrique').'</div>' . $this->formSelect($form->get('rubriqueswhereislinkList')) . '</div>';
+echo '<div><div>'.$this->translate('Lien vers la sous-Rubrique').'</div>' . $this->formSelect($form->get('sousrubriqueswhereislinkList')) . '</div>';
+echo '<div>' . $this->formRow($form->get('titre')) . '</div>';
+echo '<div>' . $this->formRow($form->get('soustitre')) . '</div>';
+echo '<div>' . $this->formRow($form->get('position')) . '</div>';
+echo '<div>' . $this->formRow($form->get('imagepath')) . '</div>';
+echo '<div>' . $this->formRow($form->get('imagepath2')) . '</div>';
+echo '<div>&nbsp;</div>';
+echo '<div>' . $this->formSelect($form->get('htmltemplateList')) . '</div>';
+echo '<div>&nbsp;</div>';
+echo '<div id="contentText">' . $this->formTextarea($form->get('html')) . '</div>';
+echo '<div>' . $this->formButton($form->get('submitbutton')) . '</div>';
+echo $this->form()->closeTag();
+echo '<div>&nbsp;</div>';
+
+echo '<div id="filesContainer">';
+echo '<table class="tablesorter table table-bordered table-striped hasFilters" id="tableSort" role="grid"><thead>';
+echo '<tr><th class="thheader" style="cursor:default;text-align:center;">' . $this->translate('Vignette') . 'Vignette</th>';
+echo '<th class="thheader" style="cursor:pointer;text-align:center;">' . $this->translate('Chemin image') . '</th>';
+echo '<th style="text-align:center; cursor:pointer;" class="thheader">' . $this->translate('Description') . '</th>';
+echo '<th style="width:20%; text-align:center; line-height:20px; cursor:pointer;" class="thheader" align="center">' . $this->translate('Meta Donn&eacute;es') . '</th>';
+echo '<th style="cursor:pointer;text-align:center;">' . $this->translate('Type de fichier') . '</th>';
+echo '<th style="cursor:pointer;text-align:center;">' . $this->translate('Copier le lien') . '</th></tr>';
+//echo '<th style="cursor:default;">copier le lien</th></tr>';
+//echo '<tr><th class="thheader" style="cursor:pointer;">Chemin image</th><th style="cursor:pointer;">type de fichier</th></tr>';
+echo '</thead><tbody>';
+
+
+foreach ($fichiers as $fichier) :
+    ?>
+    <tr>
+        <td style="width:10%; text-align:center; line-height:40px;"><img class="imgView"
+                                                                         data-filetype="<?php echo $fichier->getType(); ?>"
+                                                                         data-img="<?php
+                                                                         echo $this->basePath() . '/' . $fichier->getChemin() . $fichier->getNom() ?>"
+                                                                         src="<?php
+                                                                         echo $this->basePath() . '/' . $fichier->getThumbnailpath() . '/' . $fichier->getThumbnail();
+
+
+                                                                         ?>" width=40 height=40/></td>
+
+        <td style="width:15%; text-align:center; line-height:40px;"><?php echo $this->escapeHtml($fichier->getChemin() . $fichier->getNom()); ?></td>
+        <td style="width:15%; text-align:center; line-height:40px;"><?php echo $this->escapeHtml($fichier->getLibelle()); ?></td>
+        <td style="width:15%; text-align:center; line-height:40px;"><?php echo $this->escapeHtml($fichier->getMetaData()); ?></td>
+        <td style="width:15%; text-align:center; line-height:40px;"> <?php echo $fichier->getType() ?> </td>
+        <td style="width:10%; text-align:center; line-height:40px;">
+            <button class="filepathBtn"
+                    data-clipboard="<?php echo $this->basePath() . '/' . $fichier->getChemin() . $fichier->getNom() ?>"><?php echo $this->translate("Copier le lien"); ?></button>
+        </td>
+
+    </tr>
+<?php endforeach;
+
+echo '</tbody></table></div>';
+//echo "Zend engine version: " . zend_version();
+//print_r($fichiers);
+
+?>
+
+	

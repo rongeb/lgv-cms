@@ -1,0 +1,23 @@
+<?php
+// module/Album/view/sousrubrique/sousrubrique/delete.phtml:
+$title = $this->translate('Supprimer une sous-rubrique');
+$this->headTitle($title);
+?>
+<?php //print_r($sousrubrique); ?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p><?php echo $this->translate('&Ecirc;tes-vous s&ucirc;r de vouloir supprimer la sous-rubrique') ." '". $this->escapeHtml($sousrubrique->getLibelle()); ?>'?
+</p>
+<?php
+	$url = $this->url('Sousrubrique', array(
+		'action' => 'delete',
+		'id' => $this->id,
+	));
+?>
+
+<form action="<?php echo $url; ?>" method="post">
+	<div>
+		<input type="hidden" name="id" value="<?php echo (int) $sousrubrique->getId(); ?>" />
+                <input type="submit" name="del" value="<?php echo $this->translate('Oui'); ?>" />
+		<input type="submit" name="del" value="<?php echo $this->translate('Non'); ?>" />
+	</div>
+</form>

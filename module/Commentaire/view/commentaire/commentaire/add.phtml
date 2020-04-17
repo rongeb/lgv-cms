@@ -1,0 +1,191 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title = $this->translate('Ajouter un Commentaire');
+$this->headTitle($title);
+?>
+
+<style>
+    div label{
+        width:150px;
+    }
+
+    div input[type="submit"], #submitbutton{
+        width:80px;
+        height:40px;
+    }
+
+    #contentText{
+        width:700px;
+        height:350px;
+    }
+    
+    form ul{
+        display: none;
+        
+    }
+
+    input[name=timestamp]{
+        display: block;
+    }
+    
+</style>
+
+<script type="text/javascript" src="<?php echo $this->basePath() . '/js/tinymce/tinymce.min.js'; ?>"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        language: 'fr_FR',
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste",
+            "importcss"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright"
+        });
+
+    
+    function soumettreajout(){
+        
+        if (validajout()){
+            document.commentaireform.submit();
+        }
+    }
+
+
+    function validajout(){
+        
+        //TODO tester la date
+        /*
+        var position = document.commentaireform.position.value;
+        
+        var isPosition = isNaN($.trim(position));
+        
+        //console.log(isNaN($.trim(position)));
+        if(isPosition){
+        //    console.log(isNan($.trim(position)));
+           bootbox.alert('La position doit être vide ou être un nombre');
+           return false;
+        }
+        */
+
+        return true;
+    }
+    
+    function getContenus(id) {
+
+        var param = {};
+        param['rubid'] = id;
+        console.log(id);
+        
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url('Commentaire', array('action' => 'contenuajax')); ?>',
+            data: param,
+            //contentType: "application/json",
+            success: function (data) {
+            console.log(data);
+            //console.log(data);    
+            $('#contenuSelectIdTag').html(function () {
+                    var content = "";
+                    content += "<option value=''>"+"<?php echo $this->translate('Sélectionner un contenu'); ?>"+"</option>";
+                    
+                    for (var i = 0; i < data['contenusList'].length; i++) {
+                        content += "<option value='" + data['contenusList'][i]['contenu_id'] + "'>" + data['contenusList'][i]['titre'] + "</option>";
+
+                    }
+
+                    return content;
+
+                });
+            },
+            error: function (error) {
+                //console.log(error);
+            }
+
+        });
+    }
+
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    
+    $(document).ready(function () {
+        $('#submitbutton').on('click',function () {
+            //alert('submit');
+            soumettreajout();
+        });
+        
+         $('#rubriqueSelectIdTag').change(function () {
+
+            var sousrub = $('#rubriqueSelectIdTag').val();
+            //console.log(sousrub);
+            getContenus(sousrub);
+        });
+        
+        $('#rubriqueSelectIdTag').val("").change();
+
+        $('.form_datetime').datetimepicker({
+            //language:  'fr',
+            //AAAA-MM-JJ HH:MM:SS
+            format:"yyyy-mm-dd hh:ii:ss",
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+        });
+
+        $('th.today').trigger('click');
+    });
+    
+</script>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('Commentaire', array('action' => 'add')));
+
+$form->prepare();
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+        
+        foreach($value as $errorinfo){
+            //print_r($error);
+            echo '<div style="color:red;">' . $errorinfo . '</div>';
+        }
+    }
+}
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo '<div>' . $this->formRow($form->get('row1')) . '</div>';
+echo '<div>' . $this->formRow($form->get('row2')) . '</div>';
+echo '<div>' . $this->formRow($form->get('row3')) . '</div>';
+echo '<div>' . $this->formRow($form->get('row4')) . '</div>';
+echo '<div>' . $this->formRow($form->get('rubriquesList')) . '</div>';
+echo '<div>' . $this->formRow($form->get('contenusList')) . '</div>';
+echo '<div>' . $this->formRow($form->get('statusList')) . '</div>';
+//echo '<div>' . $this->formRow($form->get('typeList')) . '</div>';
+echo '<div class="control-group">';
+echo '<div class="controls input-append date form_datetime" data-date="" data-link-field="dtp_input1">';
+echo '<div>' . $this->formRow($form->get('timestamp')) . '</div>';
+echo '<span class="add-on"><i class="icon-remove"></i></span>';
+echo '<span class="add-on"><i class="icon-th"></i></span>';
+echo '</div>';
+echo '<input type="hidden" id="dtp_input1" value="" /><br/>';
+echo '</div>';
+//echo '<div>' . $this->formRow($form->get('position')) . '</div>';
+echo '<div id="contentText"><div>'.$this->translate('Contenu du commentaire').'</div>' . $this->formTextarea($form->get('msg')) . '</div>';
+echo '<div>' . $this->formButton($form->get('submitbutton')) . '</div>';
+echo $this->form()->closeTag();
+echo '<div>&nbsp;</div>';
+
+
+//echo "Zend engine version: " . zend_version();
+//print_r($fichiers);
+	

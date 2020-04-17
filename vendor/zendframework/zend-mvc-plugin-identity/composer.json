@@ -1,0 +1,64 @@
+{
+    "name": "zendframework/zend-mvc-plugin-identity",
+    "description": "Plugin for retrieving the current authenticated identity within zend-mvc controllers",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "zf",
+        "zendframework",
+        "mvc"
+    ],
+    "support": {
+        "docs": "https://docs.zendframework.com/zend-mvc-plugin-identity/",
+        "issues": "https://github.com/zendframework/zend-mvc-plugin-identity/issues",
+        "source": "https://github.com/zendframework/zend-mvc-plugin-identity",
+        "rss": "https://github.com/zendframework/zend-mvc-plugin-identity/releases.atom",
+        "chat": "https://zendframework-slack.herokuapp.com",
+        "forum": "https://discourse.zendframework.com/c/questions/components"
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "container-interop/container-interop": "^1.1",
+        "zendframework/zend-authentication": "^2.5.3",
+        "zendframework/zend-mvc": "^3.0",
+        "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.4",
+        "zendframework/zend-coding-standard": "~1.0.0"
+    },
+    "conflict": {
+        "zendframework/zend-mvc": "<3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zend\\Mvc\\Plugin\\Identity\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZendTest\\Mvc\\Plugin\\Identity\\": "test/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1.x-dev",
+            "dev-develop": "1.2.x-dev"
+        },
+        "zf": {
+            "component": "Zend\\Mvc\\Plugin\\Identity"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    }
+}

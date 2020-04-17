@@ -1,0 +1,380 @@
+<?php
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Mazel - Multiprapose Html template</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content="Domaine du vieux celliers, Brouilly, Beaujolais, gite, piscine, terrasse, vignes, Lyon"/>
+    <meta name="author" content="Romuald GEBLEUX">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--[if IE]>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+    <!-- Favicone Icon -->
+    <link rel="icon" type="image/png" href="<?php echo $this->basePath() ?>/mazel/img/favicon.png">
+    <link rel="apple-touch-icon" href="<?php echo $this->basePath() ?>/mazel/img/favicon.png">
+
+    <?php
+    $linkico = $this->basePath(). '/mazel/img/favicon.ico';
+    echo $this->headLink(array
+        ('rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => $linkico))
+        ->prependStylesheet($this->basePath() . '/mazel/css/custom.css')
+        ->prependStylesheet($this->basePath() . '/mazel/css/bootstrap.css')
+        ->prependStylesheet($this->basePath() . '/mazel/css/style.css')
+        ->prependStylesheet($this->basePath() . '/mazel/css/font-awesome.css')
+        ->prependStylesheet($this->basePath() . '/mazel/css/ionicons.css')
+        ->prependStylesheet($this->basePath() . '/mazel/css/plugin/animate.css')
+        ->prependStylesheet($this->basePath() . '/mazel/css/jquery-ui.css');
+    ?>
+
+    <!-- CSS
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="css/ionicons.css" rel="stylesheet" type="text/css"/>
+    <link href="css/plugin/animate.css" rel="stylesheet" type="text/css"/>
+    <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    -->
+    <!-- Js -->
+
+
+</head>
+
+<body>
+<?php
+$sectionRank = -1;
+$lightSlide = 'light-slide';
+$darkSlide = 'dark-slide';
+$cssSlide = '';
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        $sectionRank = $value->getRang();
+        // echo $sectionRank;
+    }
+
+    /* Preloader */
+    if (stripos($key, "content") > -1 && ((int)$value->getRang() > -1 && (int)$sectionRank == 1)) {
+        // echo $key;
+        echo $value->getContenuHtml();
+    }
+
+    /* Sidebar Menu Mobile */
+    if (stripos($key, "content") > -1 && ((int)$value->getRang() == 1 && (int)$sectionRank == 2)) {
+        // echo $key;
+        echo $value->getContenuHtml();
+    }
+}
+// echo $sectionRank;
+?>
+<!-- End Sidebar Menu -->
+
+<!-- Site Wraper -->
+<div class="wrapper">
+
+    <!-- Header ("header--dark", "header-transparent", "header--sticky")-->
+    <?php
+    foreach ($pageContents as $key => $value) {
+        /* Sidebar Menu Desktop */
+        if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+            $sectionRank = $value->getRang();
+            // echo $sectionRank;
+        }
+        if (stripos($key, "content") > -1 && ((int)$value->getRang() == 2 && (int)$sectionRank == 2)) {
+            // echo $key;
+            // echo '<header id="header" class="header header-transparent header--sticky sticky--on">';
+            echo $value->getContenuHtml();
+            // echo '</header>';
+        }
+    } ?>
+    <!-- End Header -->
+
+    <!-- CONTENT --------------------------------------------------------------------------------->
+
+    <!-- Intro Section -->
+
+    <!--Slide-->
+    <?php
+    echo '<section id="intro">';
+    echo '<div class="flexslider fullscreen-carousel hero-slider-1 ">';
+    echo '<ul class="slides">';
+    foreach ($pageContents as $key => $value) {
+        if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+            $sectionRank = $value->getRang();
+            // echo $sectionRank;
+        }
+        if (stripos($key, "content") > -1 && (int)$sectionRank == 3) {
+            if ($cssSlide == $darkSlide) {
+                $cssSlide = $lightSlide;
+            } else {
+                $cssSlide = $darkSlide;
+            }
+            echo '<li data-slide="' . $cssSlide . '">';
+            echo $value->getContenuHtml();
+            echo '</li>';
+        }
+    }
+    echo '</ul>';
+    echo '</div>';
+    echo '</section>';
+    echo '<div class="clearfix"></div>';
+
+    // End Hero Slider Section
+    // End Intro Section
+
+    //<!--About Section-->
+    foreach ($pageContents as $key => $value) {
+        if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+            $sectionRank = $value->getRang();
+            // echo $sectionRank;
+        }
+        if (stripos($key, "content") > -1 && (int)$value->getRang() == 1 && (int)$sectionRank == 4) {
+            echo $value->getContenuHtml();
+            break;
+        }
+    }
+    // <!-- End About Section-->
+    ?>
+
+    <!-- Team -->
+
+</div>
+</div>
+</div>
+<!--End Team Carousel --->
+</div>
+</section>
+<!-- End Team -->
+<!-- Work Section -->
+<?php
+ echo '<section id="work" class="wow fadeInUp ptb ptb-sm-80 text-center">';
+
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        $sectionRank = $value->getRang();
+        // echo $sectionRank;
+    }
+    if (stripos($key, "content") > -1 && (int)$value->getRang() == 1 && (int)$sectionRank == 5) {
+        echo $value->getContenuHtml();
+        break;
+    }
+}
+echo '<div class="container">';
+echo    '<!-- Work Gallery -->';
+echo '<div class="row container-grid nf-col-3">';
+
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        $sectionRank = $value->getRang();
+        // echo $sectionRank;
+    }
+    if (stripos($key, "content") > -1 && (int)$value->getRang() > 1 && (int)$sectionRank == 5) {
+        echo $value->getContenuHtml();
+    }
+}
+
+echo    '<!-- End Work Gallery -->';
+echo    '<div class="spacer-30"></div>';
+echo    '<div class="spacer-30"></div>';
+echo '</div>';
+echo '</div>';
+echo '</section>';
+?>
+<!-- End Work Section -->
+
+
+<?php
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        $sectionRank = $value->getRang();
+        // echo $sectionRank;
+    }
+    if (stripos($key, "content") > -1 && (int)$value->getRang() == 1 && (int)$sectionRank == 6) {
+        echo $value->getContenuHtml();
+        break;
+    }
+}
+?>
+
+<?php
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        $sectionRank = $value->getRang();
+        // echo $sectionRank;
+    }
+    if (stripos($key, "content") > -1 && (int)$value->getRang() == 1 && (int)$sectionRank == 7) {
+        echo $value->getContenuHtml();
+        break;
+    }
+}
+?>
+
+<?php
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        $sectionRank = $value->getRang();
+        // echo $sectionRank;
+    }
+    if (stripos($key, "content") > -1 && (int)$value->getRang() == 1 && (int)$sectionRank == 8) {
+        echo $value->getContenuHtml();
+        break;
+    }
+}
+?>
+
+<!-- END CONTENT ---------------------------------------------------------------------------->
+<!-- FOOTER -->
+<footer class="footer">
+    <section class="copyright ptb-60">
+        <div class="container">
+            <button type="button" class="btn" id="dvc-footer-item">
+                Mentions l&eacute;gales
+            </button>
+
+        </div>
+    </section>
+</footer>
+<!-- END FOOTER -->
+
+
+<!-- Scroll Top -->
+<a class="scroll-top">
+    <i class="fa fa-angle-double-up"></i>
+</a>
+
+<!-- The Modal -->
+<?php
+foreach ($pageContents as $key => $value) {
+    if (stripos($key, "section") > -1 && (int)$value->getRang() > -1) {
+        $sectionRank = $value->getRang();
+        // echo $sectionRank;
+    }
+    if (stripos($key, "content") > -1 && (int)$value->getRang() == 1 && (int)$sectionRank == 9) {
+        echo $value->getContenuHtml();
+        break;
+    }
+}
+?>
+
+<!-- End Scroll Top -->
+</div>
+<!-- Site Wraper End -->
+<div id="tarteaucitron">
+</div>
+
+
+
+<!-- JS -->
+<script src="<?php echo $this->basePath(). '/mazel/js/jquery-1.11.2.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.easing.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/jquery-ui.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/bootstrap.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.flexslider.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.fitvids.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.viewportchecker.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.stellar.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/wow.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.colorbox-min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/owl.carousel.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/isotope.pkgd.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/masonry.pkgd.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/imagesloaded.pkgd.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.fs.tipper.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/mediaelement-and-player.min.js'; ?>"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.validate.min.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/theme.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/plugin/jquery.singlePageNav.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/mazel/js/contact-form.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $this->basePath(). '/js/tarteaucitron/tarteaucitron.js'; ?>" type="text/javascript"></script>
+
+<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest-maps.js"></script>
+<link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest-maps.css"/>
+<script type="text/javascript" src="<?php echo $this->basePath(). '/mazel/js/map.js'; ?>"></script>
+
+
+
+<script type="text/javascript">
+    //  Onepage Nav Elements
+    $('.singlepage-nav').singlePageNav({
+        offset: 0,
+        filter: ':not(.external)',
+        updateHash: true,
+        currentClass: 'current',
+        easing: 'swing',
+        speed: 750,
+        beforeStart: function () {
+            if ($(window).width() < 991) {
+                $('.menu-mobile-btn').removeClass('active');
+                $('.nav-menu').removeClass('show-on-mobile');
+            }
+            ;
+        },
+        onComplete: function () {
+            console.log('done scrolling');
+        }
+    });
+
+    $('.dvc-airbnb-img').on('click', function () {
+        window.open('https://www.airbnb.fr/rooms/39547534', '_blank');
+    });
+
+    tarteaucitron.init({
+        "privacyUrl": "", /* Privacy policy url */
+
+        "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+        "cookieName": "tarteaucitron", /* Cookie name */
+
+        "orientation": "bottom", /* Banner position (top - bottom) */
+        "showAlertSmall": true, /* Show the small banner on bottom right */
+        "cookieslist": true, /* Show the cookie list */
+
+        "adblocker": false, /* Show a Warning if an adblocker is detected */
+        "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+        "highPrivacy": false, /* Disable auto consent */
+        "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
+
+        "removeCredit": false, /* Remove credit link */
+        "moreInfoLink": true, /* Show more info link */
+        "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+
+        //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+
+        "readmoreLink": "/cookiespolicy" /* Change the default readmore link */
+    });
+
+    // Get the modal
+    var dvcmodal = document.getElementById("mentionsLegalesModal");
+
+    // Get the button that opens the modal
+    var dvcbtn = document.getElementById("dvc-footer-item");
+
+    // Get the <span> element that closes the modal
+    var dvcspan = document.getElementsByClassName("dvc-close")[0];
+
+    // When the user clicks on the button, open the modal
+    dvcbtn.onclick = function() {
+        dvcmodal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    dvcspan.onclick = function() {
+        dvcmodal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == dvcmodal) {
+            dvcmodal.style.display = "none";
+        }
+    }
+/*
+    tarteaucitron.user.googleFonts = 'families';
+    (tarteaucitron.job = tarteaucitron.job || []).push('googlefonts');
+    */
+</script>
+
+</body>
+</html>
+

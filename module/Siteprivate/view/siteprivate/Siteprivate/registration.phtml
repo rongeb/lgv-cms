@@ -1,0 +1,147 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title = $this->translate("Demande d'inscription");
+$this->headTitle($title);
+?>
+
+<style>
+    div label {
+        width: 150px;
+    }
+
+    div input[type="submit"], #submitbutton {
+        width: 80px;
+        height: 40px;
+    }
+
+    form ul {
+        display: none;
+
+    }
+
+    #sweethoney, #validateId {
+        display: none;
+    }
+
+    div#divlogincaptcha pre{
+        width:200px;
+        text-align: center;
+        font-size: 7px;
+        line-height: 7px;
+        padding:0px 9.5px 0px 9.5px;
+    }
+
+    div#divlogincaptcha legend{
+        width:200px;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        border: none;
+        display: block;
+        padding: 0;
+        margin-bottom: 0px;
+    }
+
+</style>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+
+        foreach ($value as $message) {
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}
+?>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('siteprivate', array('action' => 'registration')));
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo '<div>' . $this->formSelect($form->get('spacesList')) . '</div>';
+echo '<div>' . $this->formRow($form->get('email')) . '</div>';
+echo '<br>' . $this->translate('Le nouveau mot de passe doit avoir 5 caractères');
+echo '<div>' . $this->formRow($form->get('pwd')) . '</div>';
+echo '<div>' . $this->translate('Confirmer le mot de passe') . '<div>';
+echo '<div>' . $this->formRow($form->get('pwdconfirm')) . '</div>';
+//echo '<div><input type="text" value="" id="confirmPwd" /></div>';
+echo '<div>' . $this->formRow($form->get('firstname')) . '</div>';
+echo '<div>' . $this->formRow($form->get('lastname')) . '</div>';
+echo '<div>' . $this->formRow($form->get('company')) . '</div>';
+echo '<div>' . $this->formRow($form->get('streetnumber')) . '</div>';
+echo '<div>' . $this->formRow($form->get('streetline_1')) . '</div>';
+echo '<div>' . $this->formRow($form->get('streetline_2')) . '</div>';
+echo '<div>' . $this->formRow($form->get('streetline_3')) . '</div>';
+echo '<div>' . $this->formRow($form->get('zipcode')) . '</div>';
+echo '<div>' . $this->formRow($form->get('city')) . '</div>';
+echo '<div>' . $this->formRow($form->get('mobilephone')) . '</div>';
+echo '<div>' . $this->formRow($form->get('homephone')) . '</div>';
+echo '<div>' . $this->formRow($form->get('website')) . '</div>';
+echo '<div>' . $this->formRow($form->get('sweethoney')) . '</div>';
+echo '<div>' . $this->formSelect($form->get('validate')) . '</div>';
+echo '<div id="divlogincaptcha">';
+echo $this->formRow($form->get('logincaptcha'));
+echo $this->formHidden($form->get('prevent'));
+echo '</div>';
+echo '<br>' . '<br>' . $this->formButton($form->get('submitbutton'));
+?>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#submitbutton').on('click', function () {
+
+            var pwd = $('#pwdIdTag').val();
+            var confirmPwd = $('#pwdconfirmIdTag').val();
+
+            if (pwd != confirmPwd) {
+                bootbox.alert("<?php echo $this->translate("Les mots de passe ne sont pas identiques"); ?>");
+                return false;
+            }
+            else {
+                //hash password before submiting 
+                var shaObj = new jsSHA("SHA-512", "TEXT");
+
+                var checkPwd = checkBeforeSubmitting(pwd);
+
+                if (checkPwd.hash) {
+                    shaObj.update(checkPwd.pwd);
+                    $('#pwdIdTag').val(shaObj.getHash("HEX"));
+                    $('#pwdconfirmIdTag').val(shaObj.getHash("HEX"));
+                    //console.log(shaObj.getHash("HEX"));
+                    document.privatespacelogin.submit();
+                }
+                else {
+                    document.privatespacelogin.submit();
+                }
+            }
+
+        });
+    });
+
+    function checkBeforeSubmitting(pwd) {
+        var whatToDo = {};
+        whatToDo.hash = true;
+        //trim string with a regex
+        pwd = pwd.replace(/^\s+|\s+$/gm, '');
+
+        whatToDo.pwd = pwd;
+
+        if (pwd.length < 5) {
+            whatToDo.hash = false;
+        }
+
+
+        return whatToDo;
+
+    }
+
+
+</script>

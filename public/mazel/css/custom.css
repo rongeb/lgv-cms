@@ -1,0 +1,61 @@
+.nf-col-3 .nf-item, .nf-col-3 .grid-sizer {
+
+    width: 30.3333%;
+    min-height: 1px;
+    margin-right: 1%;
+    margin-top: 1%;
+}
+
+.page-icon-top {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    margin: 0;
+}
+
+.dvc-airbnb-img {
+    cursor: pointer;
+}
+
+/* The Modal (background) */
+.dvc-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.dvc-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.dvc-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.dvc-close:hover,
+.dvc-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#dvc-footer-item {
+    border:none;
+    background-color: #f7f7f7;
+}

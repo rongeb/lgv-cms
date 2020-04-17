@@ -1,0 +1,95 @@
+<?php
+// module/Album/view/album/album/edit.phtml:
+$title = $this->translate('Modifier la rubrique');
+$this->headTitle($title);
+?>
+<style>
+    
+
+    div input[type="submit"], #submitbutton, #metasubmitbutton{
+        width:80px;
+        height:40px;
+    }
+    form ul{
+        display: none;
+        
+    }
+    form label{
+        width:200px;
+        
+    }
+    .tdCenterText td{
+        text-align: center;
+        
+    }
+
+
+</style>
+<script type="text/javascript">
+    
+    //var rows = [<?php /*
+     $jsonRows='';
+     $count=0;
+     foreach ($metas as $meta){
+        
+        $jsonRows .= '{';
+        $jsonRows.="Clé:'".$this->escapeHtml($meta->getMetakey())."',";
+        $jsonRows.="Valeur:'".$this->escapeHtml($meta->getMetavalue())."',";
+        $jsonRows.='Action:\'<button class="metabtn" data-rubriqueid="'.$this->id.'"data-btn="modifier" data-url="'.$this->url('rubrique', array('action' => 'updatemetaajax', 'id' => $meta->getMetaid())).
+        '">Modifier</button>&nbsp;&nbsp;/&nbsp;'.
+                    '<button class="metabtn" data-rubriqueid="'.$this->id.'" data-btn="supprimer" data-url="'.$this->url('rubrique', array('action' => 'deletemetaajax', 'id' => $meta->getMetaid())).
+        '">Supprimer</button>\'';
+        
+        $count++;
+        
+        if(count($metas)>$count){
+           $jsonRows .= '},'; 
+        }
+        else{
+           $jsonRows .= '}';  
+        }
+    }
+    
+    echo $jsonRows;
+    */
+    ?>//];
+    
+</script>
+
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+        
+        foreach($value as $message){
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}
+?>
+    
+<?php
+$form = $this->form;
+$metaForm = $this->metaform;
+$form->setAttribute('action', $this->url(
+	'privatespace', array(
+		'action' => 'edit',
+		'id' => $this->id,)
+	));
+	
+	$form->prepare();
+	
+	echo $this->form()->openTag($form);
+	echo $this->formHidden($form->get('id'));
+	echo $this->formRow($form->get('name'));
+        echo $this->formSubmit($form->get('submit'));
+	echo $this->form()->closeTag();
+       
+        echo '<div>&nbsp;</div>';
+?>
+
+             
+        

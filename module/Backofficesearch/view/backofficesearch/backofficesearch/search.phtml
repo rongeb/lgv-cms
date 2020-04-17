@@ -1,0 +1,121 @@
+<?php
+$title = $this->translate('Rechercher une page par mot clé');
+$this->headTitle($title);
+?>
+
+<style>
+    div label {
+        width: 150px;
+    }
+
+    div input[type="button"], #submitbutton {
+        width: 80px;
+        height: 40px;
+    }
+
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#submitbutton').on('click', function () {
+            getPages();
+        });
+
+    });
+
+    function getPages() {
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url('Backofficesearch', array('action' => 'getmatchingpages')); ?>',
+            data: '{"search":"' + $('#searchByKeywords').val() + '"}',
+            contentType: "application/json",
+            success: function (data) {
+                //console.log(data);
+                displayResults(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function displayResults(data) {
+        var resultsBody = '';
+        var displayPublicPageUrl = "<?php echo $this->url('Sitepublic', array('action' => 'displaypublicpage'));?>";
+        var displayPrivatePageUrl = "<?php echo $this->url('siteprivate', array('action' => 'displayprivatepage'));?>";
+        var displayPageArrangementUrl = "<?php echo $this->url('Pagearrangement', array('action' => 'showpagecontents'));?>";
+        var displayContentEditUrl = "<?php echo $this->url('Contenu', array('action' => 'edit'));?>";
+        var displayLinkEditUrl = "<?php echo $this->url('Linktocontenu', array('action' => 'edit'));?>";
+        if (data !== 'undefined'
+            && data !== null
+            && data['results'] !== 'undefined'
+            && data['results'] !== null
+            && data['results'] instanceof Array
+            && data['results'].length > 0) {
+            console.log('processing');
+            resultsBody += '<div style="width:80%; margin:0 auto;"><div style="text-align:center;"><h3><?php echo $this->translate('Résultats de la recherche'); ?></h3></div>';
+            for (var i = 0; i < data['results'].length; i++) {
+                var pagename = data['results'][i]['pagefilename'];
+                var filename = pagename.split('.')[0];
+                resultsBody += '<div style="float:left;width:60%; margin-left: 5%">';
+                console.log(data['results'][i]);
+                if (data['results'][i]['pagescope'] === 'public') {
+                    resultsBody += '<span><a href="' + displayPublicPageUrl + '/' + 'displaypublicpage/' + filename + '" target="_blank">&nbsp;' + pagename + ' / ' + data['results'][i]['pagetitle'] + '</a>&nbsp;&nbsp;-&nbsp;&nbsp;</span>';
+                } else {
+                    resultsBody += '<span><a href="' + displayPrivatePageUrl + '/' + filename + '" target="_blank">&nbsp;' + pagename + ' / ' + data['results'][i]['pagetitle'] + '</a>&nbsp;&nbsp;-&nbsp;&nbsp;</span>'
+                }if(data['results'][i]['contentid'] !== null) {
+                    resultsBody += '<span><a href="' + displayContentEditUrl + '/' + data['results'][i]['contentid'] + '" target="_blank">&nbsp;<?php echo $this->translate('Editer le contenu'); ?></a>&nbsp;&nbsp;-&nbsp;&nbsp;</span>';
+                } else if(data['results'][i]['linkid'] !== null) {
+                    resultsBody += '<span><a href="' + displayLinkEditUrl + '/' + data['results'][i]['linkid'] + '" target="_blank">&nbsp;&nbsp;<?php echo $this->translate('Editer le lien'); ?></a></div>';
+                }
+                resultsBody += '<span><a href="'+displayPageArrangementUrl+'/'+data['results'][i]['pageid']+'" target="_blank"><?php echo $this->translate('Voir la disposition de la page'); ?></a></span>';
+                resultsBody += '<div style="margin-left: 20px;">' + data['results'][i]['sectiontitle'] + '</div>';
+                resultsBody += '<div style="margin-left: 40px;">' + data['results'][i]['contenttitle'] + '</div>';
+                var htmlContent = data['results'][i]['contenthtml'];
+                var threeDots = '';
+                if (htmlContent.length > 100) {
+                    threeDots = '...';
+                }
+                resultsBody += '<div style="margin-left: 40px;">' + data['results'][i]['contenthtml'].substr(0, 100) + threeDots + '</div>';
+                resultsBody += '<div>&nbsp;<?php echo $this->translate('terme(s) trouvé(s)');?>&nbsp;[&nbsp;';
+                for (var j = 0; j < data['results'][i]['occurences'].length; j++) {
+                    resultsBody += data['results'][i]['occurences'][j] + '&nbsp;';
+                }
+                resultsBody += ']</div>';
+                resultsBody += '<hr>';
+                resultsBody += '</div>';
+                resultsBody += '<br>';
+
+            }
+            resultsBody += '</div>';
+            $('#resultsContainer').html(resultsBody);
+
+        } else {
+
+        }
+
+    }
+
+</script>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<div>
+    <form>
+        <label for="searchByKeywords">
+            <input type="text" name="searchByKeywords" id="searchByKeywords"
+                   placeholder="<?php echo $this->translate('Chaque mot est séparé par un espace') ?>"/>
+        </label>
+        <input type="button" id="submitbutton" value="<?php echo $this->translate('Chercher') ?>"/>
+    </form>
+    <div id="resultsContainer">
+
+    </div>
+</div>
+<?php
+
+
+?>
+
+	

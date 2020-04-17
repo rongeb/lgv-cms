@@ -1,0 +1,40 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title =  $this->translate('Ajouter une image à la bibliothèque');
+$this->headTitle($title);
+?>
+<style>
+div input[type="submit"]{
+	width:80px;
+	height:25px;
+}
+
+</style>
+
+<h1><?php echo $this->escapeHtml($title); 
+    
+?></h1>
+<div><?php echo $this->translate('Le fichier doit avoir l\'extension') ?> 'jpg', 'jpeg', 'png', 'bmp', 'doc', 'docx', 'rtf', 'txt', 'xls', 'xlsx', 
+                    'ppt', 'pptx', 'pdf', 'epub', 'odt', 'ods', 'mp4', 'mkv', 'ogv', 'mp3', 'wav', 'ogg', 'gz', 'zip', 'tar'</div><br>
+
+<?php
+	$form = $this->form;
+	$form->setAttribute('action', $this->url('Fichiers', array('action' => 'add')));
+	if($error!="no error"){
+		echo '<div style="color:red;">'.$error.'</div>';
+	}
+	
+	$form->prepare();
+	
+	echo $this->form()->openTag($form);
+	echo $this->formHidden($form->get('id'));
+	echo '<div>'.$this->translate('Courte description').'</div>';
+	echo $this->formRow($form->get('libelle'));
+        echo '<div>'.$this->translate('Meta data').'</div>';
+	echo $this->formRow($form->get('metadata'));
+	echo '<div>'.$this->translate('Ajouter un fichier').'</div>';
+	echo $this->formFile($form->get('newfichier'));
+	echo '<br><br>';
+	echo '<div>'.$this->formSubmit($form->get('submit')).'</div>';
+	
+	echo $this->form()->closeTag();

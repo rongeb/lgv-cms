@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/module/Blog/src" isTestSource="false" packagePrefix="Blog\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/MyAcl/src" isTestSource="false" packagePrefix="MyAcl\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Loginmgmt/src" isTestSource="false" packagePrefix="Loginmgmt\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Pagews/src" isTestSource="false" packagePrefix="Pagews\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Login/src" isTestSource="false" packagePrefix="Login\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Pagearrangement/src" isTestSource="false" packagePrefix="Pagearrangement\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Application/src" isTestSource="false" packagePrefix="Application\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Fichiers/src" isTestSource="false" packagePrefix="Fichiers\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Sousrubrique/src" isTestSource="false" packagePrefix="Sousrubrique\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Uploadmgmt/src" isTestSource="false" packagePrefix="Uploadmgmt\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Commentaire/src" isTestSource="false" packagePrefix="Commentaire\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Message/src" isTestSource="false" packagePrefix="Message\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Blogcontent/src" isTestSource="false" packagePrefix="Blogcontent\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Privatespacelogin/src" isTestSource="false" packagePrefix="Privatespacelogin\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Searchws/src" isTestSource="false" packagePrefix="Searchws\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Publishing/src" isTestSource="false" packagePrefix="Publishing\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Rubrique/src" isTestSource="false" packagePrefix="Rubrique\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Sitepublic/src" isTestSource="false" packagePrefix="Sitepublic\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Linktocontenu/src" isTestSource="false" packagePrefix="Linktocontenu\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Mapcontent/src" isTestSource="false" packagePrefix="Mapcontent\" />
+      <sourceFolder url="file://$MODULE_DIR$/vendor/ExtLib/library" isTestSource="false" packagePrefix="ExtLib\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Backofficesearch/src" isTestSource="false" packagePrefix="Backofficesearch\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Galerie/src" isTestSource="false" packagePrefix="Galerie\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Htmltemplate/src" isTestSource="false" packagePrefix="Htmltemplate\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Contenu/src" isTestSource="false" packagePrefix="Contenu\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Mobilews/src" isTestSource="false" packagePrefix="Mobilews\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Siteprivate/src" isTestSource="false" packagePrefix="Siteprivate\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Privatespace/src" isTestSource="false" packagePrefix="Privatespace\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ExtLib/library" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/container-interop/container-interop" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/http-interop/http-middleware" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpspec/prophecy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-code-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-file-iterator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-token-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/simple-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/comparator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/diff" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/environment" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/object-enumerator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/object-reflector" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/resource-operations" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/true/punycode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-authentication" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-barcode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-captcha" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-code" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-component-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-config" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-console" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-crypt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-db" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-debug" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-di" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-diactoros" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-dom" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-escaper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-eventmanager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-feed" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-file" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-filter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-form" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-http" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-hydrator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-i18n" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-i18n-resources" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-inputfilter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-json" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-json-server" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-loader" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-log" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-math" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-memory" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mime" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-modulemanager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc-console" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc-i18n" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc-plugin-fileprg" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc-plugin-flashmessenger" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc-plugin-identity" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc-plugin-prg" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-navigation" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-paginator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-permissions-acl" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-permissions-rbac" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-progressbar" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-psr7bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-router" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-serializer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-server" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-servicemanager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-servicemanager-di" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-session" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-soap" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-stdlib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-stratigility" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-tag" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-test" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-text" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-uri" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-view" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-xml2json" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-xmlrpc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zendxml" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

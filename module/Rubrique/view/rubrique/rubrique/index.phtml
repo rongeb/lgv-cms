@@ -1,0 +1,76 @@
+<?php
+// module/Rubrique/view/rubrique/rubrique/index.phtml:
+$title = $this->translate('Mes rubriques');
+$this->headTitle($title);
+//echo $session->test;
+?>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+    $("#tableSort").dataTable({
+        language: {
+                processing: "<?php echo $this->translate('Traitement en cours...'); ?>",
+                search: "<?php echo $this->translate('Rechercher'); ?>&nbsp; ",
+                lengthMenu: "<?php echo $this->translate('Afficher') . '_MENU_ ' . $this->translate('&eacute;l&eacute;ments'); ?>",
+                info: "<?php echo $this->translate('Affichage de l\'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments') ?>",
+                infoEmpty: "<?php echo $this->translate('Affichage de l\'&eacute;lement') . ' 0 &agrave; 0 ' . $this->translate('sur') . ' 0 ' . $this->translate('&eacute;l&eacute;ments') ?>",
+                infoFiltered: "(<?php echo $this->translate('filtr&eacute; de ') . '_MAX_ ' . $this->translate('&eacute;l&eacute;ments au total'); ?>)",
+                infoPostFix: "",
+                loadingRecords: "<?php echo $this->translate('Chargement en cours'); ?>...",
+                zeroRecords: "<?php echo $this->translate('Aucun &eacute;l&eacute;ment &agrave; afficher'); ?>",
+                emptyTable: "<?php echo $this->translate('Aucune donnée disponible dans le tableau'); ?>",
+                paginate: {
+                    first: "<?php echo $this->translate('Premier'); ?>",
+                    previous: "<?php echo $this->translate('Pr&eacute;c&eacute;dent') ?>",
+                    next: "<?php echo $this->translate('Suivant') ?>",
+                    last: "<?php echo $this->translate('Dernier') ?>"
+                },
+                aria: {
+                    sortAscending: ": <?php echo $this->translate('activer pour trier la colonne par ordre croissant'); ?>",
+                    sortDescending: ": <?php echo $this->translate('activer pour trier la colonne par ordre décroissant'); ?>"
+                }
+        },
+        aoColumnDefs: [
+            ],
+        order: []
+    
+    });
+});
+</script>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<div>&nbsp;</div>
+<p><a class="btn btn-info" href="<?php echo $this->url('rubrique', array(
+    'action' => 'add'));
+?>"><?php echo $this->translate('Ajouter une rubrique'); ?></a></p>
+<div>&nbsp;</div>
+<hr>
+
+<table class="tablesorter table table-bordered table-striped hasFilters" id="tableSort" role="grid">
+    <thead>
+        <tr>
+            <th class="thheader" style="cursor:pointer;text-align: center;" align="center"><?php echo $this->translate('Libellé'); ?></th>
+            <th class="thheader" style="cursor:pointer;text-align: center;" align="center"><?php echo $this->translate('Position'); ?></th>
+            <th class="thheader" style="cursor:pointer;text-align: center;" align="center"><?php echo $this->translate('Espace'); ?></th>
+            <th class="thheader" style="text-align: center;"><?php echo $this->translate('Action'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+<?php 
+    foreach ($rubriques as $rubrique) : ?>
+
+            <tr>
+                <td style="text-align: center;"><?php echo $this->escapeHtml($rubrique->getLibelle()); ?></td>
+                <td style="text-align: center;"><?php echo $this->escapeHtml($rubrique->getRang()); ?></td>
+                <td style="text-align: center;"><?php echo $this->escapeHtml($this->translate($rubrique->getScope())); ?></td>
+                <td style="text-align: center;">
+                    <a href="<?php echo $this->url('rubrique', array('action' => 'edit', 'id' => $rubrique->getId()));
+    ?>"><?php echo $this->translate('Modifier'); ?></a>
+                    &nbsp;&nbsp;/&nbsp;
+                    <a href="<?php echo $this->url('rubrique', array('action' => 'delete', 'id' => $rubrique->getId()));
+    ?>"><?php echo $this->translate('Supprimer'); ?></a>
+                </td>
+            </tr>
+        
+<?php endforeach; ?>
+    </tbody>
+</table>

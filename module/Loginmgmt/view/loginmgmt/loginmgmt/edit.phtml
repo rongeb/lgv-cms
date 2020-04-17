@@ -1,0 +1,123 @@
+<?php
+// module/Album/view/album/album/edit.phtml:
+$title = $this->translate('Modifier le login');
+$this->headTitle($title);
+?>
+<style>
+    div label{
+        width:150px;
+    }
+
+    div input[type="submit"], #submitbutton, #metasubmitbutton{
+        width:80px;
+        height:40px;
+    }
+    form ul{
+        display: none;
+        
+    }
+    .tdCenterText td{
+        text-align: center;
+        
+    }
+
+
+</style>
+
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+        
+        foreach($value as $message){
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}
+?>
+    
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+	'loginmgmt', array(
+		'action' => 'edit',
+		'id' => $this->id,)
+	));
+	
+	$form->prepare();
+	
+	echo $this->form()->openTag($form);
+	echo $this->formHidden($form->get('id'));
+	echo $this->formRow($form->get('name'));
+        echo '<br>'.$this->translate('Si aucun mot de passe n\'est saisi alors le mot de passe actuel est conservé');
+        echo '<br>'.$this->translate('Le nouveau mot de passe doit avoir 5 caractères');
+        echo $this->formRow($form->get('pwd'));
+        echo '<br>'.'<br>'.$this->formSelect($form->get('roleList'));
+        echo '<br>'.'<br>'.$this->formButton($form->get('submitbutton'));
+        
+        echo $this->form()->closeTag();
+        
+        echo '<div id="pwdhidden" style="display:none">'.$pwd.'</div>';
+        
+?>   
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#submitbutton').on('click', function(){
+           //hash password before submiting 
+           var shaObj = new jsSHA("SHA-512", "TEXT");
+           
+           var checkPwd = checkBeforeSubmitting($('#pwdIdTag').val());
+           
+            //new password but length is less than 5
+            if(!checkPwd.hash && !checkPwd.noPwd){
+                $('#pwdIdTag').val(checkPwd.pwd);
+                document.loginmgmt.submit();
+            }
+            //no password typed
+            else if(!checkPwd.hash && checkPwd.noPwd){
+                $('#pwdIdTag').val($('#pwdhidden').text());
+                document.loginmgmt.submit();
+            }
+            //new password
+            else if(checkPwd.hash && !checkPwd.noPwd){
+                shaObj.update(checkPwd.pwd);
+                $('#pwdIdTag').val(shaObj.getHash("HEX"));
+                //console.log(shaObj.getHash("HEX"));
+                document.loginmgmt.submit();
+            }
+            
+       
+        });
+    });
+    
+    function checkBeforeSubmitting(pwd){
+        var whatToDo = {};
+        whatToDo.hash = true;
+        whatToDo.noPwd = true;
+        
+        //trim string with a regex
+        pwd = pwd.replace(/^\s+|\s+$/gm,'');
+        
+        whatToDo.pwd = pwd;
+        
+        if(pwd.length < 5 && pwd.length != 0){
+            whatToDo.hash = false;
+            whatToDo.noPwd = false;
+        }
+        else if(pwd.length == 0){
+            whatToDo.hash = false;
+            whatToDo.noPwd = true;
+        }
+        else{
+            whatToDo.hash = true;
+            whatToDo.noPwd = false;
+        }
+        
+        return whatToDo;
+        
+    }
+</script>
+        

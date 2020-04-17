@@ -1,0 +1,47 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title = $this->translate('Ajouter un espace privé');
+$this->headTitle($title);
+?>
+<style>
+    div label{
+        width:150px;
+    }
+
+    div input[type="submit"], #submitbutton{
+        width:80px;
+        height:40px;
+    }
+    form ul{
+        display: none;
+        
+    }
+
+
+</style>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+        
+        foreach($value as $message){
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}
+?>
+    
+<?php
+	$form = $this->form;
+	$form->setAttribute('action', $this->url('privatespace', array('action' => 'add')));
+	
+	$form->prepare();
+	
+	echo $this->form()->openTag($form);
+	echo $this->formHidden($form->get('id'));
+	echo $this->formRow($form->get('name'));
+        echo $this->formSubmit($form->get('submit'));
+	echo $this->form()->closeTag();

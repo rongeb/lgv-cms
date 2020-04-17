@@ -1,0 +1,24 @@
+<?php
+// module/Album/view/sousrubrique/sousrubrique/delete.phtml:
+$title = $this->translate("Supprimer un commentaire");
+$this->headTitle($title);
+?>
+<?php //print_r($sousrubrique); ?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p><?php echo $this->translate('&Ecirc;tes-vous s&ucirc;r de vouloir supprimer ce commentaire').' '.$this->escapeHtml($commentaire->getRow1()).' '
+        .$this->escapeHtml($commentaire->getRow2()).' '.$this->escapeHtml($commentaire->getRow3()); ?>'?
+</p>
+<?php
+	$url = $this->url('Commentaire', array(
+		'action' => 'delete',
+		'id' => $this->id,
+	));
+?>
+
+<form action="<?php echo $url; ?>" method="post">
+	<div>
+		<input type="hidden" name="id" value="<?php echo (int) $commentaire->getId(); ?>" />
+		<input type="submit" name="del" value="<?php echo $this->translate('Oui'); ?>" />
+		<input type="submit" name="del" value="<?php echo $this->translate('Non'); ?>" />
+	</div>
+</form>

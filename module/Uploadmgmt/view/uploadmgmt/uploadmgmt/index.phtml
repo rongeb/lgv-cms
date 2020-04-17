@@ -1,0 +1,298 @@
+<?php
+$title = ($this->translate('Fichiers en attente de validation'));
+$this->headTitle($title);
+
+?>
+<style>
+
+    .modal-body-custom {
+        max-height:650px;
+    }
+
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#tableSort").dataTable({
+            language: {
+                processing: "<?php echo $this->translate('Traitement en cours...'); ?>",
+                search: "<?php echo $this->translate('Rechercher'); ?>&nbsp; ",
+                lengthMenu: "<?php echo $this->translate('Afficher') . '_MENU_ ' . $this->translate('&eacute;l&eacute;ments'); ?>",
+                info: "<?php echo $this->translate('Affichage de l\'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments') ?>",
+                infoEmpty: "<?php echo $this->translate('Affichage de l\'&eacute;lement') . ' 0 &agrave; 0 ' . $this->translate('sur') . ' 0 ' . $this->translate('&eacute;l&eacute;ments') ?>",
+                infoFiltered: "(<?php echo $this->translate('filtr&eacute; de ') . '_MAX_ ' . $this->translate('&eacute;l&eacute;ments au total'); ?>)",
+                infoPostFix: "",
+                loadingRecords: "<?php echo $this->translate('Chargement en cours'); ?>...",
+                zeroRecords: "<?php echo $this->translate('Aucun &eacute;l&eacute;ment &agrave; afficher'); ?>",
+                emptyTable: "<?php echo $this->translate('Aucune donnée disponible dans le tableau'); ?>",
+                paginate: {
+                    first: "<?php echo $this->translate('Premier'); ?>",
+                    previous: "<?php echo $this->translate('Pr&eacute;c&eacute;dent') ?>",
+                    next: "<?php echo $this->translate('Suivant') ?>",
+                    last: "<?php echo $this->translate('Dernier') ?>"
+                },
+                aria: {
+                    sortAscending: ": <?php echo $this->translate('activer pour trier la colonne par ordre croissant'); ?>",
+                    sortDescending: ": <?php echo $this->translate('activer pour trier la colonne par ordre décroissant'); ?>"
+                }
+            },
+            "aoColumnDefs": [
+                {'bSortable': false, 'aTargets': [0, 4]}
+            ]
+
+        });
+
+        $('#tableSort').on('draw.dt', function () {
+            $('span.modalConfirmation').off('click');
+            displayConfirmModal();
+        });
+
+        $('.btnBackToOrigImage').on("click", function () {
+            var photoId = $(this).attr("data-photoId");
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo $this->url('Uploadmgmt', array('action' => 'backtooriginal')); ?>/' + photoId,
+                dataType: 'json',
+                success: function (data) {
+
+                    //window.location.reload(true);
+                    if (data['status'] == "ok") {
+
+                        loadImages();
+                        $('#modalPhoto' + photoId).modal('hide');
+                        window.location.href = '<?php echo $this->url('Uploadmgmt', array('action' => 'index')); ?>';
+                    }
+                    else {
+                        $('#modalPhoto' + photoId).modal('hide');
+                        dialogInfo(false, "<?php echo $this->translate('Une erreur est survenue') ?><br>" + data['error'], "<?php echo $this->translate('Fermer'); ?>");
+                    }
+
+                },
+                error: function (error) {
+                    $('#modalPhoto' + photoId).modal('hide');
+                    dialogInfo(false, "<?php echo $this->translate('Une erreur est survenue'); ?>", "<?php echo $this->translate('Fermer') ?>");
+                }
+            });
+        });
+
+        $('.submitbutton').on("click", function () {
+            loadImages();
+            $(this).parent().parent().submit();
+        });
+
+        loadImages();
+
+        displayConfirmModal();
+
+    });
+
+    function displayConfirmModal() {
+        $('span.modalConfirmation').on('click', function () {
+            var that = $(this);
+            var message = "<?php echo $this->translate('&Ecirc;tes vous sûr d\'effacer le fichier ?'); ?>";
+            if (that.attr('data-message') === 'validate') {
+                message = "<?php echo $this->translate('&Ecirc;tes vous sûr de valider le fichier ?') ?>";
+            }
+            bootbox.dialog(message, [{
+                "label": "<?php echo $this->translate('Oui') ?>",
+                "class": "btn-success",
+                "callback": function () {
+
+                    var row = that.parent().parent().parent().prev();
+
+                    $.ajax({
+                        type: 'GET',
+                        url: that.attr('data-action'),
+                        success: function (response) {
+                            console.log(response);
+                            that.parent().parent().remove();
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+
+                    });
+                }
+            },
+                {
+                    "label": "<?php echo $this->translate('Non') ?>",
+                    "class": "btn-danger",
+                    "callback": function () {
+                        //alert('toto');
+                    }
+                }]);
+        });
+    }
+
+    function loadImages() {
+        $('.imgAsync').loadImages({
+            imgLoadedClb: function () {
+            },
+            allLoadedClb: function () {
+            },
+            imgErrorClb: function () {
+            },
+            noImgClb: function () {
+            },
+            dataAttr: 'src'
+        });
+    }
+
+    function dialogInfo(isOk, message, btnLabel) {
+
+        var classBtn = "btn-danger";
+        if (isOk) {
+            classBtn = "btn-success";
+        }
+        bootbox.dialog(message, [{
+            "label": btnLabel,
+            "class": classBtn,
+            "callback": function () {
+
+                window.location.href = '<?php echo $this->url('Uploadmgmt', array('action' => 'index')); ?>';
+            }
+        }]);
+        $('.bootbox').css('background-color', 'white');
+        $('.bootbox').css('width', '300px');
+        $('.bootbox').css('min-height', '120px');
+        $('.bootbox').css('margin', '0 auto');
+        $('.bootbox').css('margin-top', '250px');
+    }
+
+</script>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12"><h1 class="page-header"><?php echo $title; ?></h1></div>
+    </div>
+
+    <table class="tablesorter table table-bordered table-striped hasFilters" id="tableSort" role="grid">
+        <thead>
+        <tr>
+            <th width="1"><?php echo $this->translate('Fichier'); ?></th>
+            <th width="1"><?php echo $this->translate('Date'); ?> </th>
+            <th><?php echo $this->translate('Identifiant'); ?></th>
+            <th><?php echo $this->translate('Auteur'); ?></th>
+            <th><?php echo $this->translate('Commentaire'); ?></th>
+            <th><?php echo $this->translate('Type'); ?></th>
+            <th><?php echo $this->translate('Action'); ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($photos as $ph) :
+            //die('<pre>'.print_r($ph,true).'</pre>');
+            ?>
+            <tr>
+                <td><a href="<?php echo $this->basePath() . '/' . $ph['path'] . $ph['name']; ?>" target="_blank"><img width="170" height="168" class="img<?php echo $ph['id']; ?> imgAsync"
+                         data-src="<?php echo $this->basePath() . '/' . $ph['thumbnailpath'] . $ph['thumbnail'] . '?' . time(); ?>"
+                        <?php
+                        $imageTypes = ['jpg', 'jpeg', 'png', 'bmp', 'gif', 'svg'];
+                        if (in_array($ph['type'], $imageTypes)) {
+                            echo 'data-imagesrc="' . $this->basePath() . '/' . $ph['path'] . $ph['name'] . '?' . time() . '"';
+                        } ?>/></a>
+
+                </td>
+                <td><?php echo $ph['creationdate'] ?></td>
+                <td><?php echo $ph['userid']; ?></td>
+                <td><?php echo $ph['author']; ?></td>
+                <td><?php echo $ph['comment']; ?></td>
+                <td><?php echo $ph['type']; ?></td>
+                <td>
+                    <span data-target="#modalPhoto<?php echo $ph['id']; ?>" data-toggle="modal"
+                          class="actionPhotosIcon btn btn-warning btn-circle"><i
+                                class="fa fa-wrench">&nbsp;</i>&nbsp;</span>
+                    <span
+                            data-action="<?php echo $this->url('Uploadmgmt', array('action' => 'validatefile', 'id' => $ph['id'])); ?>"
+                            data-message="validate"
+                            class="actionPhotosIcon btn btn-success btn-circle modalConfirmation"><i
+                                class="fa fa-check">&nbsp;</i>&nbsp;</span>
+                    <span
+                            data-action="<?php echo $this->url('Uploadmgmt', array('action' => 'deletefile', 'id' => $ph['id'])); ?>"
+                            data-message="delete"
+                            class="actionPhotosIcon btn btn-danger btn-circle modalConfirmation"><i
+                                class="fa fa-times">&nbsp;</i>&nbsp;</span>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?php
+    foreach ($photos as $ph) :
+//die('<pre>'.print_r($ph,true).'</pre>');
+        ?>
+        <div class="modal hide fade" id="modalPhoto<?php echo $ph['id']; ?>" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><?php echo $this->translate('Fichier') ?></h4>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <img width="170" height="168" class="img<?php echo $ph['id']; ?> imgAsync"
+
+                    <?php
+                    $isImage = in_array($ph['type'], $imageTypes);
+                    if ($isImage) {
+                        echo 'data-imagesrc="' . $this->basePath() . '/uploadedfilesbank/' . $ph['name'] . '?' . time() . '"';
+                        echo 'data-src="' . $this->basePath() . '/uploadedfilesbank/thumbnails/' . $ph['thumbnail'] . '?' . time() . '"';
+                    } else {
+                        echo 'src="' . $this->basePath() . '/img/' . $ph['thumbnail'] . '"';
+                    } ?>>
+                <br>
+                <?php if ($isImage) { ?>
+                    <span data-img="img<?php echo $ph['id']; ?>"
+                          data-action="<?php echo $this->url('Uploadmgmt', array('action' => 'rotateright', 'id' => $ph['id'])); ?>"
+                          class="ajaxRotate btn btn-warning btn-circle"><i class="fa fa-rotate-right"></i></span>
+                    <span data-img="img<?php echo $ph['id']; ?>"
+                          data-action="<?php echo $this->url('Uploadmgmt', array('action' => 'rotateleft', 'id' => $ph['id'])); ?>"
+                          class="ajaxRotate btn btn-warning btn-circle"><i class="fa fa-rotate-left"></i></span>
+                <?php } ?>
+                <!-- FORM -->
+                <form method="post"
+                      action="<?php echo $this->url('Uploadmgmt', array('action' => 'update', 'id' => $ph['id'])); ?>"
+                      id="validatePhotoForm">
+                    <p><strong><?php echo $this->translate('Auteur') ?>
+                            :</strong> <?php echo $ph['author']; ?></p>
+                    <p><strong><?php echo $this->translate('Id utilisateur') ?>
+                            :</strong> <?php echo $ph['userid']; ?></p>
+                    <p><strong><?php echo $this->translate('Email') ?>
+                            :</strong> <?php echo $ph['email']; ?></p>
+                    <p><strong><?php echo $this->translate('Date') ?>e
+                            :</strong> <?php echo $ph['creationdate']; ?></p>
+                    <p><strong><?php echo $this->translate('GPS') ?> :</strong> <?php echo $ph['lat']; ?>
+                        / <?php echo $ph['lng']; ?></p>
+                    <p><strong><?php echo $this->translate('Commentaire') ?> :</strong><br>
+                        <textarea name="commenter" rows="8"
+                                  class="form-control"><?php echo $ph['comment']; ?></textarea>
+                    </p>
+
+                    <p style="float:right;width:24%;">
+                        <input type="hidden" name="status" value="<?php echo $ph['status']; ?>">
+                        <input type="button" name="submitbutton" value="Valider"
+                               style="font-size: 14px;width:100%;height:62px;"
+                               class="submitbutton btn btn-lg btn-success">
+                    </p>
+                    <?php if ($isImage) { ?>
+                        <button data-photoId="<?php echo $ph['id']; ?>"
+                                style="float:right; margin-right:3%;font-size: 14px;width:41%;height:62px;"
+                                type="button"
+                                class="btnBackToOrigImage btn btn-lg btn-default"><?php echo $this->translate('Retour &agrave'); ?>
+                            <br>
+                            <?php echo $this->translate("l'image d'origine"); ?>
+                        </button>
+                    <?php } ?>
+                    <button style="float:right; margin-right:3%;font-size: 14px;width:28%;height:62px;"
+                            type="button" class="btn btn-lg btn-default"
+                            data-dismiss="modal"><?php echo $this->translate('Fermer'); ?><br>
+                        <?php echo $this->translate('la fen&ecirc;tre'); ?>
+                    </button>
+                    <p class="clearboth"></p>
+                </form>
+
+                <p class="clearboth"></p>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
+</div>

@@ -1,0 +1,213 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title = $this->translate('Modifier un Commentaire');
+$this->headTitle($title);
+?>
+
+<style>
+    div label{
+        width:150px;
+    }
+
+    div input[type="submit"], #submitbutton{
+        width:80px;
+        height:40px;
+    }
+
+    #contentText{
+        width:700px;
+        height:350px;
+    }
+    
+    form ul{
+        display: none;
+        
+    }
+
+    input[name=timestamp]{
+        display: block;
+    }
+    
+</style>
+
+<script type="text/javascript" src="<?php echo $this->basePath() . '/js/tinymce/tinymce.min.js'; ?>"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        language: 'fr_FR',
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste",
+            "importcss"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright"
+        });
+    
+    function soumettreajout(){
+        
+        if (validajout()){
+            document.commentaireform.submit();
+        }
+    }
+
+
+    function validajout(){
+     
+        return true;
+    }
+    
+    function getContenus(id) {
+
+        var param = {};
+        param['rubid'] = id;
+        var contenuid = '<?php echo $contenuid ?>';
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url('Commentaire', array('action' => 'contenuajax')); ?>',
+            data: param,
+            //contentType: "application/json",
+            success: function (data) {
+               
+            $('#contenuSelectIdTag').html(function () {
+                    var content = "";
+                    content += "<option value=''>"+"<?php echo $this->translate('Sélectionner un contenu'); ?>"+"</option>";
+                    
+                    for (var i = 0; i < data['contenusList'].length; i++) {
+                        if(data['contenusList'][i]['contenu_id'] == contenuid){
+                            content += "<option selected value='" + data['contenusList'][i]['contenu_id'] + "'>" + data['contenusList'][i]['titre'] + "</option>";
+                        }
+                        else{
+                            content += "<option value='" + data['contenusList'][i]['contenu_id'] + "'>" + data['contenusList'][i]['titre'] + "</option>";
+                        }
+
+                    }
+
+                    return content;
+
+                });
+            },
+            error: function (error) {
+                //console.log(error);
+            }
+
+        });
+        
+    }
+    
+    $(document).ready(function () {
+        $('#submitbutton').on('click',function () {
+            //alert('submit');
+            soumettreajout();
+        });
+        
+        $('#rubriqueSelectIdTag').change(function () {
+
+            var sousrub = $('#rubriqueSelectIdTag').val();
+            //console.log(sousrub);
+            getContenus(sousrub);
+        });
+        
+        //select corresponding value
+        var arrayOptions = $('#rubriqueSelectIdTag').children('option');
+        var selectedRubrique = '<?php echo $rubriqueid; ?>';
+        for(var i=0; i<arrayOptions.length; i++){
+            //console.log(arrayOptions[i]);
+            var optionVal = $(arrayOptions[i]).val();
+            //console.log(optionVal);
+            if(optionVal == selectedRubrique){
+                //console.log('OK');
+                $(arrayOptions[i]).attr("selected","selected");
+                getContenus(optionVal);
+            }    
+        }
+        
+        var commentStatusArray = $('#statusSelectIdTag').children('option');
+        var selectedStatus = '<?php echo $status;?>';
+        for(var i=0; i<commentStatusArray.length; i++){
+            //console.log(commentStatusArray[i]);
+            var optionVal = $(commentStatusArray[i]).val();
+            //console.log(optionVal);
+            if(optionVal == selectedStatus){
+                //console.log('OK');
+                $(commentStatusArray[i]).attr("selected","selected");
+                
+            }    
+        }
+        
+        var typeListArray = $('#typeSelectIdTag').children('option');
+        var selectedType = '<?php echo $type;?>';
+        for(var i=0; i<typeListArray.length; i++){
+            //console.log(commentStatusArray[i]);
+            var optionVal = $(typeListArray[i]).val();
+            //console.log(optionVal);
+            if(optionVal == selectedType){
+                //console.log('OK');
+                $(typeListArray[i]).attr("selected","selected");
+            }    
+        }
+
+        $('.form_datetime').datetimepicker({
+            //language:  'fr',
+            //AAAA-MM-JJ HH:MM:SS
+            format:"yyyy-mm-dd hh:ii:ss",
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+        });
+    });
+    
+</script>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('Commentaire', array('action' => 'edit')));
+
+$form->prepare();
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+        
+        foreach($value as $commentaire){
+            //print_r($error);
+            echo '<div style="color:red;">' . $commentaire . '</div>';
+        }
+    }
+}
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo '<div>' . $this->formRow($form->get('row1')) . '</div>';
+echo '<div>' . $this->formRow($form->get('row2')) . '</div>';
+echo '<div>' . $this->formRow($form->get('row3')) . '</div>';
+echo '<div>' . $this->formRow($form->get('row4')) . '</div>';
+echo '<div>' . $this->formRow($form->get('rubriquesList')) . '</div>';
+echo '<div>' . $this->formRow($form->get('contenusList')) . '</div>';
+echo '<div>' . $this->formRow($form->get('statusList')) . '</div>';
+//echo '<div>' . $this->formRow($form->get('typeList')) . '</div>';
+
+echo '<div class="control-group">';
+echo '<div class="controls input-append date form_datetime" data-date="" data-link-field="dtp_input1">';
+echo '<div>' . $this->formRow($form->get('timestamp')) . '</div>';
+echo '<span class="add-on"><i class="icon-remove"></i></span>';
+echo '<span class="add-on"><i class="icon-th"></i></span>';
+echo '</div>';
+
+echo '<input type="hidden" id="dtp_input1" value="" /><br/>';
+echo '</div>';
+
+//echo '<div>' . $this->formRow($form->get('position')) . '</div>';
+echo '<div id="contentText"><div>'.$this->translate('Contenu du commentaire').'</div>' . $this->formTextarea($form->get('msg')) . '</div>';
+echo '<div>' . $this->formButton($form->get('submitbutton')) . '</div>';
+echo $this->form()->closeTag();
+echo '<div>&nbsp;</div>';
+
+
+//echo "Zend engine version: " . zend_version();
+//print_r($fichiers);
+	

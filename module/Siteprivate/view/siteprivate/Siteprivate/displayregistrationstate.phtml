@@ -1,0 +1,57 @@
+<?php
+// module/Rubrique/view/sousrubrique/sousrubrique/index.phtml:
+$title = $this->translate('Votre inscription');
+//$this->headTitle($title);
+?>
+<style>
+
+    #loginContainer{
+        //position: relative;
+        margin: 0 auto;
+        width:400px;
+
+    }
+    #loginTitle{
+        text-align: center;
+    }
+    
+</style>
+<h2 id="loginTitle"><?php echo $title; ?></h2>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var msgType = "<?php echo $msg?>";
+        var msg = "";
+        if(msgType == "forgottenpwd"){
+            msg = "<?php
+            echo '<div>' . $this->translate('Votre demande a été prise en compte')
+            .'<br>'.$this->translate('Un email vous a été envoy&eacute;')
+            .'<br>'.$this->translate('Cliquez sur le lien envoy&eacute; pour changer de mot de passe') . '</div>';
+            ?>";
+        } else if(msgType == "registration") {
+            msg= "<?php
+                echo '<div>' . $this->translate('Votre inscription a été prise en compte.')
+                .'<br>'.$this->translate('Elle reste soumise à validation.')
+                .'<br>'.$this->translate('Vous allez &ecirc;tre redirig&eacute; vers notre site public') . '</div>';
+            ?>";
+        }
+
+        $('#loginContainer').html(msg);
+
+        setTimeout(function(){
+            window.location = '<?php echo $this->url('Sitepublic', array('action' => 'displaypublicpage')); ?>';
+        }, 8000);
+    });
+   
+    
+</script>
+
+<div id="loginContainer">
+</div>
+
+
+
+
+
+

@@ -1,0 +1,208 @@
+<?php echo $this->doctype(); ?>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex">
+        <?php echo $this->headTitle(' ' . $this->translate('Anit CMS'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Le styles -->
+        <?php
+        //Problem with chrome and favicon that disturb session management : https://pritisolanki.wordpress.com/tag/zend-framework-session-problem-in-chrome/
+        $linkico = "http://localhost/anit-cms-for-zend-framework-3/public/atnightintrain.ico";
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $linkico))
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
+                ->prependStylesheet($this->basePath() . '/css/uploadmgmt.css')
+                //->prependStylesheet($this->basePath(). '/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css')
+                ->prependStylesheet($this->basePath() . '/css/style.css');
+        ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/jquery.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/bootstrap.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/bootbox/bootbox.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/datatable/media/js/jquery.dataTables.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/jssha/sha512.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/admin.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/jquery-image-loader-min.js'; ?>"></script>
+
+        <link href="<?php echo $this->basePath() . "/js/datatable/media/css/jquery.dataTables.min.css"; ?>" rel='stylesheet'/>
+
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <!--<div class="container">-->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    
+                    <div class="nav-collapse collapse">
+                        <!--<ul class="nav">-->
+                        <ul class="nav">
+                            <li><div style="color:white;background: url('<?php echo $this->basePath().'/img/atnightintrain32.jpg';?>') no-repeat scroll transparent; margin-left: 0;padding: 8px 5px 12px 40px;">&nbsp;</div></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:9px;;">
+                                    <?php echo $this->translate('Espace privé'); ?>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('privatespace') ?>"><?php echo $this->translate('Privatespace'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('privatespacelogin') ?>"><?php echo $this->translate('Privatespaceloginmgmt'); ?></a></li>
+                                </ul>
+                            <li>
+                            <li><a style="padding-left:9px;;" href="<?php echo $this->url('rubrique') ?>"><?php echo $this->translate('Rubriques'); ?></a></li>
+                            <li><a style="padding-left:9px;;" href="<?php echo $this->url('Sousrubrique') ?>"><?php echo $this->translate('Sous-Rubriques'); ?></a></li>
+                            <li class="dropdown">
+                                    <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <?php echo $this->translate('Contenus html'); ?>
+                                        <b class="caret"></b>
+                                    </a>
+                                <ul class="dropdown-menu">
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Contenu', array('action' => 'indexalltypes')) ?>"><?php echo $this->translate('Std, Blog, Gallery, Map'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Contenu') ?>"><?php echo $this->translate('Contenus'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Galerie') ?>"><?php echo $this->translate('Galeries'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Blogcontent') ?>"><?php echo $this->translate('Blog'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('mapcontent') ?>"><?php echo $this->translate('Carte GPS'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Linktocontenu') ?>"><?php echo $this->translate('Liens'); ?></a></li>
+                                    <li><a style="padding-left:9px;;"href="<?php echo $this->url('htmltemplate') ?>"><?php echo $this->translate('Modèles html'); ?></a></li>
+                                </ul>
+                            </li>
+                            <li><a style="padding-left:9px;;" href="<?php echo $this->url('Pagearrangement') ?>"><?php echo $this->translate('Disposition'); ?></a></li>
+                            <li class="dropdown nav-item">
+                                <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <?php echo $this->translate('Messages'); ?>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Message') ?>"><?php echo $this->translate('Messages'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Commentaire') ?>"><?php echo $this->translate('Commentaires'); ?></a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a style="padding-left:9px;;" href="<?php echo $this->url('Fichiers') ?>"><?php echo $this->translate('Fichiers'); ?></a></li>
+                            <li class="nav-item"><a style="padding-left:9px;;" href="<?php echo $this->url('Backofficesearch', array("action" => "search")); ?>"><?php echo $this->translate('Recherche'); ?></a></li>
+                            <li class="dropdown nav-item">
+                                    <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <?php echo $this->translate('Visualisation'); ?>
+                                        <b class="caret"></b>
+                                    </a>
+                                <ul class="dropdown-menu" id="pageVisualization">
+                                    
+                                </ul>
+                             </li>
+                            <li class="dropdown nav-item">
+                                <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <?php echo $this->translate('Fichiers utilisateurs'); ?>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Uploadmgmt') ?>"><?php echo $this->translate('&Agrave; valider'); ?></a></li>
+                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Uploadmgmt', array('action' => 'validatedfiles')) ?>"><?php echo $this->translate('Validés'); ?></a></li>
+                                </ul>
+                            </li>
+                            <?php
+                            $session = new \Zend\Session\Container('myacl');
+                            $role = $session->role;
+
+                            if (strcmp($role, 'admin') == 0) {
+                                echo '<li><a href="'. $this->url('publishing').'">'.$this->translate('Publication').'</a></li>';
+                                echo '<li><a href="' . $this->url('loginmgmt') . '">Login</a></li>';
+                            }
+                            ?>
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li><a style="padding-left:9px;;" id="logoutbtn" href="javascript:void(0)"><?php echo $this->translate('Déconnexion'); ?></a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+            </div>
+        </div>
+        <div class="container">
+<?php echo $this->content; ?>
+            <hr>
+            <footer>
+
+            </footer>
+        </div> <!-- /container -->
+<?php echo $this->inlineScript() ?>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var displayPublicPageUrl = "<?php echo $this->url('Sitepublic', array('action' => 'displaypublicpage'));?>";
+                var displayPrivatePageUrl = "<?php echo $this->url('siteprivate', array('action' => 'displayprivatepage'));?>";
+                var updatecontactinformation ="<?php echo $this->url('siteprivate', array('action' => 'updatecontactinformation'));?>";
+                $.ajax({
+                type: 'GET',
+                url: '<?php echo $this->url('pagews', array('action' => 'getallpages')); ?>',
+                //contentType: "application/json",
+                success: function (data) {
+                    var datalength = data['data'].length;
+                    //console.log(datalength);
+                    //console.log(data);
+                    var html = "";
+                    var page = "";
+                    //
+                    
+                    for(var i=0;i<datalength;i++){
+                        page = data['data'][i]["filename"];
+                        page = page.substring(0, page.length-6);
+                        //console.log(page);
+                        for (var j in data['data'][i]){
+                            if(j==="spaceId" && data['data'][i][j] >-1 && page == "updatecontactinformation"){
+                                html+='<li><a href="'+updatecontactinformation+'/'+page+'" target="_blank">'+data['data'][i]['libelle']+'</a></li>';
+                            }
+                            if(j==="spaceId" && data['data'][i][j] >-1 && page != "updatecontactinformation" ){
+                                html+='<li><a href="'+displayPrivatePageUrl+'/'+page+'" target="_blank">'+data['data'][i]['libelle']+'</a></li>';
+                            }
+                            else if(j==="spaceId" && data['data'][i][j] == -1){
+                                html+='<li><a href="'+displayPublicPageUrl+'/'+'displaypublicpage/'+page+'" target="_blank">'+data['data'][i]['libelle']+'</a></li>';
+                            }
+                        }
+                    }
+                    $('#pageVisualization').html(html);
+                },
+                error: function (error) {
+                   console.log(error);
+                }
+
+            });
+                
+            });
+
+            $('li a#logoutbtn').on('click', function () {
+                bootbox.dialog("<?php echo $this->translate("&Ecirc;tes vous sûr de vous déconnecter ?"); ?>", [{
+                        "label": "<?php echo $this->translate('Oui') ?>",
+                        "class": "btn-success",
+                        "callback": function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: '<?php echo $this->url('Login', array('action' => 'logout')) ?>',
+                                //data: param,
+                                //contentType: "application/json",
+                                success: function () {
+                                    window.location = "<?php echo $this->url('Login', array('action' => 'index')) ?>";
+                                },
+                                error: function (error) {
+                                    //console.log(error);
+                                }
+
+                            });
+                        }
+                    },
+                    {
+                        "label": "<?php echo $this->translate('Non') ?>",
+                        "class": "btn-danger",
+                        "callback": function () {
+                            //alert('toto');
+                        }
+                    }]);
+            });
+        </script>    
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title = $this->translate('Ajouter une nouvelle rubrique');
+$this->headTitle($title);
+?>
+    <style>
+        div label {
+            width: 150px;
+        }
+
+        div input[type="submit"], #submitbutton {
+            width: 80px;
+            height: 40px;
+        }
+
+        form ul {
+            display: none;
+
+        }
+
+        #spacesListId, #spaceLabel, #hasUpdateFormId, #hasUpdateFormLabel {
+            display: none;
+        }
+
+
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".scopeClass").on("change", function () {
+
+                if ($(this).val() == "private") {
+                    $('#spacesListId').css('display', 'block');
+                    $('#spaceLabel').css('display', 'block');
+                    $('#filenameId').css('display', 'block');
+                    $('label[for=filenameId]').css('display', 'block');
+                    $('#hasContactFormId').css('display', 'block');
+                    $('#hasMessageFormId').css('display', 'block');
+                    $('#hasUpdateFormId').css('display', 'block');
+                    $('#hasContactFormLabel').css('display', 'block');
+                    $('#hasMessageFormLabel').css('display', 'block');
+                    $('#hasUpdateFormLabel').css('display', 'block');
+                    $('#hasFileuploadFormLabel').css('display', 'block');
+                }
+                else if ($(this).val() == "public") {
+                    $('#spacesListId').css('display', 'none');
+                    $('#spaceLabel').css('display', 'none');
+                    $('#hasUpdateFormId').css('display', 'none');
+                    $('#hasUpdateFormLabel').css('display', 'none');
+                }
+            });
+        });
+
+    </script>
+
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+
+        foreach ($value as $message) {
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}
+?>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('rubrique', array('action' => 'add')));
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('libelle'));
+echo $this->formRow($form->get('rang'));
+echo '<div>' . $this->translate('Portée de la page') . '</div>' . $this->formSelect($form->get('scope'));
+echo '<div id="spaceLabel">' . $this->translate('Espace associée') . '</div>' . $this->formSelect($form->get('spaceId'));
+echo '<div id="hasContactFormLabel">' . $this->translate('Formulaire de contact') . '</div>' . $this->formSelect($form->get('contactForm'));
+echo '<div id="hasMessageFormLabel">' . $this->translate('Formulaire de message') . '</div>' . $this->formSelect($form->get('messageForm'));
+echo '<div id="hasUpdateFormLabel">' . $this->translate('Formulaire de mise à jour des informations') . '</div>' . $this->formSelect($form->get('updateForm'));
+echo '<div id="hasFileuploadFormLabel">' . $this->translate('Formulaire de chargement de fichier') . '</div>' . $this->formSelect($form->get('fileuploadForm'));
+echo $this->formRow($form->get('filename'));
+echo '<div>' . $this->formSubmit($form->get('submit')) . '</div>';
+echo $this->form()->closeTag();

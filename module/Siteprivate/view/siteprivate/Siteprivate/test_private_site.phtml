@@ -1,0 +1,372 @@
+<?php
+// module/Rubrique/view/rubrique/rubrique/index.phtml:
+$title = $this->translate('Mes espaces privés');
+$this->headTitle($title);
+//echo $session->test;
+?>
+<?php
+echo $this->doctype();
+foreach ($metas as $meta) {
+    $metaValue = $meta->getMetavalue();
+    $metaKey = $meta->getMetakey();
+    //$this->headMeta($metaValue, $metaKey,'name',array(),'SET');
+    echo $this->headMeta()->appendName($metaKey, $metaValue);
+}
+?>
+<style>
+    div.divcaptcha pre{
+        width:200px;
+        text-align: center;
+        font-size: 7px;
+        line-height: 7px;
+        padding:0px 9.5px 0px 9.5px;
+    }
+
+    div.divcaptcha legend{
+        width:200px;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        border: none;
+        display: block;
+        padding: 0;
+        margin-bottom: 0px;
+    }
+
+    div.mysweetinput{
+        display:none;
+    }
+    span{
+        width:150px;
+    }
+    div label{
+        width:150px;
+    }
+</style>
+<html>
+        <div class="container">
+            <!-- Contact Section -->
+            <section>
+                <div>
+                    <?php
+                    //$countSections = 0;
+                    $countContents = 0;
+                    foreach ($pageContents as $key => $value) {
+                        if (stripos($key, "page") > -1) {
+                            //Do nothing in this example
+                        } elseif (stripos($key, "section") > -1 && (int) $value->getRang() > -1) {
+                            //if position is below 0, it means the content won't be displayed
+                            echo '<hr><br>';
+                        } elseif (stripos($key, "content") > -1 && (int) $value->getRang() > -1) {
+                            //if position is below 0, it means the content won't be displayed
+                            if (strcmp($value->getType(), 'content') == 0) {
+                                $countContents++;
+                                //the contact form is always at the second place in this example
+                                if ($countContents == 2) {
+                                    ?>
+                                    <fieldset>
+                                        <h3><?php echo $this->translate('Nous contacter'); ?></h3>
+                                        <?php
+                                        $form = $this->contactForm;
+                                        $form->prepare();
+                                        echo $this->form()->openTag($form);
+                                        ?>
+                                        <label><?php echo $this->translate('Nom'); ?></label>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col-md-7 col-md-offset-0">
+                                                <?php echo $this->formText($form->get('contactnom')); ?>
+                                            </div>
+                                        </div>
+                                        <label><?php echo $this->translate('Entreprise'); ?></label>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col-md-7 col-md-offset-0">
+                                                <?php echo $this->formText($form->get('contactentreprise')); ?>
+                                            </div>
+                                        </div>
+                                        <label><?php echo $this->translate('Email'); ?></label>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col-md-7 col-md-offset-0">
+                                                <?php echo $this->formText($form->get('contactemail')); ?>
+                                            </div>
+                                        </div>
+
+                                        <label><?php echo $this->translate('Message'); ?></label>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col-md-11 col-md-offset-0">
+                                                <?php echo $this->formTextarea($form->get('contacttext')); ?>
+                                            </div>
+                                        </div>
+
+                                        <label><?php echo $this->translate('Vérification'); ?></label>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col-md-11 col-md-offset-0 divcaptcha">
+                                                <?php echo $this->formCaptcha($form->get('contactcaptcha')); ?>
+                                            </div>
+                                        </div>
+                                        <?php
+                                        echo $this->formHidden($form->get('contactprevent'));
+                                        echo '<div class="mysweetinput">' . $this->formText($form->get('contactsweethoney')) . '</div>';
+                                        ?>
+
+                                        <p><?php echo $this->formButton($form->get('submitbutton')); ?>&nbsp;&nbsp;&nbsp;<img id="contact-ajaxloader" src="<?php echo $this->basePath() . '/img/ajax-loader.gif'; ?>" style="display:none;"/></p>
+
+                                        <div id="contact-formerrormsg" class="row margin-bottom-20 col-md-11">
+
+                                        </div>
+                                        <?php echo $this->form()->closeTag(); ?>
+                                    </fieldset>
+                                    <?php
+                                } else {
+                                    echo $value->getTitre() . '<br>';
+                                    echo $value->getSousTitre() . '<br>';
+                                    echo $value->getContenuHtml();
+                                }
+                            } elseif (strcmp($value->getType(), 'gallery') == 0) {
+                                echo $value->getTitre() . '<br>';
+                                echo $value->getSousTitre() . '<br>';
+                                echo $value->getContenuHtml();
+                            } elseif (strcmp($value->getType(), 'blog') == 0) {
+                                echo $value->getTitre() . '<br>';
+                                echo $value->getSousTitre() . '<br>';
+                                echo $value->getContenuHtml();
+                            } elseif (strcmp($value->getType(), 'linktocontenu') == 0) {
+                                echo $value->getTitre() . '<br>';
+                                echo $value->getSousTitre() . '<br>';
+                                echo $value->getContenuHtml();
+                            }
+                        }
+                    }
+                    ?>
+
+                </div>
+            </section><hr>
+            <section>
+                <div id="mypage">
+
+                </div>
+            </section>
+
+            <footer>
+
+            </footer>
+        </div> <!-- /container -->
+<?php echo $this->inlineScript() ?>
+        <script type="text/javascript">
+
+            $('li a#logoutbtn').on('click', function () {
+                bootbox.dialog("<?php echo $this->translate("&Ecirc;tes vous sûr de vous déconnecter ?"); ?>", [{
+                        "label": "<?php echo $this->translate('Oui') ?>",
+                        "class": "btn-success",
+                        "callback": function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: '<?php echo $this->url('siteprivate', array('action' => 'logout')) ?>',
+                                //data: param,
+                                //contentType: "application/json",
+                                success: function () {
+                                    window.location = "<?php echo $this->url('Sitepublic', array('action' => 'index')) ?>";
+                                },
+                                error: function () {
+                                    //console.log(error);
+                                }
+
+                            });
+                        }
+                    },
+                    {
+                        "label": "<?php echo $this->translate('Non') ?>",
+                        "class": "btn-danger",
+                        "callback": function () {
+                            //alert('toto');
+                        }
+                    }]);
+            });
+            var contactFormMgmt = {
+                sendEmail: function sendEmail() {
+                    var displayMsg = this.displayAjaxMsg;
+                    var param = {};
+                    param['contactnom'] = document.contactform.contactnom.value;
+                    param['contactentreprise'] = document.contactform.contactentreprise.value;
+                    param['contactemail'] = document.contactform.contactemail.value;
+                    param['contacttext'] = document.contactform.contacttext.value;
+                    param['contactcaptcha'] = {};
+                    param['contactcaptcha']['input'] = $("#contactcaptchaid").val();
+                    param['contactcaptcha']['id'] = $("#contactcaptchaid-hidden").val();
+                    param['contactprevent'] = document.contactform.contactprevent.value;
+                    param['contactsweethoney'] = document.contactform.contactsweethoney.value;
+                    //console.log(param);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo $this->url('siteprivate', array('action' => 'contactajax')); ?>',
+                        data: param,
+                        //contentType: "application/json",
+                        success: function (data) {
+                            //console.log(data);
+                            displayMsg(data);
+                        },
+                        error: function (error) {
+                            //console.log(error);
+                        }
+
+                    });
+                },
+                submitcontactform: function submitcontactform() {
+
+                    if (this.isFormValid()) {
+                        this.sendEmail();
+                        //document.contactform.submit();
+                    }
+                    else {
+                        $('#contact-ajaxloader').css('display', 'none');
+                    }
+                },
+                isFormValid: function isFormValid() {
+
+                    var nom = document.contactform.contactnom.value;
+                    var emailaddress = document.contactform.contactemail.value;
+                    var message = document.contactform.contacttext.value;
+                    var verif = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+                    var counterror = 0;
+                    if ($.trim(nom) == "") {
+                        $('#contact-formerrormsg').append('<span style="color:red;">Vous devez saisir un nom</span><br/>');
+                        counterror++;
+                    }
+
+                    if ($.trim(emailaddress) == "") {
+                        $('#contact-formerrormsg').append('<span style="color:red;">Vous devez saisir une adresse courriel</span><br/>');
+                        counterror++;
+                    }
+
+                    if (verif.test(emailaddress) == false) {
+                        $('#contact-formerrormsg').append('<span style="color:red;">L\'adresse courriel est incorrect. Veuillez recommencer svp.</span><br/>');
+                        counterror++;
+                    }
+
+                    if ($.trim(message) == "") {
+                        $('#contact-formerrormsg').append('<span style="color:red;">Vous devez saisir un message</span><br/>');
+                        counterror++;
+                    }
+
+                    if (counterror > 0) {
+                        return false;
+                    }
+
+                    return true;
+                },
+                displayAjaxMsg: function displayAjaxMsg(data) {
+                    var result = "";
+                    //{"result":"failure","error":{"contactcaptcha":{"badCaptcha":"Captcha value is wrong"}}};
+                    for (var prop in data) {
+
+                        if (prop == "result") {
+
+                            result = data[prop];
+                            if (result == "ok") {
+                                document.contactform.contactnom.value = "";
+                                document.contactform.contactentreprise.value = "";
+                                document.contactform.contactemail.value = "";
+                                document.contactform.contacttext.value = "";
+                                $("#contactcaptchaid").val("");
+                                $('#contact-formerrormsg').html('<span style="color:white;">Votre message a été envoyé</span><br/>');
+                            }
+                        }
+                        else if (prop == "error") {
+                            for (var prop2 in data[prop]) {
+                                if (prop2 == "contactnom") {
+                                    document.contactform.contactnom.value = "";
+                                    $('#contact-formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie du nom</span><br/>');
+                                }
+                                else if (prop2 == "contactentreprise") {
+                                    document.contactform.contactentreprise.value = "";
+                                    $('#contact-formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie de l\'entreprise</span><br/>');
+                                }
+                                else if (prop2 == "contactemail") {
+                                    document.contactform.contactemail.value = "";
+                                    $('#contact-formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie de l\'email</span><br/>');
+                                }
+                                else if (prop2 == "contacttext") {
+                                    document.contactform.contacttext.value = "";
+                                    $('#contact-formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie du message</span><br/>');
+                                }
+                                else if (prop2 == "contactcaptcha") {
+                                    $("#contactcaptchaid").val("");
+                                    $('#contact-formerrormsg').append('<span style="color:red;">Veuillez vérifier la saisie du captcha</span><br/>');
+                                }
+                                else if (prop2 == "contactprevent") {
+                                    $('#contact-formerrormsg').append('<span style="color:red;">Veuillez rafraîchir la page et recommencer</span><br/>');
+                                }
+                            }
+                        }
+                    }
+
+                    $('#contact-ajaxloader').css('display', 'none');
+                }
+            }
+            //If you want to build your page with Javascript
+            var pageArragement = {
+                buildStructure: function buildStructure() {
+                    var page = <?php echo $pageContentsJSON; ?>;
+                    console.log(page);
+                    var countSections = 0;
+                    var html = "";
+                    for (var i in page) {
+                        //console.log(page[i]);
+                        if (i.indexOf("content") > -1) {
+
+                            if (page[i]["content_type"] == 'content' && page[i]["content_position"] > -1) {
+
+                            }
+                            else if (page[i]["content_type"] == 'gallery' && page[i]["content_position"] > -1) {
+
+                            }
+                            else if (page[i]["content_type"] == 'blog' && page[i]["content_position"] > -1) {
+
+                            }
+                            else if (page[i]["content_type"] == 'linktocontenu' && page[i]["content_position"] > -1) {
+
+                            }
+                        }
+                        else if (i.indexOf("section") > -1) {
+
+                            //first time
+                            if (countSections == 0) {
+                                //
+                                if (page[i]["section_position"] > -1) {
+                                }
+                            }
+                            else {
+
+
+                                if (page[i]["section_position"] > -1) {
+
+                                }
+
+                                countSections = 0;
+                            }
+                            countSections++;
+                        }
+                        else if (i.indexOf("page") > -1) {
+
+                        }
+                    }
+                    $("#mypage").html(html);
+                }
+            }
+
+            jQuery(document).ready(function () {
+
+                $('#submitbtn').click(function () {
+                    //alert('submit');
+                    $('#contact-ajaxloader').css('display', 'inline-block');
+                    $('#contact-formerrormsg').html('');
+                    contactFormMgmt.submitcontactform();
+                });
+
+                //pageArragement.buildStructure();
+            });
+
+
+        </script>
+    
+

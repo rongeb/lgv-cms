@@ -1,0 +1,129 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex">
+        <?php echo $this->headTitle(' ' . $this->translate('At night and in transportation'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Les styles -->
+        <?php
+        //Problem with chrome and favicon that disturb session management : https://pritisolanki.wordpress.com/tag/zend-framework-session-problem-in-chrome/
+        $linkico = "http://localhost:10088/mobiletools/public/atnightintrain.ico";
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $linkico))
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                ->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+        ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',)); ?>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/jquery.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/bootstrap.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/bootbox/bootbox.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/datatable/media/js/jquery.dataTables.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/jssha/sha512.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->basePath() . '/js/bootstrap-password/bootstrap-show-password.js'; ?>"></script>
+        <link href="<?php echo $this->basePath() . "/js/datatable/media/css/jquery.dataTables.min.css"; ?>" rel='stylesheet'/>
+    </head>
+    <body>
+        <?php if($this->navigation != null){ ?>
+        <div class="navbar navbar-inverse navbar-fixed-top" style="opacity:0.75">
+            <div class="navbar-inner">
+                <!--<div class="container">-->
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <div class="nav-collapse collapse">
+                    <!--<ul class="nav">-->
+                    <ul class="nav">
+                        <li><a class="brand" style="background: url('<?php echo $this->basePath() . '/img/atnightintrain32.jpg'; ?>') no-repeat scroll transparent; margin-left: 0;padding: 8px 5px 12px 40px;" href="<?php echo $this->url('Sitepublic') ?>"><?php echo $this->translate('Site public'); ?></a></li>
+                        <?php
+                        foreach ($this->navigation as $page) {
+                            //
+                            if (!(bool) $page['updateForm']) {
+                                $direction = str_replace(".phtml", "", $page['filename']);
+                                if(strcasecmp('index', $direction) != 0) {
+                                    echo '<li><a href="' . $this->url('siteprivate', array('action' => 'displayprivatepage', 'page' => $direction)) . '">' . $this->translate($page['libelle']) . '</a></li>';
+                                }
+                                else {
+                                    echo '<li><a href="' . $this->url('siteprivate', array('action' => 'displayprivatepage')) . '">' . $this->translate($page['libelle']) . '</a></li>';
+                                }
+                            } else {
+                                echo '<li><a href="' . $this->url('siteprivate', array('action' => 'updatecontactinformation')) . '">' . $this->translate($page['libelle']) . '</a></li>';
+                            }
+                        }
+                        ?>
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li><a id="logoutbtn" href="javascript:void(0)"><?php echo $this->translate('Déconnexion'); ?></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+
+            </div>
+        </div><!--/.nav-collapse -->
+        <?php } ?>
+        <div class="container">
+            <?php
+            echo $this->content;
+            ?>
+            <hr>
+            <footer>
+
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+        <script type="text/javascript">
+
+            $('li a#logoutbtn').on('click', function () {
+                bootbox.dialog("<?php echo $this->translate("&Ecirc;tes vous sûr de vous déconnecter ?"); ?>", [{
+                        "label": "<?php echo $this->translate('Oui') ?>",
+                        "class": "btn-success",
+                        "callback": function () {
+                            $.ajax({
+                                type: 'POST',
+                                url: '<?php echo $this->url('siteprivate', array('action' => 'logout')) ?>',
+                                //data: param,
+                                //contentType: "application/json",
+                                success: function () {
+                                    window.location = "<?php echo $this->url('Sitepublic', array('action' => 'displaypublicpage')) ?>";
+                                },
+                                error: function (error) {
+                                    //console.log(error);
+                                }
+
+                            });
+                        }
+                    },
+                    {
+                        "label": "<?php echo $this->translate('Non') ?>",
+                        "class": "btn-danger",
+                        "callback": function () {
+                            //alert('toto');
+                        }
+                    }]);
+            });
+
+            $(function () {
+                $('#pwdconfirmIdTag').password()
+                    .on('show.bs.password',function (e) {
+                    console.log('show');
+                }).on('hide.bs.password', function (e) {
+                    console.log('hide');
+                });
+
+                $('#pwdIdTag').password()
+                    .on('show.bs.password',function (e) {
+                        console.log('show');
+                    }).on('hide.bs.password', function (e) {
+                    console.log('hide');
+                });
+            });
+        </script>
+    </body>
+</html>

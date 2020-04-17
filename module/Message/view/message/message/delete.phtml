@@ -1,0 +1,24 @@
+<?php
+// module/Album/view/sousrubrique/sousrubrique/delete.phtml:
+$title = $this->translate("Supprimer un message");
+$this->headTitle($title);
+?>
+<?php //print_r($sousrubrique); ?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p><?php echo $this->translate('Etes-vous sûr de vouloir supprimer ce message').' \''. $this->escapeHtml($message->getRow1()).'\' '
+        .$this->escapeHtml($message->getRow2()).' '.$this->escapeHtml($message->getRow3()); ?>'?
+</p>
+<?php
+	$url = $this->url('Message', array(
+		'action' => 'delete',
+		'id' => $this->id,
+	));
+?>
+
+<form action="<?php echo $url; ?>" method="post">
+	<div>
+		<input type="hidden" name="id" value="<?php echo (int) $message->getId(); ?>" />
+		<input type="submit" name="del" value="<?php echo $this->translate('Oui'); ?>" />
+		<input type="submit" name="del" value="<?php echo $this->translate('Non'); ?>" />
+	</div>
+</form>

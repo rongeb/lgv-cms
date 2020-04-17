@@ -1,0 +1,285 @@
+/*
+ * Template Name: Unify - Responsive Bootstrap Template
+ * Description: Business, Corporate, Portfolio, Blog and One Page Theme.
+ * Version: 1.6
+ * Author: @htmlstream
+ * Website: http://htmlstream.com
+*/
+
+/*Import Google Font*/
+@import url(fontface.css);
+
+/*Import Global Compulsory CSS Files*/
+@import url(app.css);
+@import url(blocks.css);
+@import url(plugins.css);
+
+/*Import CSS Plugins*/
+@import url(plugins/animate.css);
+@import url(plugins/box-shadows.css);
+
+/*Import Footers*/
+@import url(footers/footer-v7.css);
+
+body {
+    width: 100%;
+    height: 100%;
+	color: #333; 
+	font-size: 13px;
+	line-height: 1.6;    
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #555;
+}
+
+p, 
+li,
+li a { 
+   color: #555;
+}
+
+a {
+   color: #72c02c;
+   text-decoration: none;  
+}
+
+a,
+a:focus, 
+a:hover, 
+a:active {
+   outline: 0 !important;
+}
+a:focus {
+  text-decoration: none;
+}
+a:hover {
+   color: #72c02c;
+   text-decoration: underline;
+}
+
+::selection {
+	color: #fff;
+	background: #72c02c;
+}
+
+/*Header
+------------------------------------*/
+/*Navbar Logo*/
+.navbar-brand {
+	font-size: 31px;
+	font-weight: 200;
+	line-height: 15px;
+	color: #fff !important;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-brand span {
+	color: #72c02c !important;
+}
+
+/*Navbar Toggle*/
+.navbar-default .navbar-toggle {
+	border: none;
+}
+
+.navbar-default .navbar-toggle:hover, 
+.navbar-default .navbar-toggle:focus {
+	background: none;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background: #fff;
+}
+
+.navbar-toggle .icon-bar {
+	height: 1px;
+	width: 25px;
+	font-size: 22px;
+	background: #fff;
+	margin-bottom: 7px;
+}
+
+.navbar-toggle .icon-bar:last-child {
+	margin-bottom: 0;
+}
+
+/*Navbar*/
+.navbar-default {
+	border-bottom: none;
+	background: rgba(0,0,0,0.4);
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #eee;
+	font-size: 12.5px;
+	text-transform: uppercase;
+}
+
+.navbar-default .navbar-nav > li > a:before {
+	left: -3px;
+	z-index: 2;
+	color: #eee;
+	font-size: 4px;
+    content: "\f10c";
+	margin-right: 6px;
+	position: absolute;
+    font-family: FontAwesome;
+}
+
+.navbar-default .navbar-nav > li.home > a:before {
+	content: "";
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+	z-index: 1;
+	color: #72c02c;
+}
+
+.navbar-default .navbar-nav > li > a:focus {
+	color: #72c02c;
+}
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	z-index: 1;
+	color: #72c02c;
+	background: none;
+}
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 12px 0;
+        -webkit-transition: background .3s ease-in-out,padding .3s ease-in-out;
+        -moz-transition: background .3s ease-in-out,padding .3s ease-in-out;
+        transition: background .3s ease-in-out,padding .3s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        /* Customize the look and feel of the collapsed top nav here */
+        padding: 0;
+    }
+}
+
+@media (max-width: 768px) {
+	.navbar-default .navbar-nav > li > a:before {
+		content: " ";
+	}    
+}
+
+/*Navbar*/
+@media (min-width: 992px) {
+	.navbar .navbar-nav {
+		float: right;
+	}	
+}
+
+/*Fixed Header*/
+.top-nav-collapse {
+	padding: 7px 0;
+	background: #fff;
+	box-shadow: 0 0 3px #b5b5b5;
+}
+
+.top-nav-collapse .navbar-brand,
+.top-nav-collapse .navbar-nav > li > a,
+.top-nav-collapse.navbar-default .navbar-nav > li > a:before {
+	color: #777;
+}
+
+.top-nav-collapse .navbar-brand {
+	color: #777 !important;	
+}
+
+/*Navbar Toggle*/
+.top-nav-collapse.navbar-default .navbar-toggle .icon-bar {
+	background: #555;
+}
+
+.top-nav-collapse.navbar-default .navbar-toggle:hover .icon-bar {
+	background: #72c02c;
+}
+
+@media (max-width: 768px) {
+	.top-nav-collapse {
+		padding: 0;
+	}
+}
+
+/*Revolution Slider
+------------------------------------*/
+
+
+/*Intro Section
+------------------------------------*/
+/*Intro Section*/
+.intro-section {
+    background: #222;
+}
+
+.intro-section:after {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+/*About Section
+------------------------------------*/
+/*About Section*/
+.about-section {
+    padding-top: 0px;
+    padding-bottom: 0;
+}
+
+.block-v1 {
+	padding: 50px 0;
+}
+
+.about-section .about-image {
+	padding-top: 50px;
+        padding-bottom: 50px;
+}
+
+/*Icon Lists*/
+.content-boxes-v3 i.icon-custom {
+	margin-right: 8px;
+}
+
+.content-boxes-v3 h2 {
+	font-size: 15px; 
+	margin-bottom: 5px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+/*Style for Cube Portfolio wrapper*/
+.wrapper-portfolio {
+    width: 96%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.wrapper-portfolio .cbp-caption {
+	-webkit-backface-visibility: hidden; /*For Chrome*/
+}
+
+.wrapper-portfolio #filters-container {
+	text-align: center;
+}
+
+.wrapper-portfolio #filters-container .cbp-filter-item-active {
+	background: #72c02c;
+	border-color: #72c02c;
+}
+
+.wrapper-portfolio #filters-container .cbp-filter-item:hover {
+	color: #fff;
+	background: #72c02c;
+	border-color: #72c02c;
+}

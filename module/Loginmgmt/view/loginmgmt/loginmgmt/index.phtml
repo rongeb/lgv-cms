@@ -1,0 +1,88 @@
+<?php
+// module/Rubrique/view/rubrique/rubrique/index.phtml:
+$title = $this->translate('Mes utilisateurs');
+$this->headTitle($title);
+//echo $session->test;
+?>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+    $("#tableSort").dataTable({
+        language: {
+                processing: "<?php echo $this->translate('Traitement en cours...'); ?>",
+                search: "<?php echo $this->translate('Rechercher'); ?>&nbsp; ",
+                lengthMenu: "<?php echo $this->translate('Afficher') . '_MENU_ ' . $this->translate('&eacute;l&eacute;ments'); ?>",
+                info: "<?php echo $this->translate('Affichage de l\'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments') ?>",
+                infoEmpty: "<?php echo $this->translate('Affichage de l\'&eacute;lement') . ' 0 &agrave; 0 ' . $this->translate('sur') . ' 0 ' . $this->translate('&eacute;l&eacute;ments') ?>",
+                infoFiltered: "(<?php echo $this->translate('filtr&eacute; de ') . '_MAX_ ' . $this->translate('&eacute;l&eacute;ments au total'); ?>)",
+                infoPostFix: "",
+                loadingRecords: "<?php echo $this->translate('Chargement en cours'); ?>...",
+                zeroRecords: "<?php echo $this->translate('Aucun &eacute;l&eacute;ment &agrave; afficher'); ?>",
+                emptyTable: "<?php echo $this->translate('Aucune donnée disponible dans le tableau'); ?>",
+                paginate: {
+                    first: "<?php echo $this->translate('Premier'); ?>",
+                    previous: "<?php echo $this->translate('Pr&eacute;c&eacute;dent') ?>",
+                    next: "<?php echo $this->translate('Suivant') ?>",
+                    last: "<?php echo $this->translate('Dernier') ?>"
+                },
+                aria: {
+                    sortAscending: ": <?php echo $this->translate('activer pour trier la colonne par ordre croissant'); ?>",
+                    sortDescending: ": <?php echo $this->translate('activer pour trier la colonne par ordre décroissant'); ?>"
+                },
+        aoColumnDefs: [
+            { bSortable: false, aTargets: [0,2] }],
+        order: [[ 1, "asc" ]]
+    
+    }
+    });
+});
+
+</script>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<div>&nbsp;</div>
+<p><a class="btn btn-info" href="<?php echo $this->url('loginmgmt', array(
+    'action' => 'add'));
+?>"><?php echo $this->translate('Ajouter un utilisateur'); ?></a></p>
+<div>&nbsp;</div>
+<hr>
+
+<table class="tablesorter table table-bordered table-striped hasFilters" id="tableSort" role="grid">
+    <thead>
+        <tr>
+            <th class="thheader" style="cursor:pointer;text-align: center;" align="center">Libellé</th>
+            <th class="thheader" style="cursor:pointer;text-align: center;" align="center">Position</th>
+            <th class="thheader" style="text-align: center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+<?php 
+    foreach ($loginlist as $login) : ?>
+
+            <tr>
+                <td style="text-align: center;"><?php echo $this->escapeHtml($login->getUser()); ?></td>
+                <td style="text-align: center;"><?php 
+                    
+                    if(strcmp($login->getRole(), 'anonymous')==0){
+                        echo 'Anonyme';
+                    }
+                    elseif(strcmp($login->getRole(), 'user')==0){
+                        echo 'Utilisateur';
+                    }
+                    elseif(strcmp($login->getRole(), 'admin')==0){
+                        echo 'Administrateur';
+                    }
+                    
+                    ?>
+                </td>
+                <td style="text-align: center;">
+                    <a href="<?php echo $this->url('loginmgmt', array('action' => 'edit', 'id' => $login->getId()));
+    ?>"><?php echo $this->translate('Modifier'); ?></a>
+                    &nbsp;&nbsp;/&nbsp;
+                    <a href="<?php echo $this->url('loginmgmt', array('action' => 'delete', 'id' => $login->getId()));
+    ?>"><?php echo $this->translate('Supprimer'); ?></a>
+                </td>
+            </tr>
+        
+<?php endforeach; ?>
+    </tbody>
+</table>

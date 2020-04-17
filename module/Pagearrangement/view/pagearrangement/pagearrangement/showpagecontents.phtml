@@ -1,0 +1,384 @@
+<?php
+// module/rubrique/view/rubrique/rubrique/add.phtml:
+$title = $this->translate('Modifier la disposition de la page');
+$this->headTitle($title);
+?>
+<link rel="stylesheet" href="<?php echo $this->basePath()."/js/jqueryui/jquery-ui.min.css";?>" />
+<script type="text/javascript" src="<?php echo $this->basePath()."/js/jqueryui/jquery-ui.min.js";?>" ></script>
+<style>
+  .sortablesections li.ui-state-default{background: #f6f6f6;margin-top: 5px;}
+  .sortablecontents li.ui-state-default{background: #fff;}  
+  .sortablecontents, .sortablesections{ list-style-type:none; margin: 0; padding: 0; width:inherit; }
+  .sortablecontents li, sortablesections li{ margin: 0 3px 3px 3px; padding: 0.6em; padding-left: 1.5em; font-size: 1.1em; height: 18px; }
+  .sortablecontents li span{ position: absolute; margin-left: -1.3em; }
+  .sortablesections li span{ position: absolute; }
+  .column {
+    width: 170px;
+    float: left;
+    padding-bottom: 100px;
+  }
+  .portlet {
+    margin: 0 1em 1em 0;
+    padding: 0.3em;
+  }
+  .portlet-header {
+    padding: 0.2em 0.3em;
+    margin-bottom: 0.5em;
+    position: relative;
+  }
+  .portlet-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+  }
+  .portlet-content {
+    padding: 0.4em;
+  }
+  .portlet-placeholder {
+    border: 1px dotted black;
+    margin: 0 1em 1em 0;
+    height: 50px;
+  }
+  #mypage{
+    width:70%;
+    margin: 0 auto;
+  }
+  .sectionTitle{
+    cursor:pointer;
+    width:50%;
+    padding: 5px 0px 0px 5px;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+  }
+  .section-li, content-li{cursor: move;}
+  
+
+</style>
+<script type="text/javascript">
+
+
+
+$(document).ready(function(){    
+    var page = <?php echo $page; ?>;
+    
+    //console.log(page);
+    var countSections = 0;
+    var html = "";
+    for(var i in page){
+        //console.log(page[i]);
+        if(i.indexOf("content")>-1){
+            
+            if(page[i]["content_position"] > -1){
+                html += '<li class="ui-state-default content-li" style="border: 1px solid green" ';
+            }//if position is below 0, it means the content won't be displayed so a red border
+            else{
+                html += '<li class="ui-state-default content-li" style="border: 1px solid red" ';
+            }
+            html +='anit-id="'+page[i]["content_id"]+'" anit-node="'
+                 +page[i]["content_type"]+'" anit-position="'+page[i]["content_position"]+'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>'
+                 +page[i]["content_title"]+' / id:'+page[i]["content_id"]+" / type:"+page[i]["content_type"];
+         
+            if(page[i]["content_type"] == 'content'){
+                html +='<a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/contenu/delete/'+page[i]["content_id"]+'">'
+                     + '<i class="icon-remove"></i></a>'
+                     +'<div style="float:right;">&nbsp;</div><a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/contenu/edit/'+page[i]["content_id"]+'"><i class="icon-pencil"></i></a></li>';
+            }
+            else if(page[i]["content_type"] == 'gallery'){
+                html +='<a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/galerie/delete/'+page[i]["content_id"]+'">'
+                     + '<i class="icon-remove"></i></a>'
+                     +'<div style="float:right;">&nbsp;</div><a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/galerie/edit/'+page[i]["content_id"]+'"><i class="icon-pencil"></i></a></li>';
+            }
+            else if(page[i]["content_type"] == 'blog'){
+                html +='<a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/blogcontent/delete/'+page[i]["content_id"]+'">'
+                     + '<i class="icon-remove"></i></a>'
+                     +'<div style="float:right;">&nbsp;</div><a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/blogcontent/edit/'+page[i]["content_id"]+'"><i class="icon-pencil"></i></a></li>';
+            } else if(page[i]["content_type"] == 'mapcontent'){
+                html +='<a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/mapcontent/delete/'+page[i]["content_id"]+'">'
+                    + '<i class="icon-remove"></i></a>'
+                    +'<div style="float:right;">&nbsp;</div><a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/mapcontent/edit/'+page[i]["content_id"]+'"><i class="icon-pencil"></i></a></li>';
+            }
+            else if(page[i]["content_type"] == 'linktocontenu'){
+                html +='<a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/linktocontenu/delete/'+page[i]["content_id"]+'">'
+                     + '<i class="icon-remove"></i></a>'
+                     +'<div style="float:right;">&nbsp;</div><a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->basePath(); ?>/linktocontenu/edit/'+page[i]["content_id"]+'"><i class="icon-pencil"></i></a></li>';
+            }
+                 
+            
+                             
+        }
+        else if(i.indexOf("section")>-1){
+            
+            //first time
+            if(countSections == 0){
+                
+                if(page[i]["section_position"] > -1){
+                html += '<li class="ui-state-default section-li" style="border: 1px solid green" ';
+            }//if position is below 0, it means the content won't be displayed so a red border
+            else{
+                html += '<li class="ui-state-default section-li" style="border: 1px solid red" ';
+            }
+                
+                html += 'anit-id="'+page[i]["section_id"]+'" anit-position="'+page[i]["section_position"]
+                        +'" anit-node="section"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="sectionTitle">&nbsp;&nbsp;&nbsp;'
+                        +page[i]['section_title']+' id:'+page[i]["section_id"]
+                        +'<a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->url('Sousrubrique', array('action' => 'delete')); ?>/'+page[i]["section_id"]+'">'
+                        +'<i class="icon-remove"></i></a>'
+                        +'<div style="float:right;">&nbsp;</div><a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->url('Sousrubrique', array('action' => 'edit')); ?>/'+page[i]["section_id"]+'"><i class="icon-pencil"></i></a>'
+                        +'</div>';
+                        
+                html += '<ul class="sortablecontents">';
+            }
+            else{
+                
+                html += '</ul></li>';
+                
+                 if(page[i]["section_position"] > -1){
+                html += '<li class="ui-state-default section-li" style="border: 1px solid green" ';
+            }//if position is below 0, it means the content won't be displayed so a red border
+            else{
+                html += '<li class="ui-state-default section-li" style="border: 1px solid red" ';
+            }
+                
+                
+                html += 'anit-id="'+page[i]["section_id"]+'" anit-position="'+page[i]["section_position"]
+                        +'" anit-node="section"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><div class="sectionTitle">&nbsp;&nbsp;&nbsp;'
+                        +page[i]['section_title']+' id:'+page[i]["section_id"]
+                        +'<a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->url('Sousrubrique', array('action' => 'delete')); ?>/'+page[i]["section_id"]+'">'
+                        +'<i class="icon-remove"></i></a>'
+                        +'<div style="float:right;">&nbsp;</div><a class="btn btn-mini" type="button" style="float:right;" href="<?php echo $this->url('Sousrubrique', array('action' => 'edit')); ?>/'+page[i]["section_id"]+'"><i class="icon-pencil"></i></a>'
+                        +'</div>';
+                html += '<ul class="sortablecontents">';
+                countSections = 0;
+            }
+            countSections++;
+        }
+        else if(i.indexOf("page")>-1){
+            html += '<div class="portlet-header ui-sortable-handle ui-widget-header ui-corner-all">'+
+                '<span class="ui-icon ui-icon-minusthick portlet-toggle"></span>'+
+                    page[i]['page_title']+' id:'+page[i]['page_id']+
+            '</div>'+
+            '<div class="portlet-content">'+
+            '<ul class="sortablesections">';
+        }
+    }
+    
+    html += "</ul></li></ul></div>";
+    //console.log(html);
+    $("#mypage").html(html);
+    
+    $( ".sortablecontents" ).sortable(
+        
+        {stop: function( event, ui ) {
+            var contents = ui['item'].parent('ul').children('.content-li');
+            //console.log(contents);
+            
+            var contents2 = [];
+            //console.log(ui);
+            //dragged element info
+            var draggedElInfo = {};
+            draggedElInfo.nodeType  = ui['item'].attr('anit-node');
+            draggedElInfo.position  = ui['item'].attr('anit-position');
+            draggedElInfo.id        = ui['item'].attr('anit-id');
+            
+            //console.log(draggedElInfo);
+            //It won't update content with a position below 0 except if the dragged element
+            //has a position below 0.
+            for(var i=0;i<contents.length;i++){
+                
+                var content = {};
+                content.nodeType    = $(contents[i]).attr('anit-node');
+                content.id          = $(contents[i]).attr('anit-id');
+                content.position    = $(contents[i]).attr('anit-position');
+                
+                //For dragged element with a position formerly at -1
+                if(content.nodeType == draggedElInfo.nodeType && 
+                   content.position == -1 &&
+                   content.id == draggedElInfo.id){
+                       
+                    content.position    = i+1;
+                    $(contents[i]).attr('anit-position', i+1);
+                    contents2.push(content);
+                    $(contents[i]).css('border', '1px solid green');
+                    
+                }else if(content.position > -1){
+                    content.position    = i+1;
+                    $(contents[i]).attr('anit-position', i+1);
+                    contents2.push(content);
+                }
+            }
+            //bye
+            //contents = null
+            //console.log(contents2);
+            for(var j=0;j<contents2.length;j++){
+                //contents2[j]['selector'].attr('anit-position', j+1);
+                updateContentPosition(contents2[j]);
+            }
+            
+        }}
+    );
+
+
+
+    $( ".sortablesections" ).sortable(
+        {stop: function( event, ui ) {
+            var sections = $( ".sortablesections" ).children('.section-li');
+            //console.log(contents);
+            
+            var sections2 = [];
+            //console.log(ui);
+            //dragged element info
+            var draggedElInfo = {};
+            draggedElInfo.nodeType  = ui['item'].attr('anit-node');
+            draggedElInfo.position  = ui['item'].attr('anit-position');
+            draggedElInfo.id        = ui['item'].attr('anit-id');
+            
+            //console.log(draggedElInfo);
+            //It won't update content with a position below 0 except if the dragged element
+            //has a position below 0.
+            for(var i=0;i<sections.length;i++){
+                
+                var section = {};
+                section.nodeType    = $(sections[i]).attr('anit-node');
+                section.id          = $(sections[i]).attr('anit-id');
+                section.position    = $(sections[i]).attr('anit-position');
+                
+                //For dragged element with a position formerly at -1
+                if(section.nodeType == draggedElInfo.nodeType && 
+                   section.position == -1 &&
+                   section.id == draggedElInfo.id){
+                       
+                    section.position    = i+1;
+                    $(sections[i]).attr('anit-position', i+1);
+                    sections2.push(section);
+                    $(sections[i]).css('border', '1px solid green');
+                    
+                }else if(section.position > -1){
+                    section.position    = i+1;
+                    $(sections[i]).attr('anit-position', i+1);
+                    sections2.push(section);
+                }
+            }
+            //bye
+            //contents = null
+            //console.log(contents2);
+            for(var j=0;j<sections2.length;j++){
+                //contents2[j]['selector'].attr('anit-position', j+1);
+                updateSectionPosition(sections2[j]);
+            }
+        }
+     });
+
+
+    function updateContentPosition(param){
+        
+       // console.log(param);
+        
+        var urlContenu = '<?php echo $this->url('Pagearrangement', array('action' => 'updatecontentspositionajax')); ?>';
+        
+        $.ajax({
+        
+            type: 'POST',
+            url: urlContenu,
+            data: param,
+            //contentType: "application/json",
+            success: function (data) {
+                //console.log(data);
+                if(typeof data['result'] !== 'undefined' && data['result'] == true){
+                    param['selector'].attr('anit-position', param['position']);
+                }
+                else{
+                }
+            },     
+            error: function (error) {
+                console.log(error);
+            }
+            
+        
+        });
+    
+    }
+    
+    function updateSectionPosition(param){
+        
+        //console.log(param);
+        
+        var url = '<?php echo $this->url('Pagearrangement', array('action' => 'updatesectionspositionajax')); ?>';
+        
+        $.ajax({
+        
+            type: 'POST',
+            url: url,
+            data: param,
+            //contentType: "application/json",
+            success: function (data) {
+                //console.log(data);
+                if(typeof data['result'] !== 'undefined' && data['result'] == true){
+                    param['selector'].attr('anit-position', param['position']);
+                }
+                else{
+                }
+            },     
+            error: function (error) {
+                console.log(error);
+            }
+            
+        
+        });
+    
+    }
+    
+    $(function() {
+        $( ".column" ).sortable({
+          connectWith: ".column",
+          handle: ".portlet-header",
+          cancel: ".portlet-toggle",
+          placeholder: "portlet-placeholder ui-corner-all"
+        });
+
+        $( ".portlet" )
+          .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+          .find( ".portlet-header" )
+            .addClass( "ui-widget-header ui-corner-all" )
+            .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+
+        $( ".portlet-toggle" ).on("click", function() {
+          var icon = $( this );
+          icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+          $(".portlet-content").toggle();
+        });
+    
+    /*TO DO 
+     * 
+     * Put a color per section
+     * Put a color to section's content
+     * set width of parent div
+     * set attr per li and ul
+     * set info corresponding to the item
+     * */
+  });
+  
+  $('.sectionTitle').on('click', function(){
+      //console.log($(this).parent().children(ul));
+      $(this).parent().children('ul').toggle();
+  });
+    
+});
+</script>    
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+/*if (is_array($error)) {
+    foreach ($error as $value) {
+        //var_dump($error);
+        
+        foreach($value as $message){
+            //print_r($error);
+            echo '<div style="color:red;">' . $message . '</div>';
+        }
+    }
+}*/
+?>
+    
+<div id="mypage">
+
+</div>
