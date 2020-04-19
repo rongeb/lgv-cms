@@ -4,14 +4,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="robots" content="noindex">
-        <?php echo $this->headTitle(' ' . $this->translate('Anit CMS'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle(' ' . $this->translate('LGV CMS'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 
         <!-- Le styles -->
         <?php
         //Problem with chrome and favicon that disturb session management : https://pritisolanki.wordpress.com/tag/zend-framework-session-problem-in-chrome/
-        $linkico = "http://localhost/anit-cms-for-zend-framework-3/public/atnightintrain.ico";
+        $linkico = "http://localhost/whatever/public/atnightintrain.ico";
         echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $linkico))
                 ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
@@ -48,49 +48,48 @@
                     <div class="nav-collapse collapse">
                         <!--<ul class="nav">-->
                         <ul class="nav">
-                            <li><div style="color:white;background: url('<?php echo $this->basePath().'/img/atnightintrain32.jpg';?>') no-repeat scroll transparent; margin-left: 0;padding: 8px 5px 12px 40px;">&nbsp;</div></li>
-                            <li class="dropdown">
+                            <li style="padding-left:2px;line-height: 12px;" class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:9px;;">
                                     <?php echo $this->translate('Espace privé'); ?>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('privatespace') ?>"><?php echo $this->translate('Privatespace'); ?></a></li>
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('privatespacelogin') ?>"><?php echo $this->translate('Privatespaceloginmgmt'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('privatespace') ?>"><?php echo $this->translate('Privatespace'); ?></a></li>
+                                    <li><a style="padding-left:2px;" href="<?php echo $this->url('privatespacelogin') ?>"><?php echo $this->translate('Privatespaceloginmgmt'); ?></a></li>
                                 </ul>
                             <li>
-                            <li><a style="padding-left:9px;;" href="<?php echo $this->url('rubrique') ?>"><?php echo $this->translate('Rubriques'); ?></a></li>
-                            <li><a style="padding-left:9px;;" href="<?php echo $this->url('Sousrubrique') ?>"><?php echo $this->translate('Sous-Rubriques'); ?></a></li>
+                            <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('rubrique') ?>"><?php echo $this->translate('Rubriques'); ?></a></li>
+                            <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Sousrubrique') ?>"><?php echo $this->translate('Sous-Rubriques'); ?></a></li>
                             <li class="dropdown">
-                                    <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a style="padding-left:2px;line-height: 12px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <?php echo $this->translate('Contenus html'); ?>
                                         <b class="caret"></b>
                                     </a>
                                 <ul class="dropdown-menu">
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Contenu', array('action' => 'indexalltypes')) ?>"><?php echo $this->translate('Std, Blog, Gallery, Map'); ?></a></li>
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Contenu') ?>"><?php echo $this->translate('Contenus'); ?></a></li>
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Galerie') ?>"><?php echo $this->translate('Galeries'); ?></a></li>
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Blogcontent') ?>"><?php echo $this->translate('Blog'); ?></a></li>
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('mapcontent') ?>"><?php echo $this->translate('Carte GPS'); ?></a></li>
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Linktocontenu') ?>"><?php echo $this->translate('Liens'); ?></a></li>
-                                    <li><a style="padding-left:9px;;"href="<?php echo $this->url('htmltemplate') ?>"><?php echo $this->translate('Modèles html'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Contenu', array('action' => 'indexalltypes')) ?>"><?php echo $this->translate('Std, Blog, Gallery, Map'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Contenu') ?>"><?php echo $this->translate('Contenus'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Galerie') ?>"><?php echo $this->translate('Galeries'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Blogcontent') ?>"><?php echo $this->translate('Blog'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('mapcontent') ?>"><?php echo $this->translate('Carte GPS'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Linktocontenu') ?>"><?php echo $this->translate('Liens'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('htmltemplate') ?>"><?php echo $this->translate('Modèles html'); ?></a></li>
                                 </ul>
                             </li>
-                            <li><a style="padding-left:9px;;" href="<?php echo $this->url('Pagearrangement') ?>"><?php echo $this->translate('Disposition'); ?></a></li>
+                            <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Pagearrangement') ?>"><?php echo $this->translate('Disposition'); ?></a></li>
                             <li class="dropdown nav-item">
-                                <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a style="padding-left:2px;line-height: 12px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <?php echo $this->translate('Messages'); ?>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Message') ?>"><?php echo $this->translate('Messages'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Message') ?>"><?php echo $this->translate('Messages'); ?></a></li>
                                     <li><a style="padding-left:9px;;" href="<?php echo $this->url('Commentaire') ?>"><?php echo $this->translate('Commentaires'); ?></a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a style="padding-left:9px;;" href="<?php echo $this->url('Fichiers') ?>"><?php echo $this->translate('Fichiers'); ?></a></li>
-                            <li class="nav-item"><a style="padding-left:9px;;" href="<?php echo $this->url('Backofficesearch', array("action" => "search")); ?>"><?php echo $this->translate('Recherche'); ?></a></li>
+                            <li class="nav-item"><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Fichiers') ?>"><?php echo $this->translate('Fichiers'); ?></a></li>
+                            <li class="nav-item"><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Backofficesearch', array("action" => "search")); ?>"><?php echo $this->translate('Recherche'); ?></a></li>
                             <li class="dropdown nav-item">
-                                    <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a style="padding-left:2px;line-height: 12px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         <?php echo $this->translate('Visualisation'); ?>
                                         <b class="caret"></b>
                                     </a>
@@ -99,13 +98,13 @@
                                 </ul>
                              </li>
                             <li class="dropdown nav-item">
-                                <a style="padding-left:9px;;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a style="padding-left:2px;line-height: 12px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <?php echo $this->translate('Fichiers utilisateurs'); ?>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Uploadmgmt') ?>"><?php echo $this->translate('&Agrave; valider'); ?></a></li>
-                                    <li><a style="padding-left:9px;;" href="<?php echo $this->url('Uploadmgmt', array('action' => 'validatedfiles')) ?>"><?php echo $this->translate('Validés'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Uploadmgmt') ?>"><?php echo $this->translate('&Agrave; valider'); ?></a></li>
+                                    <li><a style="padding-left:2px;line-height: 12px;" href="<?php echo $this->url('Uploadmgmt', array('action' => 'validatedfiles')) ?>"><?php echo $this->translate('Validés'); ?></a></li>
                                 </ul>
                             </li>
                             <?php
@@ -119,7 +118,7 @@
                             ?>
                         </ul>
                         <ul class="nav pull-right">
-                            <li><a style="padding-left:9px;;" id="logoutbtn" href="javascript:void(0)"><?php echo $this->translate('Déconnexion'); ?></a></li>
+                            <li><a style="padding-left:2px;line-height: 12px;" id="logoutbtn" href="javascript:void(0)"><?php echo $this->translate('Déconnexion'); ?></a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
             </div>
