@@ -304,3 +304,11 @@ the application configuration cache will be enabled and the debug mode will be d
 
 - PHP
     - php >= 7.1 for Laminas
+  
+    
+ PLEASE HELP AND SUPPORT THIS PROJECT
+ ------------------------------------
+ This project is huge for only one developer.
+ If you think this project could be interesting 
+ or if you have any contribution (bugfix, feature...) 
+ it will be a pleasure to enrich the project.
