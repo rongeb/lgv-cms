@@ -4,14 +4,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="robots" content="noindex">
-        <?php echo $this->headTitle(' ' . $this->translate('Domaine des vieux celliers - Back office'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle(' ' . $this->translate('LGV CMS - Back office'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 
         <!-- Les styles -->
         <?php
         //Problem with chrome and favicon that disturb session management : https://pritisolanki.wordpress.com/tag/zend-framework-session-problem-in-chrome/
-        $linkico = "http://localhost:10088/mobiletools/public/atnightintrain.ico";
+        $linkico = "http://localhost/whatever/public/atnightintrain.ico";
         echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $linkico))
                 ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
                 ->prependStylesheet($this->basePath() . '/css/style.css')

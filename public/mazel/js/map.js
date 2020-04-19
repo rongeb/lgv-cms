@@ -5,11 +5,11 @@
 
 // function init() {
     window.onload = function() {
-        L.mapquest.key = 'AyaMcmkLalgP4jKH0RK2GOHcsfJel3SO';
+        L.mapquest.key = 'putYourKey';
         var baseLayer = L.mapquest.tileLayer('map');
 
         var map = L.mapquest.map('map', {
-            center: [46.079692, 4.675880],
+            center: [48.858370, 2.294481],
             layers: L.mapquest.tileLayer('hybrid'),
             scrollWheelZoom: false,
             zoom: 17
@@ -22,12 +22,8 @@
 
 
         var customPopup = L.popup({ closeButton: true })
-            .setLatLng([46.07994, 4.675880])
-            .setContent('<strong> Marielle et Christian Jaffre</strong>'+
-            '<br> Domaine du vieux celliers<br>Garanche'+
-            '<br>69220 Charentay'+
-            '<br>Coordonnées GPS:'+
-            '<br>Lat : 46.07994, Lng : 4.675880')
+            .setLatLng([48.858370, 2.294481])
+            .setContent('<strong> Eiffel Tower</strong><br>Paris, FRANCE')
             .openOn(map);
 
         /*
@@ -39,7 +35,7 @@
          })
          */
 
-       L.marker([46.079692, 4.675880], {
+       L.marker([48.858370, 2.294481], {
             // icon: L.mapquest.icons.marker(),
             icon:   L.mapquest.icons.marker(),
             draggable: false
