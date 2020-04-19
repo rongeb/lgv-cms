@@ -4,8 +4,8 @@
 
 namespace Fichiers\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use ExtLib\Utils;
 
 /**
@@ -59,7 +59,7 @@ class FichiersForm extends Form {
 
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\File',
+            'type' => 'Laminas\Form\Element\File',
             'name' => 'newfichier',
             'attributes' => array(
                 'id' => 'newfichierId',

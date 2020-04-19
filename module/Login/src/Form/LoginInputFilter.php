@@ -2,7 +2,7 @@
 
 namespace Login\Form;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 /**
  * Class LoginInputFilter
@@ -73,7 +73,7 @@ class LoginInputFilter extends InputFilter {
                     'name' => 'Csrf',
                     'options' => array(
                         'messages' => array(
-                        \Zend\Validator\Csrf::NOT_SAME => 'Are you a human or a robot ?',
+                        \Laminas\Validator\Csrf::NOT_SAME => 'Are you a human or a robot ?',
                         ),
                     ),
                 ),

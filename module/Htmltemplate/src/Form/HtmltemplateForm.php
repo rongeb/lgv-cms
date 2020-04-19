@@ -2,8 +2,8 @@
 
 namespace Htmltemplate\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use ExtLib\Utils;
 
 /**
@@ -45,7 +45,7 @@ class HtmltemplateForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Textarea',
+            'type' => 'Laminas\Form\Element\Textarea',
             'name' => 'template',
             'attributes' => array(
                 'id' => 'templateId',
@@ -54,7 +54,7 @@ class HtmltemplateForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'name' => 'submitbutton',
             'options' => array(
                 'label' => $this->utils->translate('Valider'),

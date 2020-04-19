@@ -2,7 +2,7 @@
 
 namespace Sitepublic\Form;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 use ExtLib\Utils;
 
 /**
@@ -32,8 +32,8 @@ class SitepublicCommentInputFilter extends InputFilter {
             'name' => 'contactnom',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim')
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim')
             ),
             'validators' => array(
                 array(
@@ -43,8 +43,8 @@ class SitepublicCommentInputFilter extends InputFilter {
                         'min' => 1,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
                         )),),
             ),
         ));
@@ -53,8 +53,8 @@ class SitepublicCommentInputFilter extends InputFilter {
             'name' => 'contactentreprise',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -63,8 +63,8 @@ class SitepublicCommentInputFilter extends InputFilter {
                         'min' => 1,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
                         ),),),
             ),
         ));
@@ -73,8 +73,8 @@ class SitepublicCommentInputFilter extends InputFilter {
             'name' => 'contactemail',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'Regex',
@@ -82,7 +82,7 @@ class SitepublicCommentInputFilter extends InputFilter {
                         ///^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
                         'pattern' => '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/',
                         'messages' => array(
-                            \Zend\Validator\Regex::NOT_MATCH => $this->translator->translate("L'email est invalide"),
+                            \Laminas\Validator\Regex::NOT_MATCH => $this->translator->translate("L'email est invalide"),
                         ),
                     ),
                 ),

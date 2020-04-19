@@ -1,0 +1,70 @@
+{
+    "name": "laminas/laminas-xmlrpc",
+    "description": "Fully-featured XML-RPC server and client implementations",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "laminas",
+        "xmlrpc"
+    ],
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-xmlrpc/",
+        "issues": "https://github.com/laminas/laminas-xmlrpc/issues",
+        "source": "https://github.com/laminas/laminas-xmlrpc",
+        "rss": "https://github.com/laminas/laminas-xmlrpc/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.9.x-dev",
+            "dev-develop": "2.10.x-dev"
+        }
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "laminas/laminas-http": "^2.5.4",
+        "laminas/laminas-math": "^2.7 || ^3.0",
+        "laminas/laminas-server": "^2.7",
+        "laminas/laminas-stdlib": "^3.2.1",
+        "laminas/laminas-xml": "^1.0.2",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2"
+    },
+    "suggest": {
+        "laminas/laminas-cache": "To support Laminas\\XmlRpc\\Server\\Cache usage"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\XmlRpc\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\XmlRpc\\": "test/"
+        },
+        "files": [
+            "test/autoload.php",
+            "test/TestAsset/functions.php"
+        ]
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "replace": {
+        "zendframework/zend-xmlrpc": "self.version"
+    }
+}

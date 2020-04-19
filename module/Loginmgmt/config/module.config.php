@@ -3,7 +3,7 @@ namespace Loginmgmt;
 
 use Loginmgmt\Controller\LoginmgmtController;
 use Loginmgmt\Controller\LoginmgmtControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
 	'controllers' => array(

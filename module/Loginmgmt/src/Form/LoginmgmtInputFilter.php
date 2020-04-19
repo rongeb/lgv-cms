@@ -2,10 +2,10 @@
 
 namespace Loginmgmt\Form;
 
-use Zend\Form\Form;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
+use Laminas\Form\Form;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterAwareInterface;
+use Laminas\InputFilter\InputFilterInterface;
 use ExtLib\Utils;
 
 /**
@@ -44,15 +44,15 @@ class LoginmgmtInputFilter extends InputFilter {
                         'min' => 3,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du nom est de 3 caractères minimum'),
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du nom doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille du nom ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du nom est de 3 caractères minimum'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du nom doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille du nom ne doit pas dépasser 128 caractères'),
                         ),),),
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un nom')
+                            \Laminas\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un nom')
                         ),
                     ),
                 ),
@@ -74,15 +74,15 @@ class LoginmgmtInputFilter extends InputFilter {
                         'min' => 5,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du mot de passe est de 5 caractères'),
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du mot de passe doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille du mot de passe ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du mot de passe est de 5 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du mot de passe doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille du mot de passe ne doit pas dépasser 128 caractères'),
                         ),),),
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un mot de passe de 5 caractères minimum')
+                            \Laminas\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un mot de passe de 5 caractères minimum')
                         ),
                     ),
                 ),
@@ -93,8 +93,8 @@ class LoginmgmtInputFilter extends InputFilter {
             'name' => 'roleList',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -103,14 +103,14 @@ class LoginmgmtInputFilter extends InputFilter {
                         'min' => 0,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
                         ),),),
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez choisir un rôle')
+                            \Laminas\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez choisir un rôle')
                         ),
                     ),
                 ),

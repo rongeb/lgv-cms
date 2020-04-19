@@ -4,8 +4,8 @@
 
 namespace Siteprivate\Form;
 
-use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+use Laminas\Stdlib\Hydrator\ClassMethods;
 use Privatespace\Model\PrivatespaceDao;
 use ExtLib\Utils;
 
@@ -43,7 +43,7 @@ class SiteprivateForgottenPasswordForm extends Form {
 
         $this->utils = new Utils();
         
-        $captcha = new \Zend\Captcha\Figlet(array(
+        $captcha = new \Laminas\Captcha\Figlet(array(
             
             'wordLen' => 4,
             'timeout' => 1800,
@@ -59,7 +59,7 @@ class SiteprivateForgottenPasswordForm extends Form {
         ));
  /*       
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'spacesList',
             'attributes' => array(
                 'id' => 'spacesId',
@@ -82,7 +82,7 @@ class SiteprivateForgottenPasswordForm extends Form {
                 'captcha' => $captcha
                 
             ),
-            'type'  => 'Zend\Form\Element\Captcha'
+            'type'  => 'Laminas\Form\Element\Captcha'
             
         ));
         
@@ -90,7 +90,7 @@ class SiteprivateForgottenPasswordForm extends Form {
                 (
                 array
                     (
-                    'type' => 'Zend\Form\Element\Csrf',
+                    'type' => 'Laminas\Form\Element\Csrf',
                     'name' => 'prevent',
                     'attributes' => array
                         (
@@ -116,7 +116,7 @@ class SiteprivateForgottenPasswordForm extends Form {
         
         $this->add(array(
             'name' => 'submitbutton',
-            'type' => 'Zend\Form\Element\Submit',
+            'type' => 'Laminas\Form\Element\Submit',
             'options' => array(
                 'label' => $this->utils->translate('Valider'),
             ),

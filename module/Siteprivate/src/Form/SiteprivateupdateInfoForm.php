@@ -4,8 +4,8 @@
 
 namespace Siteprivate\Form;
 
-use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+use Laminas\Stdlib\Hydrator\ClassMethods;
 use Privatespace\Model\PrivatespaceDao;
 use ExtLib\Utils;
 
@@ -186,7 +186,7 @@ class SiteprivateUpdateInfoForm extends Form {
 
         $this->add(array(
             'name' => 'submitbutton',
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'options' => array(
                 'label' => $this->translator->translate('Valider'),
             ),

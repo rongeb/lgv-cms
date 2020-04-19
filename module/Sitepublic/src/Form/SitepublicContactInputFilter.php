@@ -2,7 +2,7 @@
 
 namespace Sitepublic\Form;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 /**
  * Class SitepublicContactInputFilter
@@ -19,8 +19,8 @@ class SitepublicContactInputFilter extends InputFilter {
             'name' => 'contactnom',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim')
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim')
             ),
             'validators' => array(
                 array(
@@ -30,8 +30,8 @@ class SitepublicContactInputFilter extends InputFilter {
                         'min' => 1,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => 'La taille ne doit pas dépasser 128 caractères',
-                            \Zend\Validator\StringLength::INVALID => 'La taille ne doit pas dépasser 128 caractères',
+                            \Laminas\Validator\StringLength::TOO_LONG => 'La taille ne doit pas dépasser 128 caractères',
+                            \Laminas\Validator\StringLength::INVALID => 'La taille ne doit pas dépasser 128 caractères',
                         )),),
             ),
         ));
@@ -40,8 +40,8 @@ class SitepublicContactInputFilter extends InputFilter {
             'name' => 'contactentreprise',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -50,8 +50,8 @@ class SitepublicContactInputFilter extends InputFilter {
                         'min' => 1,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => 'La taille ne doit pas dépasser 128 caractères',
-                            \Zend\Validator\StringLength::INVALID => 'La taille ne doit pas dépasser 128 caractères',
+                            \Laminas\Validator\StringLength::TOO_LONG => 'La taille ne doit pas dépasser 128 caractères',
+                            \Laminas\Validator\StringLength::INVALID => 'La taille ne doit pas dépasser 128 caractères',
                         ),),),
             ),
         ));
@@ -60,15 +60,15 @@ class SitepublicContactInputFilter extends InputFilter {
             'name' => 'contactemail',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'Regex',
                     'options' => array(
                         'pattern' => '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/',
                         'messages' => array(
-                            \Zend\Validator\Regex::NOT_MATCH => "L'email est invalide",
+                            \Laminas\Validator\Regex::NOT_MATCH => "L'email est invalide",
                         ),
                     ),
                 ),

@@ -3,7 +3,7 @@ namespace Contenu;
 
 use Contenu\Controller\ContenuController;
 use Contenu\Controller\ContenuControllerFactory;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return array(
 	'controllers' => array(

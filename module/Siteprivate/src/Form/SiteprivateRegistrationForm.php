@@ -21,7 +21,7 @@ class SiteprivateRegistrationForm extends PrivatespaceloginForm {
 
         $utils = new Utils();
 
-        $captcha = new \Zend\Captcha\Figlet(array(
+        $captcha = new \Laminas\Captcha\Figlet(array(
             
             'wordLen' => 4,
             'timeout' => 1800,
@@ -48,7 +48,7 @@ class SiteprivateRegistrationForm extends PrivatespaceloginForm {
                 'captcha' => $captcha
                 
             ),
-            'type'  => 'Zend\Form\Element\Captcha'
+            'type'  => 'Laminas\Form\Element\Captcha'
             
         )); 
         
@@ -56,7 +56,7 @@ class SiteprivateRegistrationForm extends PrivatespaceloginForm {
                 (
                 array
                     (
-                    'type' => 'Zend\Form\Element\Csrf',
+                    'type' => 'Laminas\Form\Element\Csrf',
                     'name' => 'prevent',
                     'attributes' => array
                         (

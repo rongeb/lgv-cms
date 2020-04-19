@@ -1,8 +1,8 @@
 <?php
 namespace Loginmgmt\Form;
 
-use Zend\Form\Form;
-use Zend\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+use Laminas\Hydrator\ClassMethods;
 use ExtLib\Utils;
 
 /**
@@ -54,7 +54,7 @@ class LoginmgmtForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'roleList',
             'attributes' => array(
                 'id' => 'roleSelectIdTag',
@@ -70,7 +70,7 @@ class LoginmgmtForm extends Form {
 
         $this->add(array(
             'name' => 'submitbutton',
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'options' => array(
                 'label' => $this->translator->translate('Valider'),
             ),

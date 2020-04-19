@@ -4,7 +4,7 @@ namespace Backofficesearch;
 
 use Backofficesearch\Controller\BackofficesearchControllerFactory;
 use Backofficesearch\Controller\BackofficesearchController;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
     'controllers' => array(

@@ -2,7 +2,7 @@
 namespace Fichiers;
 
 use Fichiers\Controller\FichiersControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
 	'controllers' => array(

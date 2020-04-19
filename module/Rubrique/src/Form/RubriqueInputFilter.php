@@ -2,10 +2,10 @@
 
 namespace Rubrique\Form;
 
-use Zend\Form\Form;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
+use Laminas\Form\Form;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterAwareInterface;
+use Laminas\InputFilter\InputFilterInterface;
 use ExtLib\Utils;
 
 /**
@@ -46,15 +46,15 @@ class RubriqueInputFilter extends InputFilter
                         'min' => 1,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du libell&eacute; est de 1 caractère'),
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du libell&eacute; doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille du libell&eacute; ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du libell&eacute; est de 1 caractère'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du libell&eacute; doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille du libell&eacute; ne doit pas dépasser 128 caractères'),
                         ),),),
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un libell&eacute;')
+                            \Laminas\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un libell&eacute;')
                         ),
                     ),
                 ),
@@ -65,15 +65,15 @@ class RubriqueInputFilter extends InputFilter
             'name' => 'rang',
             'required' => false,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'Regex',
                     'options' => array(
                         'pattern' => '/^[-]?[0-9]*$/',
                         'messages' => array(
-                            \Zend\Validator\Regex::NOT_MATCH => $this->translator->translate('La position doit être vide ou doit être un nombre'),
+                            \Laminas\Validator\Regex::NOT_MATCH => $this->translator->translate('La position doit être vide ou doit être un nombre'),
                         ),
                     ),
                 ),
@@ -100,15 +100,15 @@ class RubriqueInputFilter extends InputFilter
                         'min' => 1,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du libell&eacute; est de 1 caractère'),
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du libell&eacute; doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille du libell&eacute; ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du libell&eacute; est de 1 caractère'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du libell&eacute; doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille du libell&eacute; ne doit pas dépasser 128 caractères'),
                         ),),),
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un libell&eacute;')
+                            \Laminas\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez saisir un libell&eacute;')
                         ),
                     ),
                 ),
@@ -144,9 +144,9 @@ class RubriqueInputFilter extends InputFilter
                         'min' => 1,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du fichier est de 1 caractère'),
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du fichier doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille du fichier ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_SHORT => $this->translator->translate('La taille minimum du fichier est de 1 caractère'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille du fichier doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille du fichier ne doit pas dépasser 128 caractères'),
                         ),),
                 ),
                 array(
@@ -154,7 +154,7 @@ class RubriqueInputFilter extends InputFilter
                     'options' => array(
                         'pattern' => '/^.*\.(phtml)$/',
                         'messages' => array(
-                            \Zend\Validator\Regex::NOT_MATCH => $this->translator->translate('L\'extension doit se terminer par phtml en minuscule')
+                            \Laminas\Validator\Regex::NOT_MATCH => $this->translator->translate('L\'extension doit se terminer par phtml en minuscule')
                         )
                     )
                 )

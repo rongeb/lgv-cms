@@ -12,6 +12,7 @@ namespace PHPUnit\Framework\MockObject\Matcher;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\InvalidParameterGroupException;
 use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 
 /**
@@ -42,6 +43,16 @@ class ConsecutiveParameters extends StatelessInvocation
     public function __construct(array $parameterGroups)
     {
         foreach ($parameterGroups as $index => $parameters) {
+            if (!\is_iterable($parameters)) {
+                throw new InvalidParameterGroupException(
+                    \sprintf(
+                        'Parameter group #%d must be an array or Traversable, got %s',
+                        $index,
+                        \gettype($parameters)
+                    )
+                );
+            }
+
             foreach ($parameters as $parameter) {
                 if (!$parameter instanceof Constraint) {
                     $parameter = new IsEqual($parameter);
@@ -88,9 +99,7 @@ class ConsecutiveParameters extends StatelessInvocation
      */
     private function verifyInvocation(BaseInvocation $invocation, $callIndex): void
     {
-        if (isset($this->parameterGroups[$callIndex])) {
-            $parameters = $this->parameterGroups[$callIndex];
-        } else {
+        if (!isset($this->parameterGroups[$callIndex])) {
             // no parameter assertion for this call index
             return;
         }
@@ -100,6 +109,8 @@ class ConsecutiveParameters extends StatelessInvocation
                 'Mocked method does not exist.'
             );
         }
+
+        $parameters = $this->parameterGroups[$callIndex];
 
         if (\count($invocation->getParameters()) < \count($parameters)) {
             throw new ExpectationFailedException(

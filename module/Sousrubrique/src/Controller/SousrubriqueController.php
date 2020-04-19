@@ -2,14 +2,14 @@
 
 namespace Sousrubrique\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 use Sousrubrique\Model\Sousrubrique;
 use Sousrubrique\Form\SousrubriqueForm;
 use Sousrubrique\Form\SousrubriqueInputFilter as InputFilter;
 use Sousrubrique\Model\Sousrubriquedao;
 use Rubrique\Model\RubriqueDao;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 use Application\Factory\CacheDataListener;
 use ExtLib\Utils;
 
@@ -46,7 +46,7 @@ class SousrubriqueController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function addAction() {
 
@@ -96,7 +96,7 @@ class SousrubriqueController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function editAction() {
 
@@ -176,7 +176,7 @@ class SousrubriqueController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction() {
 

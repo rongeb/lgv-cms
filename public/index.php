@@ -17,4 +17,4 @@ require 'init_autoloader.php';
 
 
 // Run the application!
-Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+Laminas\Mvc\Application::init(require 'config/application.config.php')->run();

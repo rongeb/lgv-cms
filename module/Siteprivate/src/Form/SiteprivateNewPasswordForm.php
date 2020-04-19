@@ -2,8 +2,8 @@
 
 namespace Siteprivate\Form;
 
-use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+use Laminas\Stdlib\Hydrator\ClassMethods;
 use Privatespace\Model\PrivatespaceDao;
 use ExtLib\Utils;
 
@@ -24,7 +24,7 @@ class SiteprivateNewPasswordForm extends Form {
 
         $translator = new Utils();
 
-        $captcha = new \Zend\Captcha\Figlet(array(
+        $captcha = new \Laminas\Captcha\Figlet(array(
 
             'wordLen' => 4,
             'timeout' => 1800,
@@ -72,7 +72,7 @@ class SiteprivateNewPasswordForm extends Form {
                 'captcha' => $captcha
                 
             ),
-            'type'  => 'Zend\Form\Element\Captcha'
+            'type'  => 'Laminas\Form\Element\Captcha'
             
         ));
         
@@ -80,7 +80,7 @@ class SiteprivateNewPasswordForm extends Form {
                 (
                 array
                     (
-                    'type' => 'Zend\Form\Element\Csrf',
+                    'type' => 'Laminas\Form\Element\Csrf',
                     'name' => 'prevent',
                     'attributes' => array
                         (
@@ -106,7 +106,7 @@ class SiteprivateNewPasswordForm extends Form {
 
         $this->add(array(
             'name' => 'submitbutton',
-            'type' => 'Zend\Form\Element\Submit',
+            'type' => 'Laminas\Form\Element\Submit',
             'options' => array(
                 'label' => $translator->translate('Valider'),
             ),

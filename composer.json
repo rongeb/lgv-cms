@@ -1,50 +1,62 @@
 {
-  "name": "atnigntandintransportation/cms",
-  "description": "cms built on top of zf3",
-  "license": "BSD-3-Clause",
-  "keywords": [
-    "php",
-    "zf3",
-    "cms",
-    "content management system",
-    "zend framework 3"
-  ],
-  "homepage": "http://romgeb.fr/",
-  "prefer-stable": true,
-  "autoload": {
-    "psr-4": {
-      "ExtLib\\": "vendor/ExtLib/library/",
-      "Application\\": "module/Application/src/",
-      "Blog\\": "module/Blog/src/",
-      "Blogcontent\\": "module/Blogcontent/src/",
-      "Commentaire\\": "module/Commentaire/src/",
-      "Contenu\\": "module/Contenu/src/",
-      "Fichiers\\": "module/Fichiers/src/",
-      "Galerie\\": "module/Galerie/src/",
-      "Linktocontenu\\": "module/Linktocontenu/src/",
-      "Login\\": "module/Login/src/",
-      "Loginmgmt\\": "module/Loginmgmt/src/",
-      "Message\\": "module/Message/src/",
-      "MyAcl\\": "module/MyAcl/src/",
-      "Pagearrangement\\": "module/Pagearrangement/src/",
-      "Pagews\\": "module/Pagews/src/",
-      "Mobilews\\":"module/Mobilews/src/",
-      "Privatespace\\": "module/Privatespace/src/",
-      "Privatespacelogin\\": "module/Privatespacelogin/src/",
-      "Rubrique\\": "module/Rubrique/src/",
-      "Siteprivate\\": "module/Siteprivate/src/",
-      "Sitepublic\\": "module/Sitepublic/src/",
-      "Sousrubrique\\": "module/Sousrubrique/src/",
-      "Uploadmgmt\\":"module/Uploadmgmt/src/",
-      "Mapcontent\\":"module/Mapcontent/src/",
-      "Searchws\\":"module/Searchws/src/",
-      "Publishing\\":"module/Publishing/src/",
-      "Backofficesearch\\":"module/Backofficesearch/src",
-      "Htmltemplate\\":"module/Htmltemplate/src"
+    "name": "lgv/cms",
+    "description": "cms built on top of Laminas",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "php",
+        "laminas",
+        "cms",
+        "content management system"
+    ],
+    "homepage": "https://bitbucket.org/rongeb/lgv_cms",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "ExtLib\\": "vendor/rongeb/libraries-for-lgv-cms/ExtLib/library/",
+            "Application\\": "module/Application/src/",
+            "Blog\\": "module/Blog/src/",
+            "Blogcontent\\": "module/Blogcontent/src/",
+            "Commentaire\\": "module/Commentaire/src/",
+            "Contenu\\": "module/Contenu/src/",
+            "Fichiers\\": "module/Fichiers/src/",
+            "Galerie\\": "module/Galerie/src/",
+            "Linktocontenu\\": "module/Linktocontenu/src/",
+            "Login\\": "module/Login/src/",
+            "Loginmgmt\\": "module/Loginmgmt/src/",
+            "Message\\": "module/Message/src/",
+            "MyAcl\\": "module/MyAcl/src/",
+            "Pagearrangement\\": "module/Pagearrangement/src/",
+            "Pagews\\": "module/Pagews/src/",
+            "Mobilews\\": "module/Mobilews/src/",
+            "Privatespace\\": "module/Privatespace/src/",
+            "Privatespacelogin\\": "module/Privatespacelogin/src/",
+            "Rubrique\\": "module/Rubrique/src/",
+            "Siteprivate\\": "module/Siteprivate/src/",
+            "Sitepublic\\": "module/Sitepublic/src/",
+            "Sousrubrique\\": "module/Sousrubrique/src/",
+            "Uploadmgmt\\": "module/Uploadmgmt/src/",
+            "Mapcontent\\": "module/Mapcontent/src/",
+            "Searchws\\": "module/Searchws/src/",
+            "Publishing\\": "module/Publishing/src/",
+            "Backofficesearch\\": "module/Backofficesearch/src",
+            "Htmltemplate\\": "module/Htmltemplate/src"
+        }
+    },
+    "repositories": [
+        {
+            "url": "https://rongeb@bitbucket.org/rongeb/libraries-for-lgv-cms.git",
+            "type": "git"
+        },
+        {
+            "url": "https://rongeb@bitbucket.org/rongeb/dynamiclayout.git",
+            "type": "git"
+        }
+    ],
+    "require": {
+        "rongeb/dynamiclayout": "dev-master",
+        "rongeb/libraries-for-lgv-cms":  "dev-master",
+        "laminas/laminas-component-installer": "^1.1.1",
+        "zendframework/zendframework": "^3.0.0",
+        "laminas/laminas-dependency-plugin": "^1.0"
     }
-  },
-  "require": {
-    "zendframework/zend-component-installer": "^1.1.1",
-    "zendframework/zendframework": "^3.0.0"
-  }
 }

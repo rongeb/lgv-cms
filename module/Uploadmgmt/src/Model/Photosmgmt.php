@@ -61,7 +61,7 @@ class Photosmgmt
 
         $phOri = $phPath . substr($phName, 0, strrpos($phName, '.')) . '.Ori' . substr($phName, strrpos($phName, '.'));
         if (!is_file($phOri)) {
-            $filter = new \Zend\Filter\File\Rename(array(
+            $filter = new \Laminas\Filter\File\Rename(array(
                 "target" => $phOri,
                 "overwrite" => false
             ));
@@ -70,7 +70,7 @@ class Photosmgmt
 
         $viOri = $viPath . substr($viName, 0, strrpos($viName, '.')) . '.Ori' . substr($viName, strrpos($viName, '.'));
         if (!is_file($viOri)) {
-            $filter = new \Zend\Filter\File\Rename(array(
+            $filter = new \Laminas\Filter\File\Rename(array(
                 "target" => $viOri,
                 "overwrite" => false
             ));
@@ -106,7 +106,7 @@ class Photosmgmt
 
                 $this->deleteFile($phPath . $phName);
 
-                $filter = new \Zend\Filter\File\Rename(array(
+                $filter = new \Laminas\Filter\File\Rename(array(
                     "target" => $phPath . $phName,
                     "overwrite" => false
                 ));
@@ -120,7 +120,7 @@ class Photosmgmt
 
                 $this->deleteFile($viPath . $viName);
 
-                $filter = new \Zend\Filter\File\Rename(array(
+                $filter = new \Laminas\Filter\File\Rename(array(
                     "target" => $viPath . $viName,
                     "overwrite" => false
                 ));

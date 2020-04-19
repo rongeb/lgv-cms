@@ -3,8 +3,8 @@ namespace Mapcontent;
 
 use Mapcontent\Controller\MapcontentController;
 use Mapcontent\Controller\MapcontentControllerFactory;
-use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\Router\Http\Segment;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return array(
 	'controllers' => array(

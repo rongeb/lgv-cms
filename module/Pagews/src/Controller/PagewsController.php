@@ -2,8 +2,8 @@
 
 namespace Pagews\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Rubrique\Model\RubriqueDao;
 use Sousrubrique\Model\Sousrubriquedao;
 use Pagearrangement\Model\PagearrangementDao;

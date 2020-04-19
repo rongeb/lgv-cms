@@ -3,8 +3,8 @@
 namespace Fichiers\Controller;
 
 use Fichiers\Form\FichiersForm;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 use Fichiers\Model\Fichiers;
 use Fichiers\Model\FilesCategories;
 use Fichiers\Form\SiteprivateFileuploadForm;
@@ -14,7 +14,7 @@ use ExtLib\FileManager;
 use ExtLib\Utils;
 use Application\Factory\CacheKeys;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class FichiersController
@@ -233,7 +233,7 @@ class FichiersController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response|ViewModel
+     * @return array|\Laminas\Http\Response|ViewModel
      */
     public function editAction()
     {
@@ -287,7 +287,7 @@ class FichiersController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction()
     {

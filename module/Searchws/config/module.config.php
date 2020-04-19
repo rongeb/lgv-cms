@@ -4,7 +4,7 @@ namespace Searchws;
 
 use Searchws\Controller\SearchwsController;
 use Searchws\Controller\SearchwsControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
     'controllers' => array(

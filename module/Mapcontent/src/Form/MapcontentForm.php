@@ -5,8 +5,8 @@
 namespace Mapcontent\Form;
 
 use Contenu\Form\ContenuForm;
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use Rubrique\Model\RubriqueDao;
 use ExtLib\Utils;
 use Mapcontent\Form\Mapcontentlocationfiedset;

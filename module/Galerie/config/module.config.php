@@ -3,7 +3,7 @@ namespace Galerie;
 
 use Galerie\Controller\GalerieController;
 use Galerie\Controller\GalerieControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
 	'controllers' => array(

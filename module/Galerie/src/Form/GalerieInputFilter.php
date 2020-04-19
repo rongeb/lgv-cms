@@ -2,10 +2,10 @@
 
 namespace Galerie\Form;
 
-use Zend\Form\Form;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
+use Laminas\Form\Form;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterAwareInterface;
+use Laminas\InputFilter\InputFilterInterface;
 use Contenu\Form\ContenuInputFilter;
 use ExtLib\Utils;
 
@@ -28,8 +28,8 @@ class GalerieInputFilter extends ContenuInputFilter {
             'name' => 'imagepath',
             'required' => false,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim')
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim')
             ),
             'validators' => array(
                 array(
@@ -39,8 +39,8 @@ class GalerieInputFilter extends ContenuInputFilter {
                         'min' => 0,
                         'max' => 256,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
                         )),),
             ),
         ));
@@ -49,8 +49,8 @@ class GalerieInputFilter extends ContenuInputFilter {
             'name' => 'imagepath2',
             'required' => false,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim')
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim')
             ),
             'validators' => array(
                 array(
@@ -60,8 +60,8 @@ class GalerieInputFilter extends ContenuInputFilter {
                         'min' => 0,
                         'max' => 256,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 256 caractères'),
                         )),),
             ),
         ));

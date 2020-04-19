@@ -3,8 +3,8 @@
 // module/SousRubrique/src/SousRubrique/Form/SousRubriqueForm.php:
 namespace Blogcontent\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use Rubrique\Model\RubriqueDao;
 use Galerie\Form\GalerieForm;
 

@@ -1,8 +1,8 @@
 <?php
 namespace Privatespacelogin\Form;
 
-use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+use Laminas\Stdlib\Hydrator\ClassMethods;
 use Privatespace\Model\PrivatespaceDao;
 use ExtLib\Utils;
 
@@ -192,7 +192,7 @@ class PrivatespaceloginForm extends Form {
         ));
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'spacesList',
             'attributes' => array(
                 'id' => 'spacesId',
@@ -206,7 +206,7 @@ class PrivatespaceloginForm extends Form {
         ));
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'validate',
             'attributes' => array(
                 'id' => 'validateId',
@@ -229,7 +229,7 @@ class PrivatespaceloginForm extends Form {
 
         $this->add(array(
             'name' => 'submitbutton',
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'options' => array(
                 'label' => $this->translator->translate('Valider'),
             ),

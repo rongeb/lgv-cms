@@ -1,0 +1,59 @@
+{
+    "name": "laminas/laminas-i18n-resources",
+    "description": "Provides validator translations for laminas-i18n's Translator",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "laminas",
+        "resources",
+        "translations"
+    ],
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-i18n-resources/",
+        "issues": "https://github.com/laminas/laminas-i18n-resources/issues",
+        "source": "https://github.com/laminas/laminas-i18n-resources",
+        "rss": "https://github.com/laminas/laminas-i18n-resources/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.6.x-dev",
+            "dev-develop": "2.7.x-dev"
+        }
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.5"
+    },
+    "autoload": {
+        "classmap": [
+            "src/Resources.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\I18n\\Translator\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "replace": {
+        "zendframework/zend-i18n-resources": "self.version"
+    }
+}

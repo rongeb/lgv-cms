@@ -3,23 +3,28 @@
 $appConfig = array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
-        'Zend\Navigation',
-        'Zend\Paginator',
-        'Zend\Serializer',
-        'Zend\ServiceManager\Di',
-        'Zend\Session',
-        'Zend\Log',
-        'Zend\Db',
-        'Zend\Cache',
-        'Zend\InputFilter',
-        'Zend\Filter',
-        'Zend\Hydrator',
-        'Zend\Validator',
-        'Zend\Router',
-        'Zend\I18n',
-        'Zend\Mvc\I18n',
-        'Zend\Form',
-        'Zend\Mail',
+        'Laminas\Mvc\I18n',
+        'Laminas\I18n',
+        'Laminas\Mvc\Plugin\FilePrg',
+        'Laminas\Form',
+        'Laminas\InputFilter',
+        'Laminas\Filter',
+        'Laminas\Mvc\Plugin\FlashMessenger',
+        'Laminas\Mvc\Plugin\Identity',
+        'Laminas\Mvc\Plugin\Prg',
+        'Laminas\Mvc\Console',
+        'Laminas\Navigation',
+        'Laminas\Paginator',
+        'Laminas\Serializer',
+        'Laminas\ServiceManager\Di',
+        'Laminas\Session',
+        'Laminas\Log',
+        'Laminas\Db',
+        'Laminas\Cache',
+        'Laminas\Hydrator',
+        'Laminas\Validator',
+        'Laminas\Router',
+        'Laminas\Mail',
         'Application',
         'DynamicLayout',
         'MyAcl',
@@ -58,7 +63,6 @@ $appConfig = array(
             './module',
             './vendor',
         ),
-
         // Whether or not to enable a configuration cache.
         // If enabled, the merged configuration will be cached and used in
         // subsequent requests.
@@ -66,17 +70,13 @@ $appConfig = array(
         // The key used to create the configuration cache file name.
 
         //'config_cache_key' => "124567890AZERTYUIOPQSDFGHJKLMWXC",
-
         // Whether or not to enable a module class map cache.
         // If enabled, creates a module class map cache which will be used
         // by in future requests, to reduce the autoloading process.
 
         //'module_map_cache_enabled' => true,
-
         // The key used to create the class map cache file name.
         //'module_map_cache_key' => "AZERTYUIOPQSDFGHJKLMWXC124567890",
-
-
         // The path in which to cache merged configuration.
         //'cache_dir' => "./data/cache/",
         // Whether or not to enable modules dependency checking.
@@ -94,7 +94,7 @@ $appConfig = array(
     //     ),
     // )
     // Initial configuration with which to seed the ServiceManager.
-    // Should be compatible with Zend\ServiceManager\Config.
+    // Should be compatible with Laminas\ServiceManager\Config.
     // 'service_manager' => array(),
 );
 

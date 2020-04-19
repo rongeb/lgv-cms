@@ -2,9 +2,9 @@
 
 namespace Commentaire\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Commentaire\Model\Commentaire;
 use Commentaire\Form\CommentaireForm;
 use Commentaire\Form\CommentaireInputFilter;
@@ -13,7 +13,7 @@ use Contenu\Model\ContenuDao;
 use Contenu\Model\Contenu;
 use ExtLib\Utils;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class CommentaireController
@@ -48,7 +48,7 @@ class CommentaireController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function addAction() {
 
@@ -109,7 +109,7 @@ class CommentaireController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function editAction() {
 
@@ -211,7 +211,7 @@ class CommentaireController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction() {
 

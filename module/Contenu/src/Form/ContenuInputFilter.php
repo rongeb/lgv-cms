@@ -3,7 +3,7 @@
 namespace Contenu\Form;
 
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 use ExtLib\Utils;
 
 /**
@@ -40,8 +40,8 @@ class ContenuInputFilter extends InputFilter {
             'name' => 'titre',
             'required' => false,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim')
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim')
             ),
             'validators' => array(
                 array(
@@ -51,8 +51,8 @@ class ContenuInputFilter extends InputFilter {
                         'min' => 0,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
                         )),),
             ),
         ));
@@ -72,8 +72,8 @@ class ContenuInputFilter extends InputFilter {
             'name' => 'soustitre',
             'required' => false,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -82,8 +82,8 @@ class ContenuInputFilter extends InputFilter {
                         'min' => 0,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
                         ),),),
             ),
         ));
@@ -92,15 +92,15 @@ class ContenuInputFilter extends InputFilter {
             'name' => 'position',
             'required' => false,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'Regex',
                     'options' => array(
                         'pattern' => '/^[-]?[0-9]*$/',
                         'messages' => array(
-                            \Zend\Validator\Regex::NOT_MATCH => $this->translator->translate('La position doit être vide ou doit être un nombre'),
+                            \Laminas\Validator\Regex::NOT_MATCH => $this->translator->translate('La position doit être vide ou doit être un nombre'),
                         ),
                     ),
                 ),
@@ -110,8 +110,8 @@ class ContenuInputFilter extends InputFilter {
             'name' => 'rubriquesList',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -120,14 +120,14 @@ class ContenuInputFilter extends InputFilter {
                         'min' => 0,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
                         ),),),
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez choisir une rubrique')
+                            \Laminas\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez choisir une rubrique')
                         ),
                     ),
                 ),
@@ -138,8 +138,8 @@ class ContenuInputFilter extends InputFilter {
             'name' => 'sousrubriquesList',
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StripTags'),
-                array('name' => 'Zend\Filter\StringTrim'),),
+                array('name' => 'Laminas\Filter\StripTags'),
+                array('name' => 'Laminas\Filter\StringTrim'),),
             'validators' => array(
                 array(
                     'name' => 'StringLength',
@@ -148,14 +148,14 @@ class ContenuInputFilter extends InputFilter {
                         'min' => 0,
                         'max' => 128,
                         'messages' => array(
-                            \Zend\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
-                            \Zend\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::TOO_LONG => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
+                            \Laminas\Validator\StringLength::INVALID => $this->translator->translate('La taille ne doit pas dépasser 128 caractères'),
                         ),),),
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez choisir une sous-rubrique')
+                            \Laminas\Validator\NotEmpty::IS_EMPTY => $this->translator->translate('Vous devez choisir une sous-rubrique')
                         ),
                     ),
                 ),

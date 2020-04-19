@@ -1,0 +1,51 @@
+{
+    "name": "laminas/laminas-di",
+    "description": " ",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "laminas",
+        "di"
+    ],
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-di/",
+        "issues": "https://github.com/laminas/laminas-di/issues",
+        "source": "https://github.com/laminas/laminas-di",
+        "rss": "https://github.com/laminas/laminas-di/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.6-dev",
+            "dev-develop": "2.7-dev"
+        }
+    },
+    "require": {
+        "php": "^5.5 || ^7.0",
+        "container-interop/container-interop": "^1.1",
+        "laminas/laminas-code": "^2.6 || ^3.0",
+        "laminas/laminas-stdlib": "^2.7 || ^3.0",
+        "laminas/laminas-zendframework-bridge": "^0.4.5 || ^1.0"
+    },
+    "require-dev": {
+        "fabpot/php-cs-fixer": "1.7.*",
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\Di\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\Di\\": "test/"
+        }
+    },
+    "replace": {
+        "zendframework/zend-di": "self.version"
+    }
+}

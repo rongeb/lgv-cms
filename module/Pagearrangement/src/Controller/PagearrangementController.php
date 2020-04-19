@@ -2,9 +2,9 @@
 
 namespace Pagearrangement\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Rubrique\Form\RubriqueForm;
 use Rubrique\Form\RubriqueInputFilter as InputFilter;
 use Rubrique\Model\RubriqueDao;
@@ -13,7 +13,7 @@ use Sousrubrique\Model\Sousrubriquedao;
 use Linktocontenu\Model\LinktocontenuDao;
 use Pagearrangement\Model\PagearrangementDao;
 use ExtLib\Utils;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class PagearrangementController

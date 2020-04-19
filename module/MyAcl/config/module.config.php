@@ -2,7 +2,7 @@
 
 namespace MyAcl;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return array(
 	// added for Acl   ###################################

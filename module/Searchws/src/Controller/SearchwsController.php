@@ -3,11 +3,11 @@
 namespace Searchws\Controller;
 
 use Searchws\Model\Searchdao;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use ExtLib\MCrypt;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class SearchwsController
@@ -88,7 +88,7 @@ class SearchwsController extends AbstractActionController
     {
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $loginaccess = new \Zend\Session\Container('myacl');
+            $loginaccess = new \Laminas\Session\Container('myacl');
             $mcrypt = new MCrypt();
             $sessionData = json_decode($mcrypt->decrypt($loginaccess->userdata));
             $words = $this->getParams($request);

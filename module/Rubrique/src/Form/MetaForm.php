@@ -4,8 +4,8 @@
 
 namespace Rubrique\Form;
 
-use Zend\Form\Form;
-//use Zend\Stdlib\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+//use Laminas\Stdlib\Hydrator\ClassMethods;
 use ExtLib\Utils;
 
 /**
@@ -64,7 +64,7 @@ class MetaForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'name' => 'metasubmit',
             'options' => array(
                 'label' => $this->translator->translate('Valider'),

@@ -2,12 +2,12 @@
 
 namespace Application;
 
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
-use Zend\Session\SessionManager;
-use Zend\Session\Config\SessionConfig;
-use Zend\Session\Container;
-use Zend\Session\Validator\HttpUserAgent;
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Session\SessionManager;
+use Laminas\Session\Config\SessionConfig;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\HttpUserAgent;
 
 /**
  * Class Module
@@ -49,7 +49,7 @@ class Module
         //$eventManager->attach('route', array($this, 'doHttpsRedirect'));
         /*
         $translator=$e->getApplication()->getServiceManager()->get('translator');
-        \Zend\Validator\AbstractValidator::setDefaultTranslator($translator); */
+        \Laminas\Validator\AbstractValidator::setDefaultTranslator($translator); */
 
         $this->initSession(array(
             'remember_me_seconds' => 10800,
@@ -71,7 +71,7 @@ class Module
     /*
         public function getAutoloaderConfig() {
             return array(
-                'Zend\Loader\StandardAutoloader' => array(
+                'Laminas\Loader\StandardAutoloader' => array(
                     'namespaces' => array(
                         __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                     ),

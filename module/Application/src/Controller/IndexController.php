@@ -2,8 +2,8 @@
 namespace Application\Controller;
 
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class IndexController
@@ -26,7 +26,7 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function indexAction()
     {

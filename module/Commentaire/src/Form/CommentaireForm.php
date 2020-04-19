@@ -4,8 +4,8 @@
 
 namespace Commentaire\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use Rubrique\Model\RubriqueDao;
 use Message\Model\TypeMessage;
 use ExtLib\Utils;
@@ -98,7 +98,7 @@ class CommentaireForm extends Form {
         ));
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'rubriquesList',
             'attributes' => array(
                 'id' => 'rubriqueSelectIdTag',
@@ -114,7 +114,7 @@ class CommentaireForm extends Form {
         ));
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'contenusList',
 			'attributes'=>array(
 				'id'   => 'contenuSelectIdTag',
@@ -129,7 +129,7 @@ class CommentaireForm extends Form {
 			
         ));
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'statusList',
 			'attributes'=>array(
 				'id'   => 'statusSelectIdTag',
@@ -146,7 +146,7 @@ class CommentaireForm extends Form {
         ));
         /*
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'typeList',
 			'attributes'=>array(
 				'id'   => 'typeSelectIdTag',
@@ -174,7 +174,7 @@ class CommentaireForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Textarea',
+            'type' => 'Laminas\Form\Element\Textarea',
             'name' => 'msg',
             'attributes' => array(
                 'id' => 'msgId',
@@ -186,7 +186,7 @@ class CommentaireForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'name' => 'submitbutton',
             'options' => array(
                 'label' => $this->utils->translate('Valider'),

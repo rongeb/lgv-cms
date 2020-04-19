@@ -2,11 +2,11 @@
 
 namespace Message\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-//use Zend\Validator\File\Size;
-//use Zend\Validator\File\Extension;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
+//use Laminas\Validator\File\Size;
+//use Laminas\Validator\File\Extension;
 use Message\Model\Message;
 use Message\Form\MessageForm;
 use Message\Form\MessageInputFilter;
@@ -14,7 +14,7 @@ use Message\Model\MessageDao;
 //use ExtLib\FastJson;
 use ExtLib\Utils;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class MessageController
@@ -49,7 +49,7 @@ class MessageController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function addAction() {
 
@@ -106,7 +106,7 @@ class MessageController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function editAction() {
 
@@ -193,7 +193,7 @@ class MessageController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction() {
 

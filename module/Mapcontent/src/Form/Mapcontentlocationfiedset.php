@@ -3,10 +3,10 @@
 namespace Mapcontent\Form;
 
 
-use Zend\Form\Fieldset;
-use Zend\Form\Element;
+use Laminas\Form\Fieldset;
+use Laminas\Form\Element;
 use ExtLib\Utils;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Class Mapcontentlocationfiedset

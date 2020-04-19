@@ -94,7 +94,7 @@ $title = 'Domaine des vieux celliers - Back office';
 
 <?php
 echo '<div id="loginContainer">';
-$loginaccess = new \Zend\Session\Container('error');
+$loginaccess = new \Laminas\Session\Container('error');
 if ($loginaccess->error) {
     echo '<div style="color:red;">' . $loginaccess->error . '</div>';
     $loginaccess->getManager()->getStorage()->clear('error');

@@ -109,7 +109,7 @@
                                 </ul>
                             </li>
                             <?php
-                            $session = new \Zend\Session\Container('myacl');
+                            $session = new \Laminas\Session\Container('myacl');
                             $role = $session->role;
 
                             if (strcmp($role, 'admin') == 0) {

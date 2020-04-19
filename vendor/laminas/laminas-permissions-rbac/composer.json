@@ -1,0 +1,58 @@
+{
+    "name": "laminas/laminas-permissions-rbac",
+    "description": "provides a role-based access control management",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "laminas",
+        "Rbac"
+    ],
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-permissions-rbac/",
+        "issues": "https://github.com/laminas/laminas-permissions-rbac/issues",
+        "source": "https://github.com/laminas/laminas-permissions-rbac",
+        "rss": "https://github.com/laminas/laminas-permissions-rbac/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.6-dev",
+            "dev-develop": "2.7-dev"
+        }
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "phpunit/phpunit": "^5.7.15 || ^6.2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\Permissions\\Rbac\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\Permissions\\Rbac\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "replace": {
+        "zendframework/zend-permissions-rbac": "self.version"
+    }
+}

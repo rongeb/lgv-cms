@@ -40,20 +40,20 @@ use Siteprivate\Form\SiteprivateForgottenPasswordInputFilter;
 use Siteprivate\Form\SiteprivateNewPasswordForm;
 use Siteprivate\Form\SiteprivateNewPasswordInputFilter;
 use Uploadmgmt\Model\FileuploadStatus;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 use Message\Model\MessageDao;
 use Message\Model\Message as EmailSent;
 use Message\Model\TypeMessage;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\Smtp as SmtpTransport;
-use Zend\Mail\Transport\Sendmail as SendmailTransport;
-use Zend\Mail\Transport\SmtpOptions;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mail\Message;
+use Laminas\Mail\Transport\Smtp as SmtpTransport;
+use Laminas\Mail\Transport\Sendmail as SendmailTransport;
+use Laminas\Mail\Transport\SmtpOptions;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use ExtLib\Utils;
 use ExtLib\MCrypt;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class SiteprivateController
@@ -85,7 +85,7 @@ class SiteprivateController extends AbstractActionController
 
         $form = new IndexLoginForm();
         $token = $this->params()->fromQuery('myspace');
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
 
         $loginaccess->role = 'anonymous';
         $form->get('token')->setAttribute('value', $token);
@@ -99,7 +99,7 @@ class SiteprivateController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function authAction()
     {
@@ -131,7 +131,7 @@ class SiteprivateController extends AbstractActionController
                 $rowNb = $siteprivateDao->countLoginforAuthentication($decypted->spaceId, $email, $pwd);
 
                 if ($rowNb == 0) {
-                    $loginaccess = new \Zend\Session\Container('error');
+                    $loginaccess = new \Laminas\Session\Container('error');
                     $loginaccess->error = $this->translator->translate('Veuillez recommencer le nom d\'utilisateur et/ou le mot de passe sont incorrects');
                     //TO DO return with token
                     return $this->redirect()->toRoute('siteprivate', array('action' => 'index'), array('query' => array('myspace' => $mySpaceToken)));
@@ -153,7 +153,7 @@ class SiteprivateController extends AbstractActionController
                     $sessionData['pageId'] = $page->getId();
                     //$sessionData['firstConnection'] = true;
 
-                    $loginaccess = new \Zend\Session\Container('myacl');
+                    $loginaccess = new \Laminas\Session\Container('myacl');
                     $loginaccess->role = MyAclRoles::$GUEST;
 
                     $loginaccess->userdata = $mcrypt->encrypt(
@@ -166,7 +166,7 @@ class SiteprivateController extends AbstractActionController
                         'page' => $pageNameArg
                     ));
                 } else {
-                    $loginaccess = new \Zend\Session\Container('error');
+                    $loginaccess = new \Laminas\Session\Container('error');
                     $loginaccess->error = $this->translator->translate('Veuillez contacter l\'administrateur du site svp.');
                     return $this->redirect()->toRoute('siteprivate', array('action' => 'index'), array('query' => array('myspace' => $mySpaceToken)));
                 }
@@ -174,7 +174,7 @@ class SiteprivateController extends AbstractActionController
                 //var_dump($form->getMessages());
                 //exit;
                 //form is not valid because the csrf token is not the same anymore
-                $loginaccess = new \Zend\Session\Container('error');
+                $loginaccess = new \Laminas\Session\Container('error');
                 $loginaccess->error = $this->translator->translate('Veuillez rafraichir la page et recommencer svp.');
                 return $this->redirect()->toRoute('siteprivate', array('action' => 'index'), array('query' => array('myspace' => $mySpaceToken)));
             }
@@ -193,7 +193,7 @@ class SiteprivateController extends AbstractActionController
         $contactForm = null;
         $commentForm = null;
         $fileuploadForm = null;
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
         $page = $this->params()->fromRoute('page');
         $phtmlFile = "";
         $viewModel = null;
@@ -213,7 +213,7 @@ class SiteprivateController extends AbstractActionController
             $page = str_replace(".phtml", "", $firstRubrique->getFilename());
         }
 
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
         //get cache only for an anonymous user or an extranet user
         if ((strcasecmp($loginaccess->role, MyAclRoles::$USER) == 0 || strcasecmp($loginaccess->role, MyAclRoles::$ADMIN) == 0)
         ) {
@@ -379,7 +379,7 @@ class SiteprivateController extends AbstractActionController
      */
     public function logoutAction()
     {
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
         $loginaccess->getManager()->getStorage()->clear('myacl');
         return json_encode(array("response" => "ok"));
         //return $this->redirect()->toRoute('Login');
@@ -578,7 +578,7 @@ class SiteprivateController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function registrationAction()
     {
@@ -682,7 +682,7 @@ class SiteprivateController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function updatecontactinformationAction()
     {
@@ -692,7 +692,7 @@ class SiteprivateController extends AbstractActionController
         // $this->translator = $this->getServiceLocator()->get('translator');
         $privatespaceloginmgmtDao = new PrivatespaceloginDao();
         $rubriqueDao = new RubriqueDao;
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
         $mcrypt = new MCrypt();
         $allPagesBySpace = null;
         $allPagesBySpaceJSON = null;
@@ -849,7 +849,7 @@ class SiteprivateController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function forgottenpasswordAction()
     {

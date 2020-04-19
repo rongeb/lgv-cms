@@ -5,8 +5,8 @@ namespace Mobilews\Controller;
 use Fichiers\Model\Fichiers;
 use Fichiers\Model\Fichiersdao;
 use Uploadmgmt\Controller\UploadmgmtController;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Rubrique\Model\RubriqueDao;
 use Uploadmgmt\Model\Uploadmgmtdao;
 use Siteprivate\Model\SiteprivateDao;
@@ -15,7 +15,7 @@ use ExtLib\Utils;
 use ExtLib\MCrypt;
 use Privatespacelogin\Model\PrivatespaceloginDao;
 use ExtLib\FileManager;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 use Application\Factory\CacheDataListener;
 use Fichiers\Model\FilesCategories;
 
@@ -93,7 +93,7 @@ class MobilewsController extends AbstractActionController
                 $sessionData['pageId'] = $page->getId();
                 //$sessionData['firstConnection'] = true;
 
-                $loginaccess = new \Zend\Session\Container('myacl');
+                $loginaccess = new \Laminas\Session\Container('myacl');
                 $loginaccess->role = MyAclRoles::$GUEST;
 
                 $loginaccess->userdata = $mcrypt->encrypt(

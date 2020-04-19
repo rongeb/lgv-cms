@@ -2,8 +2,8 @@
 
 namespace Sitepublic\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 
 /**
  * Class SitepublicCommentForm
@@ -21,7 +21,7 @@ class SitepublicCommentForm extends Form {
         //$this->setHydrator(new ClassMethods);
         $this->setAttribute('method', 'post');
 
-        $this->captcha = new \Zend\Captcha\Figlet(array(
+        $this->captcha = new \Laminas\Captcha\Figlet(array(
             
             'wordLen' => 4,
             'timeout' => 10800,
@@ -60,7 +60,7 @@ class SitepublicCommentForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Textarea',
+            'type' => 'Laminas\Form\Element\Textarea',
             'name' => 'contacttext',
             'attributes' => array(
                 'class' => 'form-control',
@@ -79,14 +79,14 @@ class SitepublicCommentForm extends Form {
                 'label' => 'Vérification',
                 'captcha' => $this->captcha,
             ),
-            'type'  => 'Zend\Form\Element\Captcha',
+            'type'  => 'Laminas\Form\Element\Captcha',
         )); 
         
         $this->add
                 (
                 array
                     (
-                    'type' => 'Zend\Form\Element\Csrf',
+                    'type' => 'Laminas\Form\Element\Csrf',
                     'name' => 'contactprevent',
                     'attributes' => array
                         (
@@ -111,7 +111,7 @@ class SitepublicCommentForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'name' => 'submitbutton',
             'options' => array(
                 'label' => 'Valider',

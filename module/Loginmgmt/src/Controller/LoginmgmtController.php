@@ -5,11 +5,11 @@ use Loginmgmt\Model\Login;
 use Loginmgmt\Model\LoginmgmtDao;
 use Loginmgmt\Form\LoginmgmtForm;
 use Loginmgmt\Form\LoginmgmtInputFilter;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use ExtLib\Utils;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class LoginmgmtController
@@ -34,7 +34,7 @@ class LoginmgmtController extends AbstractActionController {
 
         $loginmgmtDao = new LoginmgmtDao();
 
-        //$useraccess =new \Zend\Session\Container('myacl');
+        //$useraccess =new \Laminas\Session\Container('myacl');
         //$login = $useraccess->role;
 
         return new ViewModel(array(
@@ -45,7 +45,7 @@ class LoginmgmtController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function addAction() {
 
@@ -105,7 +105,7 @@ class LoginmgmtController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response|ViewModel
+     * @return array|\Laminas\Http\Response|ViewModel
      */
     public function editAction() {
 
@@ -202,7 +202,7 @@ class LoginmgmtController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction() {
 

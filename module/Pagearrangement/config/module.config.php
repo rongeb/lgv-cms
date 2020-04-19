@@ -2,7 +2,7 @@
 namespace Pagearrangement;
 
 use Pagearrangement\Controller\PagearrangementControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
 	'controllers' => array(

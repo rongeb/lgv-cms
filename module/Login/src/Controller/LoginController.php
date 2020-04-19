@@ -2,9 +2,9 @@
 
 namespace Login\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\Mvc\I18n\Translator;
 use Login\Form\LoginForm;
 use Login\Form\LoginInputFilter;
 use Login\Model\LoginDao;
@@ -38,7 +38,7 @@ class LoginController extends AbstractActionController {
 
         $form = new LoginForm();
         //$response = generateAction();
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
         $loginaccess->role = 'anonymous';
         return new ViewModel(array(
             'form' => $form,
@@ -47,7 +47,7 @@ class LoginController extends AbstractActionController {
     }
 
     /**
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     public function authAction() {
 
@@ -76,7 +76,7 @@ class LoginController extends AbstractActionController {
                         $utils->stripTags_replaceHtmlChar_trim($login->getPwd(), true, true, false));
                 //print_r($rowNb);
                 if ($rowNb == 0) {
-                    $loginaccess = new \Zend\Session\Container('error');
+                    $loginaccess = new \Laminas\Session\Container('error');
                     $loginaccess->error = $this->translator->translate('Veuillez recommencer le nom d\'utilisateur et/ou le mot de passe sont incorrects');
                     return $this->redirect()->toRoute('Login');
                     
@@ -98,7 +98,7 @@ class LoginController extends AbstractActionController {
                     $sessionData['pageName'] = 'whatever.phtml';
                     $sessionData['pageId'] = 1000000000;
                     
-                    $loginaccess = new \Zend\Session\Container('myacl');
+                    $loginaccess = new \Laminas\Session\Container('myacl');
                     
                     $loginaccess->userdata = $mcrypt->encrypt(json_encode($sessionData));
                     $role = $loginDao->getRole($utils->stripTags_replaceHtmlChar_trim($login->getUser(), true, true, false),
@@ -107,14 +107,14 @@ class LoginController extends AbstractActionController {
 
                     return $this->redirect()->toRoute('rubrique');
                 } else {
-                    $loginaccess = new \Zend\Session\Container('error');
+                    $loginaccess = new \Laminas\Session\Container('error');
                     $loginaccess->error = $this->translator->translate('Veuillez contacter l\'administrateur du site svp.');
                     return $this->redirect()->toRoute('Login');
                 }
             }
             else {
                 //form is not valid because the csrf token is not the same anymore
-                $loginaccess = new \Zend\Session\Container('error');
+                $loginaccess = new \Laminas\Session\Container('error');
                 $loginaccess->error = $this->translator->translate('Veuillez rafraichir la page et recommencer svp.');
                 return $this->redirect()->toRoute('Login');
             }
@@ -125,7 +125,7 @@ class LoginController extends AbstractActionController {
      * @return json
      */
     public function logoutAction() {
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
         $loginaccess->getManager()->getStorage()->clear('myacl');
         return json_encode(array("response"=>"OK"));
         //return $this->redirect()->toRoute('Login');

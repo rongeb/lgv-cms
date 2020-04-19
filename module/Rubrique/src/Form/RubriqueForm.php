@@ -2,8 +2,8 @@
 
 namespace Rubrique\Form;
 
-use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+use Laminas\Stdlib\Hydrator\ClassMethods;
 use ExtLib\Utils;
 use Privatespace\Model\PrivatespaceDao;
 
@@ -74,7 +74,7 @@ class RubriqueForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'scope',
             'attributes' => array(
                 'id' => 'scopeId',
@@ -86,7 +86,7 @@ class RubriqueForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'contactForm',
             'attributes' => array(
                 'id' => 'hasContactFormId',
@@ -98,7 +98,7 @@ class RubriqueForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'messageForm',
             'attributes' => array(
                 'id' => 'hasMessageFormId',
@@ -110,7 +110,7 @@ class RubriqueForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'updateForm',
             'attributes' => array(
                 'id' => 'hasUpdateFormId',
@@ -122,7 +122,7 @@ class RubriqueForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'fileuploadForm',
             'attributes' => array(
                 'id' => 'fileuploadFormId',
@@ -134,7 +134,7 @@ class RubriqueForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'spaceId',
             'attributes' => array(
                 'id' => 'spacesListId',

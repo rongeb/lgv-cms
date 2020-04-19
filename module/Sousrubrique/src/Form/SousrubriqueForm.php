@@ -2,8 +2,8 @@
 
 namespace SousRubrique\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use Rubrique\Model\RubriqueDao;
 use ExtLib\Utils;
 
@@ -78,7 +78,7 @@ class SousRubriqueForm extends Form {
             ),
         ));
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'rubriquesList',
             'attributes' => array(
                 'id' => 'rubriqueSelectIdTag',

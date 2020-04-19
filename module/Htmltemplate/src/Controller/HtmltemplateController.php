@@ -6,14 +6,14 @@ use Htmltemplate\Form\HtmltemplateForm;
 use Htmltemplate\Form\HtmltemplateInputFilter;
 use Htmltemplate\Model\Htmltemplate;
 use Htmltemplate\Model\HtmltemplateDao;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Fichiers\Model\Fichiersdao;
 use ExtLib\Utils;
 use Application\Factory\CacheKeys;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class HtmltemplateController
@@ -49,7 +49,7 @@ class HtmltemplateController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function addAction()
     {
@@ -112,7 +112,7 @@ class HtmltemplateController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function editAction()
     {
@@ -204,7 +204,7 @@ class HtmltemplateController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction()
     {

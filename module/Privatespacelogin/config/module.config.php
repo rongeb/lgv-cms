@@ -3,7 +3,7 @@ namespace Privatespacelogin;
 
 use Privatespacelogin\Controller\PrivatespaceloginController;
 use Privatespacelogin\Controller\PrivatespaceloginControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
     'controllers' => array(

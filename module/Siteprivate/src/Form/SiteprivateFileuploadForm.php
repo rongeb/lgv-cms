@@ -2,8 +2,8 @@
 
 namespace Siteprivate\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use Uploadmgmt\Model\FileuploadStatus;
 use ExtLib\Utils;
 
@@ -83,7 +83,7 @@ class SiteprivateFileuploadForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\File',
+            'type' => 'Laminas\Form\Element\File',
             'name' => 'newfile',
             'attributes' => array(
                 'id' => 'newfileId',
@@ -95,7 +95,7 @@ class SiteprivateFileuploadForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'name' => 'sendfile',
             'options' => array(
                 'label' => $this->utils->translate('Envoyer'),

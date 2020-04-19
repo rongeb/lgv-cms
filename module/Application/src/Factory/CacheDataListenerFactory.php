@@ -3,10 +3,10 @@ namespace Application\Factory;
  
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Application\Factory\CacheDataListener;
 
 /**
@@ -29,6 +29,6 @@ class CacheDataListenerFactory implements FactoryInterface {
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new CacheDataListener($container->get('Zend\Cache'));
+        return new CacheDataListener($container->get('Laminas\Cache'));
     }
 }

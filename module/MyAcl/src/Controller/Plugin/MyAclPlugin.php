@@ -1,11 +1,11 @@
 <?php
 namespace MyAcl\Controller\Plugin;
  
-use Zend\Mvc\Controller\Plugin\AbstractPlugin,
-    Zend\Session\Container as SessionContainer,
-    Zend\Permissions\Acl\Acl,
-    Zend\Permissions\Acl\Role\GenericRole as Role,
-    Zend\Permissions\Acl\Resource\GenericResource as Resource;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin,
+    Laminas\Session\Container as SessionContainer,
+    Laminas\Permissions\Acl\Acl,
+    Laminas\Permissions\Acl\Role\GenericRole as Role,
+    Laminas\Permissions\Acl\Resource\GenericResource as Resource;
 
 /**
  * Class MyAclPlugin

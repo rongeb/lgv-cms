@@ -12,10 +12,10 @@ use ExtLib\Utils;
 use Uploadmgmt\Model\Fileupload;
 use ExtLib\FileManager;
 use Fichiers\Model\FilesCategories;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
+use Laminas\Mvc\I18n\Translator;
 use Application\Factory\CacheDataListener;
 
 /**
@@ -153,7 +153,7 @@ class UploadmgmtController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\Http\Response|JsonModel
+     * @return \Laminas\Http\Response|JsonModel
      */
     public function updateAction()
     {
@@ -200,7 +200,7 @@ class UploadmgmtController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\View\Model\JsonModel
+     * @return \Laminas\View\Model\JsonModel
      * input in Post :
      * newfile(the file to upload)
      * comment (text)

@@ -2,9 +2,9 @@
 
 namespace Blogcontent\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Blogcontent\Model\Blogcontent;
 use Blogcontent\Model\BlogcontentDao;
 use Blogcontent\Form\BlogcontentForm;
@@ -16,7 +16,7 @@ use Rubrique\Model\RubriqueDao;
 use Fichiers\Model\Fichiersdao;
 use ExtLib\Utils;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 use Application\Factory\CacheKeys;
 
 /**
@@ -53,7 +53,7 @@ class BlogcontentController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function addAction() {
 
@@ -132,7 +132,7 @@ class BlogcontentController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function editAction() {
 
@@ -255,7 +255,7 @@ class BlogcontentController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction() {
 

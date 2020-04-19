@@ -7,12 +7,12 @@ use Mapcontent\Form\MapcontentInputFilter;
 use Mapcontent\Model\GpsInfo;
 use Mapcontent\Model\Mapcontent;
 use Mapcontent\Model\MapcontentDao;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 
-//use Zend\Validator\File\Size;
-//use Zend\Validator\File\Extension;
+//use Laminas\Validator\File\Size;
+//use Laminas\Validator\File\Extension;
 use Contenu\Model\Contenu;
 use Contenu\Model\ContenuType;
 use Contenu\Form\ContenuForm;
@@ -24,7 +24,7 @@ use Fichiers\Model\Fichiersdao;
 use ExtLib\Utils;
 use Application\Factory\CacheKeys;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class MapcontentController
@@ -62,7 +62,7 @@ class MapcontentController extends AbstractActionController
 
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function addAction()
     {
@@ -147,7 +147,7 @@ class MapcontentController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function editAction()
     {
@@ -265,7 +265,7 @@ class MapcontentController extends AbstractActionController
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction()
     {

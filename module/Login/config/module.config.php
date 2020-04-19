@@ -4,7 +4,7 @@ namespace Login;
 
 use Login\Controller\LoginControllerFactory;
 use Login\Controller\LoginController;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
     'controllers' => array(

@@ -3,8 +3,8 @@
 namespace Contenu\Form;
 
 use Htmltemplate\Model\HtmltemplateDao;
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use Rubrique\Model\RubriqueDao;
 use ExtLib\Utils;
 
@@ -98,7 +98,7 @@ class ContenuForm extends Form {
         ));
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'sousrubriquesList',
             'attributes' => array(
                 'id' => 'sousrubriqueSelectIdTag',
@@ -114,7 +114,7 @@ class ContenuForm extends Form {
         ));
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'rubriquesList',
             'attributes' => array(
                 'id' => 'rubriqueSelectIdTag',
@@ -129,7 +129,7 @@ class ContenuForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Textarea',
+            'type' => 'Laminas\Form\Element\Textarea',
             'name' => 'contenu',
             'attributes' => array(
                 'id' => 'contenuId',
@@ -139,7 +139,7 @@ class ContenuForm extends Form {
 
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'htmltemplateList',
             'attributes' => array(
                 'id' => 'htmltemplateSelectIdTag',
@@ -156,7 +156,7 @@ class ContenuForm extends Form {
 
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'name' => 'submitbutton',
             'options' => array(
                 'label' => $this->utils->translate('Valider'),

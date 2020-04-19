@@ -6,11 +6,11 @@ use Privatespace\Model\Privatespace;
 use Privatespace\Model\PrivatespaceDao;
 use Privatespace\Form\PrivatespaceForm;
 use Privatespace\Form\PrivatespaceInputFilter as InputFilter;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use ExtLib\Utils;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 use Application\Factory\CacheDataListener;
 
 /**
@@ -45,7 +45,7 @@ class PrivatespaceController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Responses
+     * @return array|\Laminas\Http\Responses
      */
     public function addAction() {
 
@@ -92,7 +92,7 @@ class PrivatespaceController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response|ViewModel
+     * @return array|\Laminas\Http\Response|ViewModel
      */
     public function editAction() {
 
@@ -161,7 +161,7 @@ class PrivatespaceController extends AbstractActionController {
     }
 
     /**
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction() {
 

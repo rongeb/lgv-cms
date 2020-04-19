@@ -5,8 +5,8 @@ namespace Application;
 use Application\Factory\ApplicationControllerFactory;
 use Application\Factory\CacheDataListener;
 use Application\Factory\CacheDataListenerFactory;
-use Zend\Router\Http\Literal;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Literal;
+use Laminas\Router\Http\Segment;
 
 return array(
     'router' => array(
@@ -54,14 +54,14 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
-            'Zend\Cache' => 'Zend\Cache\Service\StorageCacheFactory',
+            'Laminas\Cache' => 'Laminas\Cache\Service\StorageCacheFactory',
             CacheDataListener::class => CacheDataListenerFactory::class,
-            \Zend\I18n\Translator\TranslatorInterface::class => \Zend\I18n\Translator\TranslatorServiceFactory::class,
+            \Laminas\I18n\Translator\TranslatorInterface::class => \Laminas\I18n\Translator\TranslatorServiceFactory::class,
         ),
 
         'abstract_factories' => array(
-            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-            'Zend\Log\LoggerAbstractServiceFactory',
+            'Laminas\Cache\Service\StorageCacheAbstractServiceFactory',
+            'Laminas\Log\LoggerAbstractServiceFactory',
         )
 
     ),
@@ -98,7 +98,7 @@ return array(
     ),
     'controller_plugins' => [
         'factories' => [
-            'translate' => \Zend\I18n\View\Helper\Translate::class
+            'translate' => \Laminas\I18n\View\Helper\Translate::class
         ]
     ],
     'view_manager' => array(

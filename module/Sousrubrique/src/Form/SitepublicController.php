@@ -18,18 +18,18 @@ use Siteprivate\EmailConfig\EmailContactConfig;
 use Pagearrangement\Model\PagearrangementDao;
 use Sitepublic\Form\SitepublicCommentForm;
 use Sitepublic\Form\SitepublicCommentInputFilter;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 use Message\Model\MessageDao;
 use Message\Model\Message as EmailSent;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\Smtp as SmtpTransport;
-use Zend\Mail\Transport\Sendmail as SendmailTransport;
-use Zend\Mail\Transport\SmtpOptions;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mail\Message;
+use Laminas\Mail\Transport\Smtp as SmtpTransport;
+use Laminas\Mail\Transport\Sendmail as SendmailTransport;
+use Laminas\Mail\Transport\SmtpOptions;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use ExtLib\Utils;
 use Application\Factory\CacheDataListener;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 /**
  * Class SitepublicController
@@ -70,7 +70,7 @@ class SitepublicController extends AbstractActionController
         $phtmlFile = "";
         $viewModel = null;
 
-        $loginaccess = new \Zend\Session\Container('myacl');
+        $loginaccess = new \Laminas\Session\Container('myacl');
         //get cache only for anonymous or extranet user ('guest')
         if ((strcasecmp($loginaccess->role, MyAclRoles::$USER) != 0 || strcasecmp($loginaccess->role, MyAclRoles::$ADMIN) != 0)
         ) {

@@ -2,7 +2,7 @@
 namespace Message;
 
 use Message\Controller\MessageControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
 	'controllers' => array(

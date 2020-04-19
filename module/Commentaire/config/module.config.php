@@ -2,7 +2,7 @@
 namespace Commentaire;
 
 use Commentaire\Controller\CommentaireControllerFactory;
-use Zend\Router\Http\Segment;
+use Laminas\Router\Http\Segment;
 
 return array(
 	'controllers' => array(

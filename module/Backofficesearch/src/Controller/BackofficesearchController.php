@@ -4,11 +4,11 @@ namespace Backofficesearch\Controller;
 
 use Rubrique\Model\RubriqueDao;
 use Searchws\Model\Searchdao;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
+use Laminas\Mvc\I18n\Translator;
 use Application\Factory\CacheDataListener;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Class BackofficesearchController

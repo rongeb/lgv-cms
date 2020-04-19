@@ -1,0 +1,66 @@
+{
+    "name": "laminas/laminas-barcode",
+    "description": "Programmatically create and render barcodes as images or in PDFs",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "laminas",
+        "barcode"
+    ],
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-barcode/",
+        "issues": "https://github.com/laminas/laminas-barcode/issues",
+        "source": "https://github.com/laminas/laminas-barcode",
+        "rss": "https://github.com/laminas/laminas-barcode/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.8.x-dev",
+            "dev-develop": "2.9.x-dev"
+        }
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "laminas/laminas-servicemanager": "^2.7.8 || ^3.3",
+        "laminas/laminas-stdlib": "^2.7.7 || ^3.1",
+        "laminas/laminas-validator": "^2.10.1",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "laminas/laminas-config": "^2.6 || ^3.1",
+        "phpunit/phpunit": "^5.7.23 || ^6.4.3",
+        "zendframework/zendpdf": "^2.0.2"
+    },
+    "suggest": {
+        "zendframework/zendpdf": "ZendPdf component"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\Barcode\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\Barcode\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "replace": {
+        "zendframework/zend-barcode": "self.version"
+    }
+}

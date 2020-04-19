@@ -2,8 +2,8 @@
 
 namespace Privatespace\Form;
 
-use Zend\Form\Form;
-use Zend\Hydrator\ClassMethods;
+use Laminas\Form\Form;
+use Laminas\Hydrator\ClassMethods;
 use ExtLib\Utils;
 
 /**

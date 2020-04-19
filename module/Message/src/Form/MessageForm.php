@@ -2,8 +2,8 @@
 
 namespace Message\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use Message\Model\TypeMessage;
 use ExtLib\Utils;
 
@@ -88,7 +88,7 @@ class MessageForm extends Form {
          */
         
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'type',
 			'attributes'=>array(
 				'id'   => 'typeSelectIdTag',
@@ -128,7 +128,7 @@ class MessageForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Textarea',
+            'type' => 'Laminas\Form\Element\Textarea',
             'name' => 'msg',
             'attributes' => array(
                 'id' => 'msgId',
@@ -140,7 +140,7 @@ class MessageForm extends Form {
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Button',
+            'type' => 'Laminas\Form\Element\Button',
             'name' => 'submitbutton',
             'options' => array(
                 'label' => 'Valider',

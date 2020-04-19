@@ -2,12 +2,12 @@
 namespace MyAcl;
 
 use MyAcl\Controller\Plugin\MyAclPlugin;
-use Zend\ModuleManager\ModuleManager; // added for module specific layouts. ericp
+use Laminas\ModuleManager\ModuleManager; // added for module specific layouts. ericp
 
 // added for Acl  ###################################
-use Zend\Mvc\MvcEvent,
-    Zend\ModuleManager\Feature\AutoloaderProviderInterface,
-    Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\Mvc\MvcEvent,
+    Laminas\ModuleManager\Feature\AutoloaderProviderInterface,
+    Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
 /**
  * Class Module
@@ -47,7 +47,7 @@ class Module
 	
 	$matchedRoute = $router->match($request);
 	if (null !== $matchedRoute) { 
-           $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController','dispatch', 
+           $sharedManager->attach('Laminas\Mvc\Controller\AbstractActionController','dispatch', 
                 function($e) use ($sm) {
 		   $sm->get('ControllerPluginManager')->get(MyAclPlugin::class)
                       ->doAuthorization($e); //pass to the plugin...    

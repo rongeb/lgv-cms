@@ -2,7 +2,7 @@
 
 namespace Login\Form;
 
-use Zend\Form\Form;
+use Laminas\Form\Form;
 use ExtLib\Utils;
 
 /**
@@ -39,7 +39,7 @@ class LoginForm extends Form {
         ));
         */
         
-        $this->captcha = new \Zend\Captcha\Figlet(array(
+        $this->captcha = new \Laminas\Captcha\Figlet(array(
             
             'wordLen' => 6,
             'timeout' => 1200,
@@ -76,7 +76,7 @@ class LoginForm extends Form {
                 'label' => 'Verification',
                 'captcha' => $this->captcha,
             ),
-            'type'  => 'Zend\Form\Element\Captcha',
+            'type'  => 'Laminas\Form\Element\Captcha',
         ));
          * */
         $this->add(array(
@@ -89,12 +89,12 @@ class LoginForm extends Form {
                 'captcha' => $this->captcha
                 
             ),
-            'type'  => 'Zend\Form\Element\Captcha'
+            'type'  => 'Laminas\Form\Element\Captcha'
             
         )); 
         /*
           $this->add(array(
-          'type' => 'Zend\Form\Element\Csrf',
+          'type' => 'Laminas\Form\Element\Csrf',
           'name' => 'prevent',
           'options' => array(
           'csrf_options' => array(
@@ -109,7 +109,7 @@ class LoginForm extends Form {
                 (
                 array
                     (
-                    'type' => 'Zend\Form\Element\Csrf',
+                    'type' => 'Laminas\Form\Element\Csrf',
                     'name' => 'prevent',
                     'attributes' => array
                         (
@@ -135,7 +135,7 @@ class LoginForm extends Form {
 
         $this->add(array(
 			'name' => 'submitbutton',
-                        'type' => 'Zend\Form\Element\Button',
+                        'type' => 'Laminas\Form\Element\Button',
                         'options' => array(
                             'label' => $this->utils->translate('Valider'),
                         ),
