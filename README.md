@@ -1,5 +1,7 @@
-At night and in transportation - CMS
--====================================
+LGV - CMS
+---------
+
+
 
 Introduction
 -------------
@@ -8,7 +10,7 @@ Welcome to the repository of "LGV CMS".
 
 I share my work because I think it can be really useful for developping web sites with public or private access.
 I add more features step by step in order to fit most demanding needs for building a web site. 
-The cms runs now on Laminas. 
+The cms runs on Laminas (formerly Zend Framework). 
 
 
 Principles of the cms
