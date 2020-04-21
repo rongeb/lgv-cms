@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  Dim 19 avr. 2020 à 15:26
+-- Généré le :  Dim 19 avr. 2020 à 19:11
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.9
 
@@ -125,7 +125,7 @@ INSERT INTO `contenu` (`contenu_id`, `rang`, `titre`, `soustitre`, `sousrubrique
 (169, 1, 'Air bnb', '', 64, '<!-- Social Section -->\r\n<section id=\"social\" class=\"gray-bg ptb ptb-sm-80\">\r\n<div class=\"container text-center\">\r\n<div class=\"row\">\r\n<div class=\"col-md-8 offset-md-2\">\r\n<h3>Retrouvez le domaine sur</h3>\r\n</div>\r\n</div>\r\n<div class=\"spacer-60\"></div>\r\n<div class=\"row\">\r\n<div class=\"col-12\">\r\n<div class=\"page-icon-top\"><img class=\"dvc-airbnb-img img-fluid\" src=\"../../filesbank/favpng_airbnb-logo-business-organization_9uz1ph0x.png\" /></div>\r\n</div>\r\n</div>\r\n</div>\r\n</section>\r\n<!-- End Social Section -->', NULL, NULL, 'content', '', '', '2020-02-10 21:11:11', '', '', '', 0, 0, NULL),
 (170, 16, 'Brouilly', '', 55, '<div class=\"nf-item vins\">\r\n<div class=\"item-box\">\r\n<div style=\"cursor: pointer;\" class=\"cbox-gallary1\" href=\"../../filesbank/brouilly-x1.jpg\" title=\"Vin rouge Brouilly domaine du vieux cellier\"><img class=\"item-container\" src=\"../../filesbank/brouilly-x1.jpg\" />\r\n<div class=\"item-mask\">\r\n<div class=\"item-caption\">\r\n<h5 class=\"white\">Brouilly</h5>\r\n<p class=\"white\">6&euro; ttc/la bouteille</p>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>', '', '', 'gallery', '', '', '2020-02-20 21:19:48', '', '', '', 0, 0, NULL),
 (171, 17, 'Bougogne aligoté', '', 55, '<div class=\"nf-item vins\">\r\n<div class=\"item-box\">\r\n<div style=\"cursor: pointer;\" class=\"cbox-gallary1\" href=\"../../filesbank/aligote-x1.jpg\" title=\"Vin blanc Bourgogne aligot&eacute; domaine du vieux cellier\"><img class=\"item-container\" src=\"../../filesbank/aligote-x1.jpg\" />\r\n<div class=\"item-mask\">\r\n<div class=\"item-caption\">\r\n<h5 class=\"white\">Bourgogne aligot&eacute;</h5>\r\n<p class=\"white\">5&euro; ttc/la bouteille</p>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>', '', '', 'gallery', '', '', '2020-02-20 21:18:50', '', '', '', 0, 0, NULL),
-(172, 1, 'Mentions légales', '', 65, '<!-- The Modal -->\r\n<div id=\"mentionsLegalesModal\" class=\"dvc-modal\"><!-- Modal content -->\r\n<div class=\"dvc-modal-content\"><span class=\"dvc-close\">&times;</span>\r\n<p>Mentions l&eacute;gales</p>\r\n</div>\r\n</div>', NULL, NULL, 'content', '', '', '2020-04-19 15:12:11', '', '', '', 0, 0, NULL);
+(172, 1, 'Legal notice', '', 65, '<!-- The Modal -->\r\n<div id=\"mentionsLegalesModal\" class=\"dvc-modal\"><!-- Modal content -->\r\n<div class=\"dvc-modal-content\"><span class=\"dvc-close\">&times;</span>\r\n<p>Legal notice</p>\r\n</div>\r\n</div>', NULL, NULL, 'content', '', '', '2020-04-19 15:33:04', '', '', '', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -273,9 +273,7 @@ CREATE TABLE IF NOT EXISTS `meta` (
 --
 
 INSERT INTO `meta` (`meta_id`, `meta_key`, `meta_value`, `rubrique_id`) VALUES
-(6, 'description', 'Domaine des celliers', 73),
-(7, 'author', 'Domaine des celliers', 73),
-(8, 'keywords', 'beaujolais village brouilly crus vins', 73),
+(7, 'author', 'lgv cms', 73),
 (9, 'viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no', 73);
 
 -- --------------------------------------------------------
