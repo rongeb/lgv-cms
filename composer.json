@@ -1,7 +1,7 @@
 {
     "name": "lgv/cms",
     "description": "cms built on top of Laminas",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "keywords": [
         "php",
         "laminas",
