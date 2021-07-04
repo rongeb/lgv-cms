@@ -55,8 +55,8 @@
     "require": {
         "rongeb/dynamiclayout": "dev-master",
         "rongeb/libraries-for-lgv-cms":  "dev-master",
-        "laminas/laminas-component-installer": "^1.1.1",
+        "laminas/laminas-component-installer": "^2.0",
         "zendframework/zendframework": "^3.0.0",
-        "laminas/laminas-dependency-plugin": "^1.0"
+        "laminas/laminas-dependency-plugin": "^2.0"
     }
 }

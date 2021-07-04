@@ -3,6 +3,8 @@
 $appConfig = array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
+        'Zend\Session',
+        'Zend\Validator',
         'Laminas\Mvc\I18n',
         'Laminas\I18n',
         'Laminas\Mvc\Plugin\FilePrg',
